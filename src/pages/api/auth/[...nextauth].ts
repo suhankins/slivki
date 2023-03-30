@@ -1,4 +1,4 @@
-import { UserModel } from '@/models/models';
+import { UserModel } from '@/models/User';
 import { compare } from 'bcrypt';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';

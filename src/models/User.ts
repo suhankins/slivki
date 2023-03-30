@@ -1,5 +1,6 @@
 import {
     defaultClasses,
+    getModelForClass,
     modelOptions,
     mongoose,
     prop,
@@ -14,7 +15,6 @@ import '@/lib/mongodb';
 })
 export class UserClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
-
     public id!: string;
 
     @prop({ required: true, unique: true })
@@ -23,3 +23,5 @@ export class UserClass implements defaultClasses.Base {
     @prop({ required: true })
     public passwordHash!: string;
 }
+
+export const UserModel = getModelForClass(UserClass);
