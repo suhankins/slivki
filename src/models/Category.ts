@@ -20,13 +20,13 @@ export class CategoryClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
     public id!: string;
 
-    @prop({ required: true })
+    @prop({ required: [true, 'English name is required!'] })
     public name_en!: string;
     // New languages can be added if needed
 
     /**
      * Index of the category in the list of categories,
-     * i.e. so coffee is displayed first, then tea, etc.
+     * i.e. coffee is displayed first, then tea, etc.
      */
     @prop()
     public index?: number;

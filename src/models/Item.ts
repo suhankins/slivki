@@ -17,7 +17,7 @@ export class ItemClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
     public id!: string;
 
-    @prop({ required: true })
+    @prop({ required: [true, 'English name is required!'] })
     public name_en!: string;
     // New languages can be added if needed
 
@@ -31,13 +31,13 @@ export class ItemClass implements defaultClasses.Base {
     /**
      * Array of available sizes, e.g. S (X ml), M (Y ml), L (Z ml), etc.
      */
-    @prop()
+    @prop({ type: () => [String], default: [] })
     public sizes?: string[];
 
     /**
      * Price in lari. If no sizes are specified, then only first element of the array is used.
      */
-    @prop({ required: true })
+    @prop({ type: () => [Number], required: true })
     public price!: number[];
 
     @prop()
