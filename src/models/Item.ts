@@ -1,10 +1,4 @@
-import {
-    defaultClasses,
-    getModelForClass,
-    modelOptions,
-    mongoose,
-    prop,
-} from '@typegoose/typegoose';
+import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import '@/lib/mongodb';
 
 @modelOptions({
@@ -13,10 +7,7 @@ import '@/lib/mongodb';
         toObject: { virtuals: true },
     },
 })
-export class ItemClass implements defaultClasses.Base {
-    public _id!: mongoose.Types.ObjectId;
-    public id!: string;
-
+export class ItemClass {
     @prop({ required: [true, 'English name is required!'] })
     public name_en!: string;
     // New languages can be added if needed
@@ -37,7 +28,11 @@ export class ItemClass implements defaultClasses.Base {
     /**
      * Price in lari. If no sizes are specified, then only first element of the array is used.
      */
-    @prop({ type: () => [Number], required: true })
+    @prop({
+        type: () => [Number],
+        required: [true, 'Price is required!'],
+        validate: [(v: number[]) => v.length > 0, 'Price is required!'],
+    })
     public price!: number[];
 
     @prop()
