@@ -1,4 +1,10 @@
-import { DocumentType, modelOptions, prop } from '@typegoose/typegoose';
+import {
+    DocumentType,
+    defaultClasses,
+    modelOptions,
+    mongoose,
+    prop,
+} from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
 
 @modelOptions({
@@ -22,7 +28,10 @@ import '@/lib/mongodb'; // Importing library to connect to MongoDB
         },
     },
 })
-export class ItemClass {
+export class ItemClass implements defaultClasses.Base {
+    public _id!: mongoose.Types.ObjectId;
+    public id!: string;
+
     @prop({ required: [true, 'English name is required!'] })
     public name_en!: string;
     // New languages can be added if needed

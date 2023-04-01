@@ -1,4 +1,5 @@
 import { CategoryClass } from '@/models/Category';
+import { Item } from './Item';
 
 export function Category({ category }: { category: CategoryClass }) {
     return (
@@ -8,6 +9,8 @@ export function Category({ category }: { category: CategoryClass }) {
                     {category.name_en}
                 </span>
             </div>
+            {category.items &&
+                category.items.map((item) => <Item item={item} />)}
         </>
     );
 }

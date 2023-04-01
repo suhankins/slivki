@@ -63,6 +63,10 @@ export function CategoryEditable({ category }: { category: CategoryClass }) {
                     }`}
                 />
             </div>
+            {category.items &&
+                category.items.map((item) => (
+                    <Item item={item} key={item._id.toString()} />
+                ))}
         </>
     );
 }
