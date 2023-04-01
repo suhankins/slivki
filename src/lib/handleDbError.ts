@@ -22,7 +22,7 @@ export function handleDbError(e: unknown): NextResponse {
         // it's not front-end, but instead someone messing with requests
         if (Object.keys(errorResponse).length > 0) {
             return new NextResponse(JSON.stringify(errorResponse), {
-                status: 401,
+                status: 400,
             });
         }
     }
