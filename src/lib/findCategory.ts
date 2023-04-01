@@ -1,9 +1,17 @@
-import { handleDbError } from '@/lib/handleDbError';
-import { CategoryModel } from '@/models/Category';
-import { mongoose } from '@typegoose/typegoose';
+import { CategoryClass, CategoryModel } from '@/models/Category';
+import { DocumentType, mongoose } from '@typegoose/typegoose';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+/**
+ * Finds a category while handling errors
+ * @param request NextRequest
+ * @param id Optional id of the category. Otherwise, it will be taken from the request body
+ * @returns [body, category] or NextResponse
+ */
+export async function findCategory(
+    request: NextRequest,
+    id?: string
+): Promise<[any, DocumentType<CategoryClass>] | NextResponse> {
     // Safety precautions in case of invalid JSON
     let body;
     try {
@@ -17,13 +25,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Safety precautions in case of invalid categoryId
-    if (!body.categoryId)
+    if (!body.categoryId && !id)
         return new NextResponse('categoryId is not specified', {
             status: 400,
         });
     let categoryId;
     try {
-        categoryId = new mongoose.Types.ObjectId(body.categoryId);
+        if (id) categoryId = new mongoose.Types.ObjectId(id);
+        else categoryId = new mongoose.Types.ObjectId(body.categoryId);
     } catch (e) {
         return new NextResponse('Invalid categoryId', {
             status: 400,
@@ -36,15 +45,5 @@ export async function POST(request: NextRequest) {
         return new NextResponse('Category not found', {
             status: 404,
         });
-
-    // Validating schema
-    try {
-        category.items?.push(body);
-        await category.save();
-    } catch (e) {
-        // Realistaclly, when user is creating a new item using the form,
-        // this should be the only type of error that can occur.
-        return handleDbError(e);
-    }
-    return new NextResponse('Item successfully created', { status: 201 });
+    return [body, category];
 }

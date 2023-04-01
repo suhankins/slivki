@@ -7,20 +7,36 @@ import {
     mongoose,
     prop,
 } from '@typegoose/typegoose';
-import '@/lib/mongodb';
+import '@/lib/mongodb'; // Importing library to connect to MongoDB
 import { ItemClass } from './Item';
 
 @modelOptions({
     schemaOptions: {
-        toJSON: { virtuals: true },
-        toObject: { virtuals: true },
+        /**
+         * Used by API
+         */
+        toJSON: {
+            transform: (_doc, ret) => {
+                delete ret.__v;
+            },
+        },
+        /**
+         * Used for generating static pages
+         */
+        toObject: {
+            transform: (_doc, ret) => {
+                delete ret.__v;
+                delete ret._id;
+                delete ret.id;
+            },
+        },
     },
 })
 export class CategoryClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
     public id!: string;
 
-    @prop({ required: [true, 'English name is required!'] })
+    @prop({ required: [true, 'English name is required!'], minlength: 1 })
     public name_en!: string;
     // New languages can be added if needed
 

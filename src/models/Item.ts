@@ -1,10 +1,25 @@
-import { modelOptions, prop } from '@typegoose/typegoose';
-import '@/lib/mongodb';
+import { DocumentType, modelOptions, prop } from '@typegoose/typegoose';
+import '@/lib/mongodb'; // Importing library to connect to MongoDB
 
 @modelOptions({
     schemaOptions: {
-        toJSON: { virtuals: true },
-        toObject: { virtuals: true },
+        /**
+         * Used by API
+         */
+        toJSON: {
+            transform: (_doc, ret) => {
+                delete ret.id;
+            },
+        },
+        /**
+         * Used for generating static pages
+         */
+        toObject: {
+            transform: (_doc, ret) => {
+                delete ret.id;
+                delete ret._id;
+            },
+        },
     },
 })
 export class ItemClass {
