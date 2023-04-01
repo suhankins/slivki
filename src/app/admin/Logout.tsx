@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 
 export function Logout() {
     return (
-        <button onClick={() => signOut()}>
+        <button aria-label="logout" onClick={() => signOut()}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
