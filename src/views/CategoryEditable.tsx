@@ -38,7 +38,7 @@ export function CategoryEditable({ category }: { category: CategoryClass }) {
     }, [editing]);
 
     return (
-        <>
+        <div className="flex w-full flex-col items-center gap-4">
             <div className="divider">
                 <span
                     className={`text-center text-xl font-bold ${
@@ -67,6 +67,6 @@ export function CategoryEditable({ category }: { category: CategoryClass }) {
                 category.items.map((item) => (
                     <Item item={item} key={item._id.toString()} />
                 ))}
-        </>
+        </div>
     );
 }
