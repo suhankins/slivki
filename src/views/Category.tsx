@@ -9,10 +9,8 @@ export function Category({ category }: { category: CategoryClass }) {
                     {category.name_en}
                 </span>
             </div>
-            <div className="w-full flex-col items-center">
-                {category.items &&
-                    category.items.map((item) => <Item item={item} />)}
-            </div>
+            {category.items &&
+                category.items.map((item) => <Item item={item} />)}
         </div>
     );
 }

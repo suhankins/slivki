@@ -20,8 +20,8 @@ export function Item({ item }: { item: ItemClass }) {
                 <h2 className="text-2xl">{item.name_en}</h2>
                 <p>{item.description_en}</p>
             </div>
-            <div className="flex w-full items-center self-end">
-                <div className="btn-group">
+            <div className="col-span-2 flex w-full items-center self-end sm:col-span-1">
+                <div className="btn-group w-full">
                     {item.sizes?.map((size, index) => (
                         <button
                             type="button"
@@ -35,7 +35,7 @@ export function Item({ item }: { item: ItemClass }) {
                         </button>
                     ))}
                 </div>
-                <div className="w-full p-4 text-right text-3xl font-bold">
+                <div className="p-4 text-right text-3xl font-bold">
                     {item.price[selectedSize]}&#8382;
                 </div>
             </div>
