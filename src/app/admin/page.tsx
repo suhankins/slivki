@@ -2,6 +2,7 @@
 
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditable } from '@/views/CategoryEditable';
+import { CategorySkeleton } from '@/views/CategorySkeleton';
 import useSwr from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -14,7 +15,7 @@ export default function AdminPage() {
     return (
         <main>
             <h1 className="text-xl font-bold">Categories</h1>
-            {isLoading && <progress className="progress w-56"></progress>}
+            {isLoading && <CategorySkeleton />}
             {error && (
                 <div className="alert alert-error shadow-lg">
                     <span>Error! Couldn't fetch list of categories.</span>
