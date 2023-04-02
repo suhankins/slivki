@@ -1,3 +1,5 @@
+'use client';
+
 import { SimpleCategory } from '@/models/Category';
 import { Item } from './Item';
 
