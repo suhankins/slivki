@@ -25,6 +25,7 @@ export function CategoryEditable({ category }: { category: SimpleCategory }) {
                     if (res.status === 200) {
                         console.log('Category updated');
                         setName(newName);
+                        fetch('/api/revalidate'); // Updating main page
                     } else {
                         console.error('Category update failed');
                     }
