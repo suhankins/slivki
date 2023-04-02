@@ -16,8 +16,8 @@ export function ItemSkeleton(): JSX.Element {
                 </div>
             </div>
             <div className="col-span-2 flex w-full items-center gap-4 self-end sm:col-span-1">
-                <div className="h-16 w-full animate-pulse rounded-full bg-primary" />
-                <div className="h-16 w-24 animate-pulse rounded-lg bg-primary" />
+                <div className="h-14 w-full animate-pulse rounded-full bg-primary" />
+                <div className="h-14 w-24 animate-pulse rounded-lg bg-primary" />
             </div>
         </div>
     );
