@@ -1,11 +1,19 @@
 import {
-    DocumentType,
     defaultClasses,
     modelOptions,
     mongoose,
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
+
+export type SimpleItem = {
+    _id: string;
+    name_en: string;
+    description_en?: string;
+    sizes?: string[];
+    price: number[];
+    picture?: string;
+};
 
 @modelOptions({
     schemaOptions: {
@@ -15,6 +23,7 @@ import '@/lib/mongodb'; // Importing library to connect to MongoDB
         toJSON: {
             transform: (_doc, ret) => {
                 delete ret.id;
+                ret._id = ret._id.toString();
             },
         },
         /**

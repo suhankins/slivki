@@ -3,7 +3,7 @@
 import { SimpleItem } from '@/models/Item';
 import { useState } from 'react';
 
-export function Item({ item }: { item: SimpleItem }) {
+export function ItemEditable({ item }: { item: SimpleItem }) {
     const [selectedSize, setSelectedSize] = useState<number>(0);
 
     return (

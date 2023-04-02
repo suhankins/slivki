@@ -1,7 +1,7 @@
-import { CategoryClass } from '@/models/Category';
+import { SimpleCategory } from '@/models/Category';
 import { Item } from './Item';
 
-export function Category({ category }: { category: CategoryClass }) {
+export function Category({ category }: { category: SimpleCategory }) {
     return (
         <div className="flex w-full flex-col items-center gap-4">
             <div className="divider">

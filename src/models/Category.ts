@@ -8,7 +8,14 @@ import {
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
-import { ItemClass } from './Item';
+import { ItemClass, SimpleItem } from './Item';
+
+export type SimpleCategory = {
+    _id: string;
+    name_en: string;
+    index?: number;
+    items?: SimpleItem[];
+};
 
 @modelOptions({
     schemaOptions: {
@@ -18,6 +25,7 @@ import { ItemClass } from './Item';
         toJSON: {
             transform: (_doc, ret) => {
                 delete ret.__v;
+                ret._id = ret._id.toString();
             },
         },
         /**

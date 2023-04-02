@@ -1,8 +1,10 @@
-import { CategoryClass } from '@/models/Category';
-import { useEffect, useRef, useState } from 'react';
-import { Item } from './Item';
+'use client';
 
-export function CategoryEditable({ category }: { category: CategoryClass }) {
+import { SimpleCategory } from '@/models/Category';
+import { useEffect, useRef, useState } from 'react';
+import { ItemEditable } from './ItemEditable';
+
+export function CategoryEditable({ category }: { category: SimpleCategory }) {
     const nameFieldRef = useRef<HTMLInputElement>(null);
     const [name, setName] = useState(category.name_en);
     const [editing, setEditing] = useState(false);
@@ -41,6 +43,7 @@ export function CategoryEditable({ category }: { category: CategoryClass }) {
         <div className="flex w-full flex-col items-center gap-4">
             <div className="divider">
                 <span
+                    role="button"
                     className={`text-center text-xl font-bold ${
                         (editing || loading) && 'hidden'
                     }`}
@@ -65,7 +68,7 @@ export function CategoryEditable({ category }: { category: CategoryClass }) {
             </div>
             {category.items &&
                 category.items.map((item) => (
-                    <Item item={item} key={item._id.toString()} />
+                    <ItemEditable item={item} key={item._id.toString()} />
                 ))}
         </div>
     );

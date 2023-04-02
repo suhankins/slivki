@@ -1,13 +1,13 @@
 'use client';
 
-import { CategoryClass } from '@/models/Category';
+import { SimpleCategory } from '@/models/Category';
 import { CategoryEditable } from '@/views/CategoryEditable';
 import useSwr from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AdminPage() {
-    const { data, error, isLoading } = useSwr<CategoryClass[]>(
+    const { data, error, isLoading } = useSwr<SimpleCategory[]>(
         '/api/category',
         fetcher
     );
