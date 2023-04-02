@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
  * Revalidates main page. Must be in pages api folder.
  */
 export default async function handler(
-    req: NextApiRequest,
+    _req: NextApiRequest,
     res: NextApiResponse
 ) {
     try {

@@ -5,7 +5,7 @@ import {
     mongoose,
     prop,
 } from '@typegoose/typegoose';
-import '@/lib/mongodb';
+import '@/lib/mongodb'; // Importing library to connect to MongoDB
 
 @modelOptions({
     schemaOptions: {

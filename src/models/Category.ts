@@ -5,7 +5,6 @@ import {
     getModelForClass,
     modelOptions,
     mongoose,
-    post,
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
