@@ -1,8 +1,7 @@
 /**
  * For loading screens
- * @returns {JSX.Element}
  */
-export function ItemSkeleton() {
+export function ItemSkeleton(): JSX.Element {
     return (
         <div className="grid w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
             {/* Picture */}
