@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import { Logout } from './Logout';
 
+export const metadata = {
+    title: 'Slivki admin panel',
+    description: 'Slivki admin panel',
+};
+
 export default async function mainLayout({
     children,
 }: {
