@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default async function mainLayout({
     children,
 }: {
@@ -6,7 +8,9 @@ export default async function mainLayout({
     return (
         <>
             <div className="navbar justify-center bg-base-200">
-                <a className="btn-ghost btn text-xl normal-case">Slivki</a>
+                <Link className="btn-ghost btn text-xl normal-case" href="/">
+                    Slivki
+                </Link>
             </div>
             {children}
         </>
