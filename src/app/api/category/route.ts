@@ -1,6 +1,9 @@
 import { CategoryModel } from '@/models/Category';
 import { NextResponse } from 'next/server';
 
+// I'm honestly surprised API routes can even be static
+export const revalidate = 0;
+
 /**
  * Route for getting list of all categories
  */
