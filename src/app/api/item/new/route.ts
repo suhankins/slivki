@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const [body, category] = result;
     // Validating schema
     try {
-        category.items?.push(body);
+        category.addItem(body);
         await category.save();
     } catch (e) {
         // Realistaclly, when user is creating a new item using the form,
