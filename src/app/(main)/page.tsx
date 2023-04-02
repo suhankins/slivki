@@ -8,6 +8,8 @@ async function getCategories() {
     return categories;
 }
 
+export const revalidate = false;
+
 export default async function Home() {
     const categories = await getCategories();
     return (

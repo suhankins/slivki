@@ -5,6 +5,7 @@ import {
     getModelForClass,
     modelOptions,
     mongoose,
+    post,
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
@@ -39,6 +40,18 @@ export type SimpleCategory = {
             },
         },
     },
+})
+@post<never>('save', () => {
+    // We don't wait for request to finish to save user time
+    fetch(
+        `${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`
+    ).then((res) =>
+        console.log(
+            `Revalidation request ${
+                res.status === 200 ? 'succeeded' : 'failed'
+            }`
+        )
+    );
 })
 export class CategoryClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
