@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Logout } from './Logout';
+import { Logout } from '@/components/Logout';
 
 export const metadata = {
     title: 'Slivki admin panel',
