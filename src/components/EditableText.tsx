@@ -52,10 +52,7 @@ export function EditableText({
                 loading && 'skeleton'
             }`}
             onBlur={() => updateCategory()}
-            onKeyUp={(e) => {
-                console.log(e.key);
-                if (e.key === 'Enter') updateCategory();
-            }}
+            onKeyUp={(e) => e.key === 'Enter' && updateCategory()}
         />
     );
 }
