@@ -30,11 +30,10 @@ export function EditableText({
             }).then(async (res) => {
                 setLoading(false);
                 if (res.status === 200) {
-                    console.log('Category updated');
                     defaultValue = newValue;
                     fetch('/api/revalidate'); // Updating main page
                 } else {
-                    console.error('Category update failed');
+                    console.error(await res.text());
                 }
             });
         }
