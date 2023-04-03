@@ -6,7 +6,7 @@ export function ItemSkeleton(): JSX.Element {
         <div className="grid w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
             {/* Picture */}
             <div className="skeleton aspect-square h-full w-full rounded-lg sm:row-span-2" />
-            <div className="flex flex-col gap-4">
+            <div className="vertical-list">
                 {/* Name */}
                 <div className="skeleton h-8 w-32 rounded-lg" />
                 {/* Description */}

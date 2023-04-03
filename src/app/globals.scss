@@ -5,3 +5,17 @@
 .skeleton {
     @apply animate-pulse bg-primary; 
 }
+
+@mixin vertical-list {
+    @apply flex flex-col;
+}
+
+.vertical-list {
+    @include vertical-list;
+    @apply gap-4;
+}
+
+.vertical-list-lg {
+    @include vertical-list;
+    @apply gap-8;
+}

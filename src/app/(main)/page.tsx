@@ -13,7 +13,7 @@ export const revalidate = false;
 export default async function Home() {
     const categories = await getCategories();
     return (
-        <main>
+        <main className="vertical-list">
             {categories.map((category, index) => (
                 <Category key={index} category={category} />
             ))}

@@ -13,8 +13,8 @@ export default function AdminPage() {
         fetcher
     );
     return (
-        <main className="flex flex-col gap-4">
-            <div className="flex flex-col gap-4">
+        <main className="vertical-list">
+            <div className="vertical-list">
                 <h1 className="text-xl font-bold">Categories</h1>
                 {isLoading && <CategorySkeleton />}
                 {error && (
@@ -32,7 +32,7 @@ export default function AdminPage() {
                     ))}
             </div>
             <div className="divider"></div>
-            <div className="flex flex-col gap-4">
+            <div className="vertical-list">
                 <h1 className="text-xl font-bold">Account</h1>
                 {/* TODO: Account customization */}
             </div>
