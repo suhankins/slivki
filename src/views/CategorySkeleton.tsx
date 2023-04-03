@@ -5,7 +5,7 @@ export function CategorySkeleton() {
         <div className="flex w-full flex-col items-center gap-4">
             <div className="divider">
                 {/* Name */}
-                <div className="h-9 w-96 animate-pulse rounded-lg bg-primary" />
+                <div className="skeleton h-9 w-96 rounded-lg" />
             </div>
             <ItemSkeleton />
             <ItemSkeleton />
