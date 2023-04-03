@@ -68,8 +68,8 @@ export function CategoryEditable({ category }: { category: SimpleCategory }) {
                 />
             </div>
             {category.items &&
-                category.items.map((item) => (
-                    <ItemEditable item={item} key={item._id.toString()} />
+                category.items.map((item, index) => (
+                    <ItemEditable item={item} key={index} />
                 ))}
         </div>
     );

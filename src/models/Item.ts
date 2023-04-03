@@ -1,13 +1,7 @@
-import {
-    defaultClasses,
-    modelOptions,
-    mongoose,
-    prop,
-} from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
 
 export type SimpleItem = {
-    _id: string;
     name_en: string;
     description_en?: string;
     sizes?: string[];
@@ -17,6 +11,7 @@ export type SimpleItem = {
 
 @modelOptions({
     schemaOptions: {
+        _id: false,
         /**
          * Used by API
          */
@@ -37,10 +32,7 @@ export type SimpleItem = {
         },
     },
 })
-export class ItemClass implements defaultClasses.Base {
-    public _id!: mongoose.Types.ObjectId;
-    public id!: string;
-
+export class ItemClass {
     @prop({ required: [true, 'English name is required!'] })
     public name_en!: string;
     // New languages can be added if needed
