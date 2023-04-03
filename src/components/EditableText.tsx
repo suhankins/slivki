@@ -1,16 +1,38 @@
 import { useRef, useState } from 'react';
 
+export type EditableTextProps = {
+    placeholder: string;
+    defaultValue: string;
+    /**
+     * The URL to fetch to update the value
+     * @example '/api/category/1'
+     */
+    fetchUrl: string;
+    /**
+     * The name of the value in the request body
+     * @example 'name_en'
+     */
+    valueName: string;
+    /**
+     * Should the page be revalidated after the text is updated?
+     * @default true
+     */
+    shouldUpdateMainPage?: boolean;
+    /**
+     * The type of the input field
+     * @default 'text'
+     */
+    type?: string;
+};
+
 export function EditableText({
     placeholder,
     defaultValue,
     fetchUrl,
     valueName,
-}: {
-    placeholder: string;
-    defaultValue: string;
-    fetchUrl: string;
-    valueName: string;
-}) {
+    shouldUpdateMainPage = true,
+    type = 'text',
+}: EditableTextProps) {
     const fieldRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState(false);
 
@@ -31,7 +53,7 @@ export function EditableText({
                 setLoading(false);
                 if (res.status === 200) {
                     defaultValue = newValue;
-                    fetch('/api/revalidate'); // Updating main page
+                    if (shouldUpdateMainPage) fetch('/api/revalidate');
                 } else {
                     console.error(await res.text());
                 }
@@ -42,7 +64,7 @@ export function EditableText({
     return (
         <input
             ref={fieldRef}
-            type="text"
+            type={type}
             disabled={loading}
             aria-busy={loading}
             placeholder={placeholder}
