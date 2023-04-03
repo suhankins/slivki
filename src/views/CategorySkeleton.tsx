@@ -2,7 +2,10 @@ import { ItemSkeleton } from './ItemSkeleton';
 
 export function CategorySkeleton() {
     return (
-        <div className="flex w-full flex-col items-center gap-4">
+        <div
+            className="flex w-full flex-col items-center gap-4"
+            aria-busy="true"
+        >
             <div className="divider">
                 {/* Name */}
                 <div className="skeleton h-9 w-96 rounded-lg" />
