@@ -13,22 +13,29 @@ export default function AdminPage() {
         fetcher
     );
     return (
-        <main>
-            <h1 className="text-xl font-bold">Categories</h1>
-            {isLoading && <CategorySkeleton />}
-            {error && (
-                <div className="alert alert-error shadow-lg">
-                    <span>Error! Couldn't fetch list of categories.</span>
-                    <span>Reload the page or call the programmer</span>
-                </div>
-            )}
-            {data &&
-                data.map((category) => (
-                    <CategoryEditable
-                        category={category}
-                        key={category._id.toString()}
-                    />
-                ))}
+        <main className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
+                <h1 className="text-xl font-bold">Categories</h1>
+                {isLoading && <CategorySkeleton />}
+                {error && (
+                    <div className="alert alert-error shadow-lg">
+                        <span>Error! Couldn't fetch list of categories.</span>
+                        <span>Reload the page or call the programmer</span>
+                    </div>
+                )}
+                {data &&
+                    data.map((category) => (
+                        <CategoryEditable
+                            category={category}
+                            key={category._id.toString()}
+                        />
+                    ))}
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col gap-4">
+                <h1 className="text-xl font-bold">Account</h1>
+                {/* TODO: Account customization */}
+            </div>
         </main>
     );
 }
