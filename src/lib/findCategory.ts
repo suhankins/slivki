@@ -5,12 +5,12 @@ import { NextRequest, NextResponse } from 'next/server';
 /**
  * Finds a category while handling errors
  * @param request NextRequest
- * @param id Optional id of the category. Otherwise, it will be taken from the request body
+ * @param id id of the category
  * @returns [body, category] or NextResponse
  */
 export async function findCategory(
     request: NextRequest,
-    id?: string
+    id: string
 ): Promise<[any, DocumentType<CategoryClass>] | NextResponse> {
     // Safety precautions in case of invalid JSON
     let body;
@@ -25,14 +25,9 @@ export async function findCategory(
     }
 
     // Safety precautions in case of invalid categoryId
-    if (!body.categoryId && !id)
-        return new NextResponse('categoryId is not specified', {
-            status: 400,
-        });
     let categoryId;
     try {
-        if (id) categoryId = new mongoose.Types.ObjectId(id);
-        else categoryId = new mongoose.Types.ObjectId(body.categoryId);
+        categoryId = new mongoose.Types.ObjectId(id);
     } catch (e) {
         return new NextResponse('Invalid categoryId', {
             status: 400,
