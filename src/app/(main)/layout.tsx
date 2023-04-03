@@ -12,7 +12,7 @@ export default async function mainLayout({
                     Slivki
                 </Link>
             </div>
-            {children}
+            <div className="max-w-screen-xl p-4">{children}</div>
         </>
     );
 }

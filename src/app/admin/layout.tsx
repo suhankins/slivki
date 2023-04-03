@@ -13,7 +13,7 @@ export default async function mainLayout({
 }) {
     return (
         <>
-            <div className="mx-auto max-w-screen-2xl">
+            <div className="mx-auto flex max-w-screen-2xl flex-col items-center">
                 <div className="navbar sticky top-0 z-40 gap-4 bg-base-100 px-4 shadow-lg">
                     <div className="flex-1">
                         <Link
@@ -25,7 +25,7 @@ export default async function mainLayout({
                     </div>
                     <Logout />
                 </div>
-                <div className="p-4">{children}</div>
+                <div className="max-w-screen-xl p-4">{children}</div>
             </div>
         </>
     );
