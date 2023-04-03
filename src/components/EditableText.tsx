@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
 
 export type EditableTextProps = {
-    placeholder: string;
-    defaultValue: string;
+    className?: string;
+    placeholder?: string;
+    defaultValue?: string;
     /**
      * The URL to fetch to update the value
      * @example '/api/category/1'
@@ -23,15 +24,21 @@ export type EditableTextProps = {
      * @default 'text'
      */
     type?: string;
+    /**
+     * The id of the input field. Mainly for label htmlfor.
+     */
+    id?: string;
 };
 
 export function EditableText({
+    className,
     placeholder,
     defaultValue,
     fetchUrl,
     valueName,
     shouldUpdateMainPage = true,
     type = 'text',
+    id,
 }: EditableTextProps) {
     const fieldRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState(false);
@@ -40,7 +47,7 @@ export function EditableText({
         if (!fieldRef.current) return;
         const newValue = fieldRef.current.value.trim();
         if (newValue === '') {
-            fieldRef.current.value = defaultValue;
+            fieldRef.current.value = defaultValue ?? '';
             return;
         }
         if (newValue !== defaultValue) {
@@ -63,15 +70,14 @@ export function EditableText({
 
     return (
         <input
+            id={id}
             ref={fieldRef}
             type={type}
             disabled={loading}
             aria-busy={loading}
             placeholder={placeholder}
             defaultValue={defaultValue}
-            className={`input-ghost input text-center text-xl font-bold ${
-                loading && 'skeleton'
-            }`}
+            className={`${className ?? ''} ${loading && 'skeleton'}`}
             onBlur={() => updateCategory()}
             onKeyUp={(e) => e.key === 'Enter' && updateCategory()}
         />

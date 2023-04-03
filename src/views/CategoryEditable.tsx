@@ -13,6 +13,7 @@ export function CategoryEditable({ category }: { category: SimpleCategory }) {
                     placeholder="Category name"
                     valueName="name_en"
                     fetchUrl={`/api/category/${category._id}`}
+                    className="input-ghost input text-center text-xl font-bold"
                 />
             </div>
             {category.items &&
