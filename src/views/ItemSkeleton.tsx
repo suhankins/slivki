@@ -2,6 +2,7 @@
  * For loading screens
  */
 export function ItemSkeleton(): JSX.Element {
+    // TODO: Make it look like actual Item
     return (
         <div className="grid w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
             {/* Picture */}

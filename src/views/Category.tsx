@@ -3,10 +3,15 @@
 import { SimpleCategory } from '@/models/Category';
 import { Item } from './Item';
 
-export function Category({ category }: { category: SimpleCategory }) {
+export interface CategoryProps {
+    category: SimpleCategory;
+    id?: string;
+}
+
+export function Category({ category, id }: CategoryProps) {
     return (
         <div className="flex w-full flex-col items-center gap-4">
-            <div className="divider">
+            <div className="divider" id={id}>
                 <span className="text-center text-xl font-bold">
                     {category.name_en}
                 </span>

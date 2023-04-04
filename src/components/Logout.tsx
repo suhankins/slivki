@@ -2,12 +2,16 @@
 
 import { signOut } from 'next-auth/react';
 
-export function Logout() {
+export interface LogoutProps {
+    className?: string;
+}
+
+export function Logout({ className }: LogoutProps) {
     return (
         <button
             aria-label="logout"
             type="button"
-            className="btn-ghost btn aspect-square"
+            className={`btn-ghost btn aspect-square ${className}`}
             onClick={() => signOut()}
         >
             <svg

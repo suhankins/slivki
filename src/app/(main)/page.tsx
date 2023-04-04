@@ -1,3 +1,5 @@
+import { Drawer } from '@/components/Drawer/Drawer';
+import { getCategoryElementId } from '@/lib/getCategoryElementId';
 import { CategoryModel, SimpleCategory } from '@/models/Category';
 import { Category } from '@/views/Category';
 
@@ -13,10 +15,23 @@ export const revalidate = false;
 export default async function Home() {
     const categories = await getCategories();
     return (
-        <main className="vertical-list">
-            {categories.map((category, index) => (
-                <Category key={index} category={category} />
-            ))}
-        </main>
+        <Drawer
+            headers={categories.map((category, index) => {
+                return {
+                    name: category.name_en,
+                    id: getCategoryElementId(category.name_en, index),
+                };
+            })}
+        >
+            <main className="vertical-list">
+                {categories.map((category, index) => (
+                    <Category
+                        id={getCategoryElementId(category.name_en, index)}
+                        key={index}
+                        category={category}
+                    />
+                ))}
+            </main>
+        </Drawer>
     );
 }
