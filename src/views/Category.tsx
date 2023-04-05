@@ -17,7 +17,9 @@ export function Category({ category, id }: CategoryProps) {
                 </span>
             </div>
             {category.items &&
-                category.items.map((item) => <Item item={item} />)}
+                category.items.map((item, index) => (
+                    <Item item={item} key={index} />
+                ))}
         </div>
     );
 }
