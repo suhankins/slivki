@@ -8,9 +8,11 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (process.env.NODE_ENV === 'development')
-        res.status(200).send(
-            "Can't revalidate in development mode\nhttps://github.com/vercel/next.js/issues/43132"
-        );
+        return res
+            .status(200)
+            .send(
+                "Can't revalidate in development mode\nhttps://github.com/vercel/next.js/issues/43132"
+            );
     try {
         await res.revalidate('/');
         return res.send('Revalidated');
