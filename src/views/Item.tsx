@@ -8,16 +8,16 @@ export function Item({ item }: { item: SimpleItem }) {
 
     return (
         <div className="grid w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
-            <div
-                role="img"
-                aria-label={`Picture of ${item.name_en}`}
-                className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"
-                style={{
-                    backgroundImage: `url(${
-                        item.picture ?? '/placeholder.svg'
-                    })`,
-                }}
-            />
+            {item.picture && (
+                <div
+                    role="img"
+                    aria-label={`Picture of ${item.name_en}`}
+                    className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"
+                    style={{
+                        backgroundImage: `url('${item.picture}')`,
+                    }}
+                />
+            )}
             <div>
                 <h2 className="text-2xl">{item.name_en}</h2>
                 <p>{item.description_en}</p>

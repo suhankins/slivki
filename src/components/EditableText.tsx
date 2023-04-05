@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 export type EditableTextProps = {
+    textarea?: boolean;
     className?: string;
     placeholder?: string;
     defaultValue?: string;
@@ -31,6 +32,7 @@ export type EditableTextProps = {
 };
 
 export function EditableText({
+    textarea,
     className,
     placeholder,
     defaultValue,
@@ -41,18 +43,26 @@ export function EditableText({
     id,
 }: EditableTextProps) {
     const defaultRef = useRef(defaultValue);
-    const fieldRef = useRef<HTMLInputElement>(null);
+    const fieldRef = useRef(null);
     const [loading, setLoading] = useState(false);
 
     function reset() {
         if (!fieldRef.current) return;
-        fieldRef.current.value = defaultRef.current ?? '';
-        return;
+        (textarea
+            ? (fieldRef.current as HTMLTextAreaElement)
+            : (fieldRef.current as HTMLInputElement)
+        ).value = defaultRef.current ?? '';
     }
 
     const updateCategory = () => {
         if (!fieldRef.current) return;
-        const newValue = fieldRef.current.value.trim();
+
+        const newValue = (
+            textarea
+                ? (fieldRef.current as HTMLTextAreaElement)
+                : (fieldRef.current as HTMLInputElement)
+        ).value.trim();
+
         if (newValue === '') {
             reset();
             return;
@@ -75,18 +85,44 @@ export function EditableText({
         }
     };
 
+    const staticProps = useMemo(() => {
+        return {
+            id: id,
+            ref: fieldRef,
+            type: type,
+            disabled: loading,
+            'aria-busy': loading,
+            placeholder: placeholder,
+            defaultValue: defaultValue,
+            onBlur: () => updateCategory(),
+        };
+    }, []);
+
+    const classProps = useMemo(() => {
+        return { className: `${className ?? ''} ${loading && 'skeleton'}` };
+    }, [loading, className]);
+
     return (
-        <input
-            id={id}
-            ref={fieldRef}
-            type={type}
-            disabled={loading}
-            aria-busy={loading}
-            placeholder={placeholder}
-            defaultValue={defaultValue}
-            className={`${className ?? ''} ${loading && 'skeleton'}`}
-            onBlur={() => updateCategory()}
-            onKeyUp={(e) => e.key === 'Enter' && updateCategory()}
-        />
+        <>
+            {textarea ? (
+                <textarea
+                    {...staticProps}
+                    {...classProps}
+                    onInput={(event) => {
+                        const target = event.target as HTMLTextAreaElement;
+                        target.style.height = '0';
+                        target.style.height = `${target.scrollHeight}px`;
+                    }}
+                />
+            ) : (
+                <input
+                    {...staticProps}
+                    {...classProps}
+                    onKeyUp={(e: React.KeyboardEvent) =>
+                        e.key === 'Enter' && updateCategory()
+                    }
+                />
+            )}
+        </>
     );
 }

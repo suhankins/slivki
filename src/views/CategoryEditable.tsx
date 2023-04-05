@@ -13,12 +13,17 @@ export function CategoryEditable({ category }: { category: SimpleCategory }) {
                     placeholder="Category name"
                     valueName="name_en"
                     fetchUrl={`/api/category/${category._id}`}
-                    className="input-bordered input text-center text-xl font-bold"
+                    className="input-ghost input text-center text-xl font-bold"
                 />
             </div>
             {category.items &&
                 category.items.map((item, index) => (
-                    <ItemEditable item={item} key={index} />
+                    <ItemEditable
+                        itemIndex={index}
+                        categoryId={category._id}
+                        item={item}
+                        key={index}
+                    />
                 ))}
         </div>
     );
