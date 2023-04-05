@@ -39,7 +39,7 @@ export function ItemEditable({
                     valueName="description_en"
                     defaultValue={item.description_en}
                     textarea={true}
-                    className="input-ghost input w-full resize-none overflow-hidden rounded bg-transparent pl-0 pr-0"
+                    className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0"
                 />
             </div>
             <div className="col-span-2 flex w-full items-center self-end sm:col-span-1">
