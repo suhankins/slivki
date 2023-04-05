@@ -6,9 +6,11 @@ import { getCategoryElementId } from '@/lib/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditable } from '@/views/CategoryEditable';
 import { CategorySkeleton } from '@/views/CategorySkeleton';
-import useSwr from 'swr';
+import useSwr, { preload } from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+preload('/api/category', fetcher);
 
 export default function AdminPage() {
     const { data, error, isLoading } = useSwr<SimpleCategory[]>(
