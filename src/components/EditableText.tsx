@@ -44,11 +44,17 @@ export function EditableText({
     const fieldRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState(false);
 
+    function reset() {
+        if (!fieldRef.current) return;
+        fieldRef.current.value = defaultRef.current ?? '';
+        return;
+    }
+
     const updateCategory = () => {
         if (!fieldRef.current) return;
         const newValue = fieldRef.current.value.trim();
         if (newValue === '') {
-            fieldRef.current.value = defaultRef.current ?? '';
+            reset();
             return;
         }
         if (newValue !== defaultRef.current) {
@@ -63,7 +69,7 @@ export function EditableText({
                     defaultRef.current = newValue;
                     if (shouldUpdateMainPage) fetch('/api/revalidate');
                 } else {
-                    console.error(await res.text());
+                    reset();
                 }
             });
         }
