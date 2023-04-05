@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { AutoResizableTextarea } from './AutoResizableTextarea';
 
 export type EditableTextProps = {
     textarea?: boolean;
@@ -104,26 +105,10 @@ export function EditableText({
         };
     }, [loading, className]);
 
-    const resizeTextarea = (textarea: HTMLTextAreaElement) => {
-        textarea.style.height = '0';
-        textarea.style.height = `${textarea.scrollHeight}px`;
-    };
-
-    useEffect(() => {
-        if (!fieldRef.current) return;
-        if (textarea) resizeTextarea(fieldRef.current as HTMLTextAreaElement);
-    }, [fieldRef.current]);
-
     return (
         <>
             {textarea ? (
-                <textarea
-                    {...staticProps}
-                    {...dynamicProps}
-                    onInput={(event) =>
-                        resizeTextarea(event.target as HTMLTextAreaElement)
-                    }
-                />
+                <AutoResizableTextarea {...staticProps} {...dynamicProps} />
             ) : (
                 <input
                     {...staticProps}
