@@ -31,7 +31,7 @@ export function Drawer({
                 type="checkbox"
                 className="drawer-toggle"
             />
-            <div className="drawer-content flex flex-col">
+            <div className="drawer-content flex flex-col items-center">
                 <div className="navbar w-full bg-base-300">
                     <div className="flex-none">
                         <label
@@ -61,7 +61,7 @@ export function Drawer({
                     </Link>
                     {navbarElements}
                 </div>
-                <div className="mx-auto max-w-screen-lg p-4">{children}</div>
+                <div className="max-w-screen-lg p-4">{children}</div>
             </div>
             <nav className="drawer-side" aria-label="Table of contents">
                 <label
