@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export type EditableTextProps = {
     textarea?: boolean;
@@ -90,34 +90,44 @@ export function EditableText({
             id: id,
             ref: fieldRef,
             type: type,
-            disabled: loading,
-            'aria-busy': loading,
             placeholder: placeholder,
             defaultValue: defaultValue,
             onBlur: () => updateCategory(),
         };
     }, []);
 
-    const classProps = useMemo(() => {
-        return { className: `${className ?? ''} ${loading && 'skeleton'}` };
+    const dynamicProps = useMemo(() => {
+        return {
+            className: `${className ?? ''} ${loading && 'skeleton'}`,
+            disabled: loading,
+            'aria-busy': loading,
+        };
     }, [loading, className]);
+
+    const resizeTextarea = (textarea: HTMLTextAreaElement) => {
+        textarea.style.height = '0';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
+    useEffect(() => {
+        if (!fieldRef.current) return;
+        if (textarea) resizeTextarea(fieldRef.current as HTMLTextAreaElement);
+    }, [fieldRef.current]);
 
     return (
         <>
             {textarea ? (
                 <textarea
                     {...staticProps}
-                    {...classProps}
-                    onInput={(event) => {
-                        const target = event.target as HTMLTextAreaElement;
-                        target.style.height = '0';
-                        target.style.height = `${target.scrollHeight}px`;
-                    }}
+                    {...dynamicProps}
+                    onInput={(event) =>
+                        resizeTextarea(event.target as HTMLTextAreaElement)
+                    }
                 />
             ) : (
                 <input
                     {...staticProps}
-                    {...classProps}
+                    {...dynamicProps}
                     onKeyUp={(e: React.KeyboardEvent) =>
                         e.key === 'Enter' && updateCategory()
                     }

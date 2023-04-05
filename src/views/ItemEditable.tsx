@@ -32,7 +32,8 @@ export function ItemEditable({
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
                     valueName="name_en"
                     defaultValue={item.name_en}
-                    className="input-ghost input pl-0 text-2xl"
+                    textarea={true}
+                    className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
                 />
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
