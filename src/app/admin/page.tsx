@@ -4,8 +4,8 @@ import { Drawer } from '@/components/Drawer/Drawer';
 import { Logout } from '@/components/Logout';
 import { getCategoryElementId } from '@/lib/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
-import { CategoryEditable } from '@/views/CategoryEditable';
-import { CategorySkeleton } from '@/views/CategorySkeleton';
+import { CategoryEditor } from '@/views/Category/CategoryEditor';
+import { CategorySkeleton } from '@/views/Category/CategorySkeleton';
 import useSwr, { preload } from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -28,7 +28,7 @@ export default function AdminPage() {
                 };
             })}
         >
-            <main className="vertical-list">
+            <main className="vertical-list w-full">
                 <h1 className="text-xl font-bold">Categories</h1>
                 {isLoading && <CategorySkeleton />}
                 {error && (
@@ -38,7 +38,7 @@ export default function AdminPage() {
                     </div>
                 )}
                 {data?.map((category) => (
-                    <CategoryEditable
+                    <CategoryEditor
                         category={category}
                         key={category._id.toString()}
                     />

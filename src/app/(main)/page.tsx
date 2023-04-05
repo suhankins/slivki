@@ -1,7 +1,7 @@
 import { Drawer } from '@/components/Drawer/Drawer';
 import { getCategoryElementId } from '@/lib/getCategoryElementId';
 import { CategoryModel, SimpleCategory } from '@/models/Category';
-import { Category } from '@/views/Category';
+import { CategoryViewer } from '@/views/Category/CategoryViewer';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -25,7 +25,7 @@ export default async function Home() {
         >
             <main className="vertical-list">
                 {categories.map((category, index) => (
-                    <Category
+                    <CategoryViewer
                         id={getCategoryElementId(category.name_en, index)}
                         key={index}
                         category={category}

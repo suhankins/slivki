@@ -1,13 +1,12 @@
-'use client';
-
 import { SimpleCategory } from '@/models/Category';
-import { ItemEditable } from './ItemEditable';
+import { ItemEditor } from '../Item/ItemEditor';
 import { EditableText } from '@/components/EditableText';
+import { Category } from './Category';
 
-export function CategoryEditable({ category }: { category: SimpleCategory }) {
+export function CategoryEditor({ category }: { category: SimpleCategory }) {
     return (
-        <div className="flex w-full flex-col items-center gap-4">
-            <div className="divider">
+        <Category
+            title={
                 <EditableText
                     defaultValue={category.name_en}
                     placeholder="Category name"
@@ -15,16 +14,17 @@ export function CategoryEditable({ category }: { category: SimpleCategory }) {
                     fetchUrl={`/api/category/${category._id}`}
                     className="input-ghost input text-center text-xl font-bold"
                 />
-            </div>
+            }
+        >
             {category.items &&
                 category.items.map((item, index) => (
-                    <ItemEditable
+                    <ItemEditor
                         itemIndex={index}
                         categoryId={category._id}
                         item={item}
                         key={index}
                     />
                 ))}
-        </div>
+        </Category>
     );
 }
