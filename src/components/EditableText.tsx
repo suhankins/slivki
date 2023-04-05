@@ -40,6 +40,7 @@ export function EditableText({
     type = 'text',
     id,
 }: EditableTextProps) {
+    const defaultRef = useRef(defaultValue);
     const fieldRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState(false);
 
@@ -47,10 +48,10 @@ export function EditableText({
         if (!fieldRef.current) return;
         const newValue = fieldRef.current.value.trim();
         if (newValue === '') {
-            fieldRef.current.value = defaultValue ?? '';
+            fieldRef.current.value = defaultRef.current ?? '';
             return;
         }
-        if (newValue !== defaultValue) {
+        if (newValue !== defaultRef.current) {
             setLoading(true);
             fetch(fetchUrl, {
                 body: JSON.stringify({ [valueName]: newValue }),
@@ -59,7 +60,7 @@ export function EditableText({
             }).then(async (res) => {
                 setLoading(false);
                 if (res.status === 200) {
-                    defaultValue = newValue;
+                    defaultRef.current = newValue;
                     if (shouldUpdateMainPage) fetch('/api/revalidate');
                 } else {
                     console.error(await res.text());
