@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { AutoResizableTextarea } from './AutoResizableTextarea';
 
 export type EditableTextProps = {
