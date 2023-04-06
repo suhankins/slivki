@@ -30,7 +30,7 @@ export function PriceSelectorViewer({
                 ))}
             </div>
             <div className="py-4 text-3xl font-bold">
-                <p className="w-full">{prices[selectedSize]}&#8382;</p>
+                <p className="w-16">{prices[selectedSize]}&#8382;</p>
             </div>
         </div>
     );
