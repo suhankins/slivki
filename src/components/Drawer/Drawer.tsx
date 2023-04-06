@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
+import { useId } from 'react';
 
 export interface Header {
     name: string;
@@ -16,14 +17,13 @@ export interface DrawerProps {
     name?: string;
 }
 
-const drawerInputId = 'drawer';
-
 export function Drawer({
     children,
     navbarElements,
     name,
     headers,
 }: DrawerProps) {
+    const drawerInputId = useId();
     return (
         <div className="drawer">
             <input
