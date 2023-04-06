@@ -2,6 +2,7 @@ import { EditableText } from '@/components/EditableText';
 import { SimpleItem } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
+import { EditableImage } from '@/components/EditableImage';
 
 export function ItemEditor({
     item,
@@ -14,18 +15,7 @@ export function ItemEditor({
 }) {
     return (
         <Item
-            picture={
-                item.picture && (
-                    <div
-                        role="img"
-                        aria-label={`Picture of ${item.name_en}`}
-                        className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"
-                        style={{
-                            backgroundImage: `url('${item.picture}')`,
-                        }}
-                    />
-                )
-            }
+            picture={<EditableImage picture={item.picture} />}
             title={
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
