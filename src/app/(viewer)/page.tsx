@@ -23,7 +23,7 @@ export default async function Home() {
                 };
             })}
         >
-            <main className="vertical-list">
+            <main className="vertical-list w-full">
                 {categories.map((category, index) => (
                     <CategoryViewer
                         id={getCategoryElementId(category.name_en, index)}
