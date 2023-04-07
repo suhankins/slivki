@@ -11,7 +11,7 @@ export function Logout({ className }: LogoutProps) {
         <button
             aria-label="logout"
             type="button"
-            className={`btn-ghost btn aspect-square ${className}`}
+            className={`btn-ghost btn relative aspect-square ${className}`}
             onClick={() => signOut()}
         >
             <svg
