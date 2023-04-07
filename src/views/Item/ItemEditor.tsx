@@ -20,6 +20,7 @@ export function ItemEditor({
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
                     valueName="name_en"
+                    placeholder="Title"
                     defaultValue={item.name_en}
                     textarea={true}
                     className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
@@ -28,6 +29,7 @@ export function ItemEditor({
             description={
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
+                    placeholder="Description"
                     valueName="description_en"
                     defaultValue={item.description_en}
                     textarea={true}
