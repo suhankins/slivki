@@ -25,7 +25,8 @@ export function handleDbError(e: unknown): NextResponse {
                 status: 400,
             });
         }
+        return new NextResponse('Unknown error', { status: 400 });
     }
     console.error(e);
-    return new NextResponse('', { status: 500 });
+    return new NextResponse('Internal server error', { status: 500 });
 }

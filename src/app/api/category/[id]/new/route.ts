@@ -11,11 +11,8 @@ export async function POST(
     const [body, category] = result;
     // Validating schema
     try {
-        category.addItem(body);
-        await category.save();
+        await category.addItem(body);
     } catch (e) {
-        // Realistaclly, when user is creating a new item using the form,
-        // this should be the only type of error that can occur.
         return handleDbError(e);
     }
     return new NextResponse('Item successfully created', { status: 201 });
