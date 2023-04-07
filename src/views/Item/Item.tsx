@@ -12,7 +12,7 @@ export function Item({
     priceSelector,
 }: ItemParams) {
     return (
-        <div className="relative grid w-full max-w-2xl grid-cols-1 gap-4 rounded-lg bg-base-200 p-4 sm:grid-cols-2">
+        <div className="relative grid min-h-[9rem] w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
             {picture}
             <div className="flex flex-col gap-4">
                 {title}
