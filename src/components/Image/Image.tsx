@@ -6,7 +6,7 @@ export function Image({
     ariaLabel?: string;
 }) {
     return (
-        <div
+        <figure
             role="img"
             aria-label={ariaLabel}
             className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"

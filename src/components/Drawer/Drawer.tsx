@@ -32,7 +32,7 @@ export function Drawer({
                 className="drawer-toggle"
             />
             <div className="drawer-content flex flex-col items-center">
-                <div className="navbar sticky top-0 left-0 z-40 bg-base-300">
+                <nav className="navbar sticky top-0 left-0 z-40 bg-base-300">
                     <div className="flex-none">
                         <label
                             htmlFor={drawerInputId}
@@ -60,10 +60,10 @@ export function Drawer({
                         {name ?? 'Slivki'}
                     </Link>
                     {navbarElements}
-                </div>
+                </nav>
                 <div className="max-w-screen-lg p-4">{children}</div>
             </div>
-            <nav className="drawer-side" aria-label="Table of contents">
+            <aside className="drawer-side" aria-label="Table of contents">
                 <label
                     htmlFor={drawerInputId}
                     className="drawer-overlay"
@@ -79,7 +79,7 @@ export function Drawer({
                         </li>
                     ))}
                 </ul>
-            </nav>
+            </aside>
         </div>
     );
 }
