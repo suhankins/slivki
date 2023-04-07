@@ -68,7 +68,7 @@ export function Drawer({
                     htmlFor={drawerInputId}
                     className="drawer-overlay"
                 ></label>
-                <ul className="menu w-80 bg-base-100 p-4">
+                <ul className="menu w-60 bg-base-100 p-4">
                     {headers?.map((header, index) => (
                         <li key={index}>
                             <DrawerLink
