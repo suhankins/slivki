@@ -32,7 +32,7 @@ export function Drawer({
                 className="drawer-toggle"
             />
             <div className="drawer-content flex flex-col items-center">
-                <div className="navbar w-full bg-base-300">
+                <div className="navbar sticky top-0 left-0 bg-base-300">
                     <div className="flex-none">
                         <label
                             htmlFor={drawerInputId}
