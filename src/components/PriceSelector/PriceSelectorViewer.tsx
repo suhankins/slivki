@@ -14,7 +14,7 @@ export function PriceSelectorViewer({
     const [selectedSize, setSelectedSize] = useState(0);
 
     return (
-        <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end sm:col-span-1 sm:flex-row">
+        <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
             <div className="btn-group">
                 {sizes?.map((size, index) => (
                     <button
@@ -30,7 +30,9 @@ export function PriceSelectorViewer({
                 ))}
             </div>
             <div className="py-4 text-3xl font-bold">
-                <p className="w-16">{prices[selectedSize]}&#8382;</p>
+                <p className="w-16 text-center">
+                    {prices[selectedSize]}&#8382;
+                </p>
             </div>
         </div>
     );
