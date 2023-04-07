@@ -12,24 +12,6 @@ export type SimpleItem = {
 @modelOptions({
     schemaOptions: {
         _id: false,
-        /**
-         * Used by API
-         */
-        toJSON: {
-            transform: (_doc, ret) => {
-                delete ret.id;
-                ret._id = ret._id.toString();
-            },
-        },
-        /**
-         * Used for generating static pages
-         */
-        toObject: {
-            transform: (_doc, ret) => {
-                delete ret.id;
-                delete ret._id;
-            },
-        },
     },
 })
 export class ItemClass {
