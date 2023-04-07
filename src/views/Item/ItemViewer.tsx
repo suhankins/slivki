@@ -11,7 +11,7 @@ export function ItemViewer({ item }: { item: SimpleItem }) {
                     <Image picture={item.picture} ariaLabel={item.name_en} />
                 )
             }
-            title={<h2 className="text-2xl">{item.name_en}</h2>}
+            title={<h3 className="text-2xl">{item.name_en}</h3>}
             description={<p>{item.description_en}</p>}
             priceSelector={
                 <PriceSelectorViewer sizes={item.sizes} prices={item.price} />

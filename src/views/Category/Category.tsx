@@ -9,7 +9,7 @@ export interface CategoryParams {
 export function Category({ title, children, props }: CategoryParams) {
     return (
         <section className="flex w-full flex-col items-center gap-4" {...props}>
-            <div className="divider">{title}</div>
+            <h2 className="divider">{title}</h2>
             {children}
         </section>
     );
