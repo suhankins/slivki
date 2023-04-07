@@ -2,7 +2,7 @@ import { EditableText } from '@/components/EditableText';
 import { SimpleItem } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
-import { EditableImage } from '@/components/EditableImage';
+import { EditableImage } from '@/components/Image/EditableImage';
 
 export function ItemEditor({
     item,

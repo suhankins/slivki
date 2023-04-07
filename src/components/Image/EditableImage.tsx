@@ -1,4 +1,5 @@
 import { useId, useMemo } from 'react';
+import { Image } from './Image';
 
 export interface EditableImageProps {
     picture?: string;
@@ -10,13 +11,7 @@ export function EditableImage({ picture }: EditableImageProps) {
     return (
         <>
             {picture ? (
-                <div
-                    role="img"
-                    className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"
-                    style={{
-                        backgroundImage: `url('${picture}')`,
-                    }}
-                />
+                <Image picture={picture} />
             ) : (
                 <>
                     <label
