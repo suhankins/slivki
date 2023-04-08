@@ -16,7 +16,9 @@ export function UploadButton({
     return (
         <>
             <label
-                className={className}
+                className={`btn-primary btn ${
+                    disabled && 'btn-disabled'
+                } ${className}`}
                 role="button"
                 aria-label="Upload image"
                 htmlFor={fileUploaderId}
@@ -43,6 +45,7 @@ export function UploadButton({
                 )}
             </label>
             <input
+                disabled={disabled}
                 type="file"
                 id={fileUploaderId}
                 className="hidden"

@@ -55,9 +55,7 @@ export function EditableImage({
                 <figure className="group relative">
                     <div className="invisible absolute right-1 top-1 flex gap-1 group-hover:visible">
                         <UploadButton
-                            className={`btn-primary btn ${
-                                !loadingText && 'btn-square'
-                            }`}
+                            className={`${!loadingText && 'btn-square'}`}
                             fileUploaderId={fileUploaderId}
                             handleFileChange={handleFileChange}
                             loadingText={loadingText}
@@ -89,7 +87,7 @@ export function EditableImage({
             ) : (
                 <UploadButton
                     disabled={loadingText !== null}
-                    className="btn-primary btn-square btn absolute right-4 top-4"
+                    className="btn-square absolute right-4 top-4"
                     fileUploaderId={fileUploaderId}
                     handleFileChange={handleFileChange}
                     loadingText={loadingText}
