@@ -1,18 +1,15 @@
 export function Image({
     picture,
-    ariaLabel,
+    altText,
 }: {
     picture: string;
-    ariaLabel?: string;
+    altText?: string;
 }) {
     return (
-        <figure
-            role="img"
-            aria-label={ariaLabel}
-            className="aspect-square h-full w-full rounded-lg bg-base-300 bg-cover bg-center bg-no-repeat sm:row-span-2"
-            style={{
-                backgroundImage: `url('${picture}')`,
-            }}
+        <img
+            alt={altText}
+            className="aspect-square h-full w-full rounded-lg bg-base-300 object-cover sm:row-span-2"
+            src={picture}
         />
     );
 }

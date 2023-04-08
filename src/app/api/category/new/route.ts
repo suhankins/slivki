@@ -1,4 +1,4 @@
-import { handleDbError } from '@/lib/handleDbError';
+import { handleDbError } from '@/utils/handleDbError';
 import { CategoryModel } from '@/models/Category';
 import { NextRequest, NextResponse } from 'next/server';
 

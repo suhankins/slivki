@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { allowedImageTypes } from './allowedImageTypes';
+import { allowedImageTypes } from '../lib/allowedImageTypes';
 import { mongoose } from '@typegoose/typegoose';
 import { CategoryClass, CategoryModel } from '@/models/Category';
 

@@ -6,7 +6,7 @@ import {
     confirmUploadRequest,
     getSignedUrlRequest,
     uploadToGoogleStorage,
-} from '@/lib/uploadImage';
+} from '@/utils/uploadImage';
 
 export interface EditableImageProps {
     picture?: string;

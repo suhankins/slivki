@@ -7,9 +7,7 @@ export function ItemViewer({ item }: { item: ItemClass }) {
     return (
         <Item
             picture={
-                item.image && (
-                    <Image picture={item.image} ariaLabel={item.name} />
-                )
+                item.image && <Image picture={item.image} altText={item.name} />
             }
             title={<h3 className="text-2xl">{item.name}</h3>}
             description={<p>{item.description}</p>}

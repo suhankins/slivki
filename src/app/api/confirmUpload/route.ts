@@ -1,5 +1,5 @@
-import { getFileName } from '@/lib/getFileName';
-import { handleUploadQuery } from '@/lib/handleUploadQuery';
+import { getFileName } from '@/utils/getFileName';
+import { handleUploadQuery } from '@/utils/handleUploadQuery';
 import { Storage } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 

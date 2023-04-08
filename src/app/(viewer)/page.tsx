@@ -1,5 +1,5 @@
 import { Drawer } from '@/components/Drawer/Drawer';
-import { getCategoryElementId } from '@/lib/getCategoryElementId';
+import { getCategoryElementId } from '@/utils/getCategoryElementId';
 import { CategoryModel, SimpleCategory } from '@/models/Category';
 import { CategoryViewer } from '@/views/Category/CategoryViewer';
 

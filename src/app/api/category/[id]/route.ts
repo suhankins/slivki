@@ -1,5 +1,5 @@
-import { findCategory } from '@/lib/findCategory';
-import { handleDbError } from '@/lib/handleDbError';
+import { findCategory } from '@/utils/findCategory';
+import { handleDbError } from '@/utils/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
