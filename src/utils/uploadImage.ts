@@ -40,7 +40,7 @@ export async function confirmUploadRequest(
     fileExtension: string
 ) {
     const result = await fetch(
-        `/api/confirmUpload?itemIndex=${itemIndex}&id=${categoryId}&filetype=${fileExtension}`
+        `/api/upload/confirm?itemIndex=${itemIndex}&id=${categoryId}&filetype=${fileExtension}`
     );
     if (result.ok) console.log('Confirmed successfully!');
     else throw new Error('Failed to confirm.');
