@@ -68,17 +68,13 @@ export function Drawer({
                         </Link>
                     </li>
                     {headers?.map((header, index) => (
-                        <div key={header.id} className="flex flex-col gap-1">
-                            <DrawerLink
-                                drawerInputId={drawerInputId}
-                                name={header.name}
-                                id={header.id}
-                                innerHeaders={header.innerHeaders}
-                            />
-                            {index !== headers.length - 1 && (
-                                <div className="divider my-0" />
-                            )}
-                        </div>
+                        <DrawerLink
+                            key={header.id}
+                            drawerInputId={drawerInputId}
+                            name={header.name}
+                            id={header.id}
+                            innerHeaders={header.innerHeaders}
+                        />
                     ))}
                 </ul>
             </aside>
