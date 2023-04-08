@@ -2,8 +2,15 @@ import { SimpleCategory } from '@/models/Category';
 import { ItemEditor } from '../Item/ItemEditor';
 import { EditableText } from '@/components/EditableText';
 import { Category } from './Category';
+import { NewItem } from '../Item/NewItem';
 
-export function CategoryEditor({ category }: { category: SimpleCategory }) {
+export function CategoryEditor({
+    category,
+    mutate,
+}: {
+    category: SimpleCategory;
+    mutate: () => void;
+}) {
     return (
         <Category
             title={
@@ -25,6 +32,7 @@ export function CategoryEditor({ category }: { category: SimpleCategory }) {
                         key={index}
                     />
                 ))}
+            <NewItem categoryId={category._id} mutate={mutate} />
         </Category>
     );
 }

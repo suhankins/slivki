@@ -7,7 +7,8 @@ import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/views/Category/CategoryEditor';
 import { CategorySkeleton } from '@/views/Category/CategorySkeleton';
 import { useId, useMemo } from 'react';
-import useSwr, { preload } from 'swr';
+import useSwr, { mutate, preload } from 'swr';
+import { NewCategory } from '@/views/Category/NewCategory';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -17,29 +18,27 @@ export default function AdminPage() {
     const categoriesHeaderId = useId();
     const accountHeaderId = useId();
 
-    const { data, error, isLoading } = useSwr<SimpleCategory[]>(
+    const { data, error, isLoading, mutate } = useSwr<SimpleCategory[]>(
         '/api/category',
         fetcher
     );
 
-    const headers = useMemo(() => {
-        return [
-            {
-                name: 'Categories',
-                id: categoriesHeaderId,
-                innerHeaders: data?.map((category, index) => {
-                    return {
-                        name: category.name,
-                        id: getCategoryElementId(category.name, index),
-                    };
-                }),
-            },
-            {
-                name: 'Account',
-                id: accountHeaderId,
-            },
-        ];
-    }, [data]);
+    const headers = [
+        {
+            name: 'Categories',
+            id: categoriesHeaderId,
+            innerHeaders: data?.map((category, index) => {
+                return {
+                    name: category.name,
+                    id: getCategoryElementId(category.name, index),
+                };
+            }),
+        },
+        {
+            name: 'Account',
+            id: accountHeaderId,
+        },
+    ];
 
     return (
         <Drawer
@@ -60,10 +59,12 @@ export default function AdminPage() {
                 )}
                 {data?.map((category) => (
                     <CategoryEditor
+                        mutate={() => mutate()}
                         category={category}
                         key={category._id.toString()}
                     />
                 ))}
+                {data && <NewCategory mutate={() => mutate()} />}
                 <div className="divider" />
                 <h1 className="text-2xl font-bold" id={accountHeaderId}>
                     Account
