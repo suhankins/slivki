@@ -70,14 +70,17 @@ export function Drawer({
                     {headers?.map((header, index) => (
                         <>
                             <DrawerLink
-                                key={index}
+                                key={header.id}
                                 drawerInputId={drawerInputId}
                                 name={header.name}
                                 id={header.id}
                                 innerHeaders={header.innerHeaders}
                             />
                             {index !== headers.length - 1 && (
-                                <div className="divider my-0" />
+                                <div
+                                    key={`${header.id}_divider`}
+                                    className="divider my-0"
+                                />
                             )}
                         </>
                     ))}
