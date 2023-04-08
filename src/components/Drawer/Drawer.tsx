@@ -1,14 +1,7 @@
 import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
 import { useId } from 'react';
-
-export interface Header {
-    name: string;
-    /**
-     * Element id to scroll to
-     */
-    id: string;
-}
+import { Header } from './Header';
 
 export interface DrawerProps {
     children: React.ReactNode;
@@ -68,15 +61,25 @@ export function Drawer({
                     htmlFor={drawerInputId}
                     className="drawer-overlay"
                 ></label>
-                <ul className="menu w-60 bg-base-100 p-4">
+                <ul className="menu w-60 gap-2 bg-base-100 p-4">
+                    <li>
+                        <Link className="text-xl font-bold" href="/">
+                            Slivki
+                        </Link>
+                    </li>
                     {headers?.map((header, index) => (
-                        <li key={index}>
+                        <>
                             <DrawerLink
+                                key={index}
                                 drawerInputId={drawerInputId}
                                 name={header.name}
                                 id={header.id}
+                                innerHeaders={header.innerHeaders}
                             />
-                        </li>
+                            {index !== headers.length - 1 && (
+                                <div className="divider my-0" />
+                            )}
+                        </>
                     ))}
                 </ul>
             </aside>
