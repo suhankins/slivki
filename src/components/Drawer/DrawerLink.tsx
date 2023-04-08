@@ -13,7 +13,6 @@ export function DrawerLink({
     id: string;
     innerHeaders?: Header[];
 }) {
-    console.log('DrawerLink', drawerInputId, name, id, innerHeaders);
     return (
         <>
             <li>
