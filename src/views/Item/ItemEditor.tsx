@@ -15,7 +15,13 @@ export function ItemEditor({
 }) {
     return (
         <Item
-            picture={<EditableImage picture={item.image} />}
+            picture={
+                <EditableImage
+                    categoryId={categoryId}
+                    itemIndex={itemIndex}
+                    picture={item.image}
+                />
+            }
             title={
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
