@@ -1,24 +1,59 @@
-import { ChangeEvent } from 'react';
+'use client';
+
+import {
+    confirmUploadRequest,
+    getSignedUrlRequest,
+    uploadToGoogleStorage,
+} from '@/utils/image/uploadImage';
+import { ChangeEvent, useId, useMemo, useState } from 'react';
 
 export function UploadButton({
     className,
-    fileUploaderId,
-    handleFileChange,
-    loadingText,
-    disabled,
+    itemIndex,
+    categoryId,
 }: {
     className?: string;
-    fileUploaderId: string;
-    handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    loadingText: string | null;
-    disabled: boolean;
+    itemIndex: number;
+    categoryId: string;
 }) {
+    const fileUploaderId = useId();
+    const [loadingText, setLoadingText] = useState<null | string>(null);
+
+    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file === undefined) return;
+        try {
+            const fileExtension = file.name.split('.').slice(-1)[0];
+
+            setLoadingText('Asking permission...');
+            const { url, fields } = await getSignedUrlRequest(
+                itemIndex,
+                categoryId,
+                fileExtension
+            );
+
+            setLoadingText('Uploading...');
+            await uploadToGoogleStorage(url, fields, file);
+
+            setLoadingText('Confirming...');
+            await confirmUploadRequest(itemIndex, categoryId, fileExtension);
+        } catch (error) {
+            // TODO: Add toasts for errors
+            console.error(error);
+        }
+        setLoadingText(null);
+        event.target.files = null;
+        fetch('/api/revalidate'); // revalidating main page
+    };
+
+    const disabled = useMemo(() => loadingText !== null, [loadingText]);
+
     return (
         <>
             <label
                 className={`btn-primary btn ${
-                    disabled && 'btn-disabled'
-                } ${className}`}
+                    loadingText === null && 'btn-square'
+                } ${disabled && 'btn-disabled'} ${className}`}
                 role="button"
                 aria-label="Upload image"
                 htmlFor={fileUploaderId}
