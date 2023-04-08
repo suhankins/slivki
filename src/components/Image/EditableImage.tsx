@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useMemo } from 'react';
 import { Image } from './Image';
 

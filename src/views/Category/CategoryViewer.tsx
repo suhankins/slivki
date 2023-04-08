@@ -12,7 +12,7 @@ export function CategoryViewer({ category, id }: CategoryProps) {
         <Category
             title={
                 <span className="text-center text-xl font-bold" id={id}>
-                    {category.name_en}
+                    {category.name}
                 </span>
             }
         >

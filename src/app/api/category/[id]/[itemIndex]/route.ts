@@ -22,8 +22,8 @@ export async function PUT(
 
         const item = category.items[index];
 
-        item.name_en = body.name_en ?? item.name_en;
-        item.description_en = body.description_en ?? item.description_en;
+        item.name = body.name ?? item.name;
+        item.description = body.description ?? item.description;
         await category.save();
     } catch (e) {
         return handleDbError(e);

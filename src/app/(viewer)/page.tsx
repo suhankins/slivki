@@ -18,15 +18,15 @@ export default async function Home() {
         <Drawer
             headers={categories.map((category, index) => {
                 return {
-                    name: category.name_en,
-                    id: getCategoryElementId(category.name_en, index),
+                    name: category.name,
+                    id: getCategoryElementId(category.name, index),
                 };
             })}
         >
             <main className="vertical-list w-full">
                 {categories.map((category, index) => (
                     <CategoryViewer
-                        id={getCategoryElementId(category.name_en, index)}
+                        id={getCategoryElementId(category.name, index)}
                         key={index}
                         category={category}
                     />

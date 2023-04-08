@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     if (!(await file.exists()))
         return new NextResponse('File does not exist', { status: 400 });
 
-    if (model.items) model.items[itemIndex].picture = file.publicUrl();
+    if (model.items) model.items[itemIndex].image = file.publicUrl();
     model.save();
 
     return new NextResponse('File confirmed', { status: 200 });

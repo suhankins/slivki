@@ -6,7 +6,11 @@ import {
 } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+/**
+ * Gets a signed URL for uploading an image to Google Cloud Storage
+ * @param request should contain the query parameters **id**, **itemIndex**, and **filetype**
+ */
+export async function GET(request: NextRequest): Promise<NextResponse> {
     const HandledUploadQuery = await handleUploadQuery(request);
     if (HandledUploadQuery instanceof NextResponse) return HandledUploadQuery;
     const { id, itemIndex, filetype } = HandledUploadQuery;

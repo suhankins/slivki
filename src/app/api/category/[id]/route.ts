@@ -13,7 +13,7 @@ export async function PUT(
     if (result instanceof NextResponse) return result;
     const [body, category] = result;
     try {
-        category.name_en = body.name_en ?? category.name_en;
+        category.name = body.name ?? category.name;
         category.index = body.index ?? category.index;
         await category.save();
     } catch (e) {

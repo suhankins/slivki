@@ -1,14 +1,6 @@
 import { modelOptions, prop } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
 
-export type SimpleItem = {
-    name_en: string;
-    description_en?: string;
-    sizes?: string[];
-    price: number[];
-    picture?: string;
-};
-
 @modelOptions({
     schemaOptions: {
         _id: false,
@@ -16,15 +8,14 @@ export type SimpleItem = {
 })
 export class ItemClass {
     @prop({ required: [true, 'English name is required!'] })
-    public name_en!: string;
-    // New languages can be added if needed
+    public name!: string;
 
     /**
      * Ingredients of the item, e.g. milk, sugar, etc.
      * or whatever else you want to tell about given item
      */
     @prop()
-    public description_en?: string;
+    public description?: string;
 
     /**
      * Array of available sizes, e.g. S (X ml), M (Y ml), L (Z ml), etc.
@@ -43,5 +34,5 @@ export class ItemClass {
     public price!: number[];
 
     @prop()
-    public picture?: string;
+    public image?: string;
 }

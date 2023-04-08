@@ -1,27 +1,27 @@
 import { EditableText } from '@/components/EditableText';
-import { SimpleItem } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
 import { EditableImage } from '@/components/Image/EditableImage';
+import { ItemClass } from '@/models/Item';
 
 export function ItemEditor({
     item,
     categoryId,
     itemIndex,
 }: {
-    item: SimpleItem;
+    item: ItemClass;
     categoryId: string;
     itemIndex: number;
 }) {
     return (
         <Item
-            picture={<EditableImage picture={item.picture} />}
+            picture={<EditableImage picture={item.image} />}
             title={
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
-                    valueName="name_en"
+                    valueName="name"
                     placeholder="Title"
-                    defaultValue={item.name_en}
+                    defaultValue={item.name}
                     textarea={true}
                     className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
                 />
@@ -30,8 +30,8 @@ export function ItemEditor({
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}`}
                     placeholder="Description"
-                    valueName="description_en"
-                    defaultValue={item.description_en}
+                    valueName="description"
+                    defaultValue={item.description}
                     textarea={true}
                     className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0"
                 />

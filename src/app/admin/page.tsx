@@ -29,8 +29,8 @@ export default function AdminPage() {
                 id: categoriesHeaderId,
                 innerHeaders: data?.map((category, index) => {
                     return {
-                        name: category.name_en,
-                        id: getCategoryElementId(category.name_en, index),
+                        name: category.name,
+                        id: getCategoryElementId(category.name, index),
                     };
                 }),
             },

@@ -8,13 +8,13 @@ import {
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
-import { ItemClass, SimpleItem } from './Item';
+import { ItemClass } from './Item';
 
 export type SimpleCategory = {
     _id: string;
-    name_en: string;
+    name: string;
     index?: number;
-    items?: SimpleItem[];
+    items?: ItemClass[];
 };
 
 @modelOptions({
@@ -45,8 +45,7 @@ export class CategoryClass implements defaultClasses.Base {
     public id!: string;
 
     @prop({ required: [true, 'English name is required!'], minlength: 1 })
-    public name_en!: string;
-    // New languages can be added if needed
+    public name!: string;
 
     /**
      * Index of the category in the list of categories,

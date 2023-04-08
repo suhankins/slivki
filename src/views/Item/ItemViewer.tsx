@@ -1,18 +1,18 @@
-import { SimpleItem } from '@/models/Item';
+import { ItemClass } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
 import { Image } from '@/components/Image/Image';
 
-export function ItemViewer({ item }: { item: SimpleItem }) {
+export function ItemViewer({ item }: { item: ItemClass }) {
     return (
         <Item
             picture={
-                item.picture && (
-                    <Image picture={item.picture} ariaLabel={item.name_en} />
+                item.image && (
+                    <Image picture={item.image} ariaLabel={item.name} />
                 )
             }
-            title={<h3 className="text-2xl">{item.name_en}</h3>}
-            description={<p>{item.description_en}</p>}
+            title={<h3 className="text-2xl">{item.name}</h3>}
+            description={<p>{item.description}</p>}
             priceSelector={
                 <PriceSelectorViewer sizes={item.sizes} prices={item.price} />
             }
