@@ -43,7 +43,6 @@ export function UploadButton({
         }
         setLoadingText(null);
         event.target.files = null;
-        fetch('/api/revalidate'); // revalidating main page
     };
 
     const disabled = useMemo(() => loadingText !== null, [loadingText]);
