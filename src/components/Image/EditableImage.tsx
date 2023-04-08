@@ -33,8 +33,8 @@ export function EditableImage({
             ) : (
                 <UploadButton
                     className="absolute right-4 top-4"
-                    itemIndex={0}
-                    categoryId={''}
+                    itemIndex={itemIndex}
+                    categoryId={categoryId}
                 />
             )}
         </>
