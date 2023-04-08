@@ -71,9 +71,7 @@ export function Drawer({
                         <DrawerLink
                             key={header.id}
                             drawerInputId={drawerInputId}
-                            name={header.name}
-                            id={header.id}
-                            innerHeaders={header.innerHeaders}
+                            header={header}
                         />
                     ))}
                 </ul>

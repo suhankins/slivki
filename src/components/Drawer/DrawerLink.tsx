@@ -2,47 +2,48 @@
 
 import { Header } from './Header';
 
+export interface DrawerLinkProps {
+    /**
+     * Id of the input that controls the drawer, so buttons can close it when clicked
+     */
+    drawerInputId: string;
+    header: Header;
+    /**
+     * Depth of the header, used for indentation
+     */
+    depth?: number;
+}
+
+const indent = ['', 'ml-4', 'ml-8']; // We have to spell it out so tailwind detects it
+
 export function DrawerLink({
     drawerInputId,
-    name,
-    id,
-    innerHeaders,
-}: {
-    drawerInputId: string;
-    name: string;
-    id: string;
-    innerHeaders?: Header[];
-}) {
+    header,
+    depth = 0,
+}: DrawerLinkProps) {
     return (
         <>
             <li>
-                <a
-                    className="btn-primary btn justify-start"
+                <button
+                    type="button"
+                    className={`btn-ghost btn justify-start ${indent[depth]}`}
                     onClick={() => {
-                        const element = document.getElementById(id);
+                        const element = document.getElementById(header.id);
                         element?.scrollIntoView(true);
                         document.getElementById(drawerInputId)?.click();
                     }}
                 >
-                    {name}
-                </a>
+                    {header.name}
+                </button>
             </li>
-            {innerHeaders &&
-                innerHeaders.map((innerHeader, index) => (
-                    <li key={index}>
-                        <a
-                            className="btn-secondary btn mr-8 justify-start"
-                            onClick={() => {
-                                const element = document.getElementById(
-                                    innerHeader.id
-                                );
-                                element?.scrollIntoView(true);
-                                document.getElementById(drawerInputId)?.click();
-                            }}
-                        >
-                            {innerHeader.name}
-                        </a>
-                    </li>
+            {header.innerHeaders &&
+                header.innerHeaders.map((innerHeader, index) => (
+                    <DrawerLink
+                        drawerInputId={drawerInputId}
+                        header={innerHeader}
+                        depth={depth + 1}
+                        key={index}
+                    />
                 ))}
         </>
     );
