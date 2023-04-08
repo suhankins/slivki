@@ -29,7 +29,9 @@ export function DrawerLink({
                     className={`btn-ghost btn justify-start ${indent[depth]}`}
                     onClick={() => {
                         const element = document.getElementById(header.id);
-                        element?.scrollIntoView(true);
+                        element?.scrollIntoView({
+                            behavior: 'smooth',
+                        });
                         document.getElementById(drawerInputId)?.click();
                     }}
                 >
