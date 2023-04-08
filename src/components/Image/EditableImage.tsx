@@ -6,8 +6,9 @@ import {
     confirmUploadRequest,
     getSignedUrlRequest,
     uploadToGoogleStorage,
-} from '@/utils/uploadImage';
+} from '@/utils/image/uploadImage';
 import { UploadButton } from './UploadButton';
+import { deleteImage } from '@/utils/image/deleteImage';
 
 export interface EditableImageProps {
     picture?: string;
@@ -50,6 +51,16 @@ export function EditableImage({
         fetch('/api/revalidate'); // revalidating main page
     };
 
+    const handleDelete = async () => {
+        try {
+            setLoadingText('Deleting...');
+            deleteImage(categoryId, itemIndex);
+        } catch (error) {
+            // TODO: Add toasts for errors
+            console.error(error);
+        }
+    };
+
     return (
         <>
             {picture ? (
@@ -65,6 +76,7 @@ export function EditableImage({
                         <button
                             className="btn-error btn-square btn"
                             aria-label="Delete image"
+                            onClick={handleDelete}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

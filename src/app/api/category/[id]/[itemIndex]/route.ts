@@ -24,6 +24,7 @@ export async function PUT(
 
         item.name = body.name ?? item.name;
         item.description = body.description ?? item.description;
+        item.image = body.image ?? item.image;
         await category.save();
     } catch (e) {
         return handleDbError(e);
