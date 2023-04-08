@@ -47,6 +47,7 @@ export function EditableImage({
         }
         setLoadingText(null);
         event.target.files = null;
+        fetch('/api/revalidate'); // revalidating main page
     };
 
     return (
