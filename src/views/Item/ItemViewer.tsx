@@ -1,13 +1,13 @@
 import { ItemClass } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
-import { Image } from '@/components/Image/Image';
+import { ImageView } from '@/components/Image/ImageView';
 
 export function ItemViewer({ item }: { item: ItemClass }) {
     return (
         <Item
             picture={
-                item.image && <Image picture={item.image} altText={item.name} />
+                item.image && <ImageView src={item.image} alt={item.name} />
             }
             title={<h3 className="text-2xl">{item.name}</h3>}
             description={<p>{item.description}</p>}

@@ -1,5 +1,5 @@
 import { DeleteButton } from './DeleteButton';
-import { Image } from './Image';
+import { ImageView } from './ImageView';
 import { UploadButton } from './UploadButton';
 
 export interface EditableImageProps {
@@ -28,7 +28,7 @@ export function EditableImage({
                         />
                     </div>
 
-                    <Image picture={picture} />
+                    <ImageView src={picture} />
                 </figure>
             ) : (
                 <UploadButton
