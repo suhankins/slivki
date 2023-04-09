@@ -28,7 +28,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const options: GenerateSignedPostPolicyV4Options = {
         expires: Date.now() + 60 * 1000, // 1 minute
         conditions: [
-            ['content-length-range', 0, 2_000_000], // 2 MB limit
+            ['content-length-range', 0, 4_000_000], // 4 MB limit
         ],
         fields: {
             'x-goog-meta-test': 'data',
