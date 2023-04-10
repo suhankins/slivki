@@ -8,8 +8,8 @@ export function NewCategory() {
         try {
             setLoading(true);
             await newCategory();
+            await mutate('/api/category');
             setLoading(false);
-            mutate('/api/category');
         } catch (e) {
             // TODO: Add toasts for errors
             console.error(e);

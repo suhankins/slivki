@@ -9,8 +9,8 @@ export function NewItem({ categoryId }: { categoryId: string }) {
         try {
             setLoading(true);
             await newItem(categoryId);
+            await mutate('/api/category');
             setLoading(false);
-            mutate('/api/category');
         } catch (e) {
             // TODO: Add toasts for errors
             console.error(e);
