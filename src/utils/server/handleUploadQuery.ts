@@ -4,7 +4,8 @@ import { mongoose } from '@typegoose/typegoose';
 import { CategoryClass, CategoryModel } from '@/models/Category';
 
 export interface HandledUploadQuery {
-    filetype: string;
+    filetype?: string;
+    filename?: string;
     id: mongoose.Types.ObjectId;
     itemIndex: number;
     model: mongoose.Document & CategoryClass;
@@ -21,9 +22,11 @@ export async function handleUploadQuery(
 ): Promise<NextResponse | HandledUploadQuery> {
     const query = request.nextUrl.searchParams;
 
-    const filetype = query.get('filetype');
-    if (filetype === null || !allowedImageTypes.includes(filetype))
-        return new NextResponse('No filetype provided', { status: 400 });
+    const filetype = query.get('filetype') ?? undefined;
+    if (filetype !== undefined && !allowedImageTypes.includes(filetype))
+        return new NextResponse('Invalid filetype provided', { status: 400 });
+
+    const filename = query.get('filename') ?? undefined;
 
     let id: null | string | mongoose.Types.ObjectId = query.get('id');
     if (id === null || id.length === 0)
@@ -31,7 +34,9 @@ export async function handleUploadQuery(
     try {
         id = new mongoose.Types.ObjectId(id);
     } catch (e) {
-        return new NextResponse('Bad category id provided', { status: 400 });
+        return new NextResponse('Invalid category id provided', {
+            status: 400,
+        });
     }
 
     const model = await CategoryModel.findById(id);
@@ -49,7 +54,13 @@ export async function handleUploadQuery(
         itemIndex < 0 ||
         itemIndex > model.items.length
     )
-        return new NextResponse('Bad itemIndex provided', { status: 400 });
+        return new NextResponse('Invalid itemIndex provided', { status: 400 });
 
-    return { filetype: filetype, id: id, itemIndex: itemIndex, model: model };
+    return {
+        filetype: filetype,
+        filename: filename,
+        id: id,
+        itemIndex: itemIndex,
+        model: model,
+    };
 }

@@ -14,6 +14,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const HandledUploadQuery = await handleUploadQuery(request);
     if (HandledUploadQuery instanceof NextResponse) return HandledUploadQuery;
     const { id, itemIndex, filetype } = HandledUploadQuery;
+    if (filetype === undefined)
+        return NextResponse.json('No filetype provided', { status: 400 });
 
     const storage = new Storage({
         projectId: process.env.PROJECT_ID,

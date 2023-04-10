@@ -4,7 +4,7 @@ export async function getSignedUrlRequest(
     fileExtension: string
 ): Promise<{
     url: string;
-    fields: Object;
+    fields: any;
 }> {
     const response = await fetch(
         `/api/upload?itemIndex=${itemIndex}&id=${categoryId}&filetype=${fileExtension}`
@@ -37,10 +37,11 @@ export async function uploadToGoogleStorage(
 export async function confirmUploadRequest(
     itemIndex: number,
     categoryId: string,
-    fileExtension: string
+    filename: string
 ) {
     const result = await fetch(
-        `/api/upload/confirm?itemIndex=${itemIndex}&id=${categoryId}&filetype=${fileExtension}`
+        `/api/upload/confirm?itemIndex=${itemIndex}&id=${categoryId}&filename=${filename}`,
+        { method: 'POST' }
     );
     if (result.ok) console.log('Confirmed successfully!');
     else throw new Error('Failed to confirm.');

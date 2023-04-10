@@ -34,11 +34,14 @@ export function UploadButton({
                 fileExtension
             );
 
+            const key = fields.key;
+            if (key === undefined) throw new Error('No key in fields');
+
             setLoadingText('Uploading...');
             await uploadToGoogleStorage(url, fields, file);
 
             setLoadingText('Confirming...');
-            await confirmUploadRequest(itemIndex, categoryId, fileExtension);
+            await confirmUploadRequest(itemIndex, categoryId, key);
 
             setLoadingText('Fetching new data...');
             await mutate('/api/category');

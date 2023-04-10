@@ -14,7 +14,7 @@ export async function PUT(
     const [body, category] = result;
     if (category.items === undefined || category.items.length === 0)
         return new NextResponse('No items in category', { status: 400 });
-    const index = Number(itemIndex);
+    const index = parseInt(itemIndex);
     if (index < 0 || index >= category.items.length)
         return new NextResponse('Item index out of range', { status: 400 });
     try {
