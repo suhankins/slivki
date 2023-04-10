@@ -13,13 +13,11 @@ export async function PUT(
     if (result instanceof NextResponse) return result;
     const [body, category] = result;
     if (category.items === undefined || category.items.length === 0)
-        return new NextResponse('No items in category', { status: 404 });
+        return new NextResponse('No items in category', { status: 400 });
+    const index = Number(itemIndex);
+    if (index < 0 || index >= category.items.length)
+        return new NextResponse('Item index out of range', { status: 400 });
     try {
-        const index = Number(itemIndex);
-
-        if (index < 0 || index >= category.items.length)
-            return new NextResponse('Item index out of range', { status: 404 });
-
         const item = category.items[index];
 
         item.name = body.name ?? item.name;
