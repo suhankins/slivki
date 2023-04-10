@@ -6,8 +6,8 @@ import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/views/Category/CategoryEditor';
 import { CategorySkeleton } from '@/views/Category/CategorySkeleton';
-import { useId, useMemo } from 'react';
-import useSwr, { mutate, preload } from 'swr';
+import { useId } from 'react';
+import useSwr, { preload } from 'swr';
 import { NewCategory } from '@/views/Category/NewCategory';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
