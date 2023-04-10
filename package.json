@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@google-cloud/storage": "^6.9.4",
+        "@heroicons/react": "^2.0.17",
         "@typegoose/typegoose": "^10.3.4",
         "@types/node": "18.15.10",
         "@types/react": "18.0.29",
