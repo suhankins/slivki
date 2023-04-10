@@ -7,6 +7,7 @@ import {
 } from '@/utils/client/image/uploadImage';
 import { ChangeEvent, useId, useMemo, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/outline';
+import { mutate } from 'swr';
 
 export function UploadButton({
     className,
@@ -38,6 +39,9 @@ export function UploadButton({
 
             setLoadingText('Confirming...');
             await confirmUploadRequest(itemIndex, categoryId, fileExtension);
+
+            setLoadingText('Fetching new data...');
+            await mutate('/api/category');
         } catch (error) {
             // TODO: Add toasts for errors
             console.error(error);

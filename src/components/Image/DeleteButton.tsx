@@ -3,6 +3,7 @@
 import { deleteImage } from '@/utils/client/image/deleteImage';
 import { useState } from 'react';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import { mutate } from 'swr';
 
 export function DeleteButton({
     categoryId,
@@ -16,6 +17,7 @@ export function DeleteButton({
         try {
             setLoading(true);
             await deleteImage(categoryId, itemIndex);
+            await mutate('/api/category');
             setLoading(false);
         } catch (error) {
             // TODO: Add toasts for errors
