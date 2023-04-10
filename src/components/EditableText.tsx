@@ -94,6 +94,12 @@ export function EditableText({
             placeholder: placeholder,
             defaultValue: defaultValue,
             onBlur: () => updateCategory(),
+            onKeyUp: (e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    updateCategory();
+                }
+            },
         };
     }, []);
 
@@ -110,13 +116,7 @@ export function EditableText({
             {textarea ? (
                 <AutoResizableTextarea {...staticProps} {...dynamicProps} />
             ) : (
-                <input
-                    {...staticProps}
-                    {...dynamicProps}
-                    onKeyUp={(e: React.KeyboardEvent) =>
-                        e.key === 'Enter' && updateCategory()
-                    }
-                />
+                <input {...staticProps} {...dynamicProps} />
             )}
         </>
     );
