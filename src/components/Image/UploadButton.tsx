@@ -4,7 +4,7 @@ import {
     confirmUploadRequest,
     getSignedUrlRequest,
     uploadToGoogleStorage,
-} from '@/utils/image/uploadImage';
+} from '@/utils/client/image/uploadImage';
 import { ChangeEvent, useId, useMemo, useState } from 'react';
 
 export function UploadButton({

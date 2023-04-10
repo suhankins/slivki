@@ -2,7 +2,7 @@
 
 import { Drawer } from '@/components/Drawer/Drawer';
 import { Logout } from '@/components/Logout';
-import { getCategoryElementId } from '@/utils/getCategoryElementId';
+import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/views/Category/CategoryEditor';
 import { CategorySkeleton } from '@/views/Category/CategorySkeleton';

@@ -1,5 +1,5 @@
-import { getFileName } from '@/utils/getFileName';
-import { handleUploadQuery } from '@/utils/handleUploadQuery';
+import { getFileName } from '@/utils/server/getFileName';
+import { handleUploadQuery } from '@/utils/server/handleUploadQuery';
 import {
     GenerateSignedPostPolicyV4Options,
     Storage,

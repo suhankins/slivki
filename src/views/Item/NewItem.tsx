@@ -1,4 +1,4 @@
-import { newItem } from '@/utils/new/newItem';
+import { newItem } from '@/utils/client/new/newItem';
 import { useState } from 'react';
 
 export function NewItem({

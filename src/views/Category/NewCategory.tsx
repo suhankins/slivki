@@ -1,4 +1,4 @@
-import { newCategory } from '@/utils/new/newCategory';
+import { newCategory } from '@/utils/client/new/newCategory';
 import { useState } from 'react';
 
 export function NewCategory({ mutate }: { mutate: () => void }) {

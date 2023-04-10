@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteImage } from '@/utils/image/deleteImage';
+import { deleteImage } from '@/utils/client/image/deleteImage';
 import { useState } from 'react';
 
 export function DeleteButton({
