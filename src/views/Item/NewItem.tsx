@@ -1,20 +1,16 @@
 import { newItem } from '@/utils/client/new/newItem';
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 
-export function NewItem({
-    categoryId,
-    mutate,
-}: {
-    categoryId: string;
-    mutate: () => void;
-}) {
+export function NewItem({ categoryId }: { categoryId: string }) {
     const [loading, setLoading] = useState(false);
+    const { mutate } = useSWRConfig();
     const handleNewItemClick = async () => {
         try {
             setLoading(true);
             await newItem(categoryId);
             setLoading(false);
-            mutate();
+            mutate('/api/category');
         } catch (e) {
             // TODO: Add toasts for errors
             console.error(e);

@@ -18,7 +18,7 @@ export default function AdminPage() {
     const categoriesHeaderId = useId();
     const accountHeaderId = useId();
 
-    const { data, error, isLoading, mutate } = useSwr<SimpleCategory[]>(
+    const { data, error, isLoading } = useSwr<SimpleCategory[]>(
         '/api/category',
         fetcher
     );
@@ -59,12 +59,11 @@ export default function AdminPage() {
                 )}
                 {data?.map((category) => (
                     <CategoryEditor
-                        mutate={() => mutate()}
                         category={category}
                         key={category._id.toString()}
                     />
                 ))}
-                {data && <NewCategory mutate={() => mutate()} />}
+                {data && <NewCategory />}
                 <div className="divider" />
                 <h1 className="text-2xl font-bold" id={accountHeaderId}>
                     Account

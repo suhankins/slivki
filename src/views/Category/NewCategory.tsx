@@ -1,14 +1,15 @@
 import { newCategory } from '@/utils/client/new/newCategory';
 import { useState } from 'react';
+import { mutate } from 'swr';
 
-export function NewCategory({ mutate }: { mutate: () => void }) {
+export function NewCategory() {
     const [loading, setLoading] = useState(false);
     const handleNewItemClick = async () => {
         try {
             setLoading(true);
             await newCategory();
             setLoading(false);
-            mutate();
+            mutate('/api/category');
         } catch (e) {
             // TODO: Add toasts for errors
             console.error(e);

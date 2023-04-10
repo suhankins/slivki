@@ -4,13 +4,7 @@ import { EditableText } from '@/components/EditableText';
 import { Category } from './Category';
 import { NewItem } from '../Item/NewItem';
 
-export function CategoryEditor({
-    category,
-    mutate,
-}: {
-    category: SimpleCategory;
-    mutate: () => void;
-}) {
+export function CategoryEditor({ category }: { category: SimpleCategory }) {
     return (
         <Category
             title={
@@ -32,7 +26,7 @@ export function CategoryEditor({
                         key={index}
                     />
                 ))}
-            <NewItem categoryId={category._id} mutate={mutate} />
+            <NewItem categoryId={category._id} />
         </Category>
     );
 }
