@@ -1,6 +1,6 @@
-import { findCategory } from '@/utils/server/findCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
+import { getBodyAndCategory } from '../getBodyAndCategory';
 
 /**
  * Update category (for changing name and index)
@@ -9,7 +9,7 @@ export async function PUT(
     request: NextRequest,
     { params: { id, itemIndex } }: { params: { id: string; itemIndex: string } }
 ) {
-    const result = await findCategory(request, id);
+    const result = await getBodyAndCategory(request, id);
     if (result instanceof NextResponse) return result;
     const [body, category] = result;
     if (category.items === undefined || category.items.length === 0)
