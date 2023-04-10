@@ -1,5 +1,3 @@
-import { findCategory } from '@/utils/server/findCategory';
-import { getRequestJSONBody } from '@/utils/server/getRequestJSONBody';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
 import { getBodyAndCategory } from '../getBodyAndCategory';
