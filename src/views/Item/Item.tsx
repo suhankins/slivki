@@ -18,9 +18,7 @@ export function Item({
                 {title}
                 {description}
             </header>
-            <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
-                {priceSelector}
-            </div>
+            {priceSelector}
         </article>
     );
 }

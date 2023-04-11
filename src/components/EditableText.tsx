@@ -1,5 +1,14 @@
-import { useMemo, useRef, useState } from 'react';
+import {
+    Dispatch,
+    HTMLInputTypeAttribute,
+    SetStateAction,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { AutoResizableTextarea } from './AutoResizableTextarea';
+import { mutate } from 'swr';
 
 export type HTMLTextField = HTMLInputElement & HTMLTextAreaElement;
 export type HTMLTextFieldAttributes =
@@ -10,7 +19,7 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
     textarea?: boolean;
     className?: string;
     defaultValue?: string;
-    onInput?: (event: React.FormEvent<HTMLTextField>) => void;
+    setLoading?: Dispatch<SetStateAction<boolean>>;
     /**
      * The URL to fetch to update the value
      * @example '/api/category/1'
@@ -30,7 +39,7 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
      * The type of the input field
      * @default 'text'
      */
-    type?: string;
+    type?: HTMLInputTypeAttribute;
 }
 
 export function EditableText({
@@ -41,56 +50,54 @@ export function EditableText({
     valueName = 'value',
     shouldUpdateMainPage = true,
     type = 'text',
+    setLoading: setOutsideLoading,
     ...props
 }: EditableTextProps) {
-    const defaultRef = useRef(defaultValue);
     const fieldRef = useRef<HTMLTextField>(null);
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => setOutsideLoading?.(loading), [loading]);
+
     function reset() {
         if (!fieldRef.current) return;
-        fieldRef.current.value = defaultRef.current ?? '';
+        fieldRef.current.value = defaultValue ?? '';
     }
 
-    const updateCategory = () => {
-        if (!fieldRef.current) return;
+    const updateCategory = useMemo(
+        () => () => {
+            if (!fieldRef.current) return;
 
-        const newValue = fieldRef.current.value.trim();
+            const newValue = fieldRef.current.value.trim();
 
-        if (newValue === '') {
-            reset();
-            return;
-        }
-        if (newValue !== defaultRef.current) {
-            setLoading(true);
-            fetch(fetchUrl, {
-                body: JSON.stringify({ [valueName]: newValue }),
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-            }).then(async (res) => {
-                setLoading(false);
-                if (res.status === 200) {
-                    defaultRef.current = newValue;
-                    if (shouldUpdateMainPage) fetch('/api/revalidate');
-                } else {
-                    reset();
-                }
-            });
-        }
-    };
+            if (newValue === '') {
+                reset();
+                return;
+            }
+            if (newValue !== defaultValue) {
+                setLoading(true);
+                fetch(fetchUrl, {
+                    body: JSON.stringify({ [valueName]: newValue }),
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                }).then(async (res) => {
+                    if (res.status === 200) {
+                        if (shouldUpdateMainPage) fetch('/api/revalidate');
+                        await mutate('/api/category');
+                    } else {
+                        reset();
+                    }
+                    setLoading(false);
+                });
+            }
+        },
+        [fetchUrl, valueName, shouldUpdateMainPage]
+    );
 
     const staticProps = useMemo(() => {
         return {
+            defaultValue: defaultValue,
             ref: fieldRef,
             type: type,
-            defaultValue: defaultValue,
-            onBlur: () => updateCategory(),
-            onKeyUp: (e: React.KeyboardEvent) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    updateCategory();
-                }
-            },
             ...props,
         };
     }, []);
@@ -103,12 +110,33 @@ export function EditableText({
         };
     }, [loading, className]);
 
+    const handlers = useMemo(() => {
+        return {
+            onBlur: () => updateCategory(),
+            onKeyUp: (e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    updateCategory();
+                }
+            },
+        };
+    }, [updateCategory]);
+
+    useEffect(() => {
+        if (!fieldRef.current || defaultValue === undefined) return;
+        fieldRef.current.value = defaultValue;
+    }, [defaultValue]);
+
     return (
         <>
             {textarea ? (
-                <AutoResizableTextarea {...staticProps} {...dynamicProps} />
+                <AutoResizableTextarea
+                    {...staticProps}
+                    {...dynamicProps}
+                    {...handlers}
+                />
             ) : (
-                <input {...staticProps} {...dynamicProps} />
+                <input {...staticProps} {...dynamicProps} {...handlers} />
             )}
         </>
     );

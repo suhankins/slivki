@@ -1,8 +1,8 @@
 import { EditableText } from '@/components/EditableText';
 import { Item } from './Item';
-import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
 import { EditableImage } from '@/components/Image/EditableImage';
 import { ItemClass } from '@/models/Item';
+import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEditor';
 
 export function ItemEditor({
     item,
@@ -41,7 +41,12 @@ export function ItemEditor({
                 />
             }
             priceSelector={
-                <PriceSelectorViewer sizes={item.sizes} prices={item.price} />
+                <PriceSelectorEditor
+                    categoryId={categoryId}
+                    itemIndex={itemIndex}
+                    sizes={item.sizes}
+                    prices={item.price}
+                />
             }
         />
     );
