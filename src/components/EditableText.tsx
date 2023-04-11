@@ -2,8 +2,11 @@ import { useMemo, useRef, useState } from 'react';
 import { AutoResizableTextarea } from './AutoResizableTextarea';
 
 export type HTMLTextField = HTMLInputElement & HTMLTextAreaElement;
+export type HTMLTextFieldAttributes =
+    React.InputHTMLAttributes<HTMLInputElement> &
+        React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export interface EditableTextProps {
+export interface EditableTextProps extends HTMLTextFieldAttributes {
     textarea?: boolean;
     className?: string;
     defaultValue?: string;
@@ -17,7 +20,7 @@ export interface EditableTextProps {
      * The name of the value in the request body
      * @example 'name_en'
      */
-    valueName: string;
+    valueName?: string;
     /**
      * Should the page be revalidated after the text is updated?
      * @default true
@@ -28,7 +31,6 @@ export interface EditableTextProps {
      * @default 'text'
      */
     type?: string;
-    props?: React.HTMLAttributes<HTMLTextField>;
 }
 
 export function EditableText({
@@ -36,7 +38,7 @@ export function EditableText({
     className,
     defaultValue,
     fetchUrl,
-    valueName,
+    valueName = 'value',
     shouldUpdateMainPage = true,
     type = 'text',
     ...props
