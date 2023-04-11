@@ -1,31 +1,24 @@
+import { findCategory } from '@/utils/server/findCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../getBodyAndCategory';
 
-/**
- * Update category (for changing name and index)
- */
-export async function PUT(
-    request: NextRequest,
-    { params: { id, itemIndex } }: { params: { id: string; itemIndex: string } }
+export async function DELETE(
+    _request: NextRequest,
+    { params: { id, itemIndex } }: { params: { id: string; itemIndex: number } }
 ) {
-    const result = await getBodyAndCategory(request, id);
-    if (result instanceof NextResponse) return result;
-    const [body, category] = result;
+    const category = await findCategory(id);
+    if (category instanceof NextResponse) return category;
     if (category.items === undefined || category.items.length === 0)
         return new NextResponse('No items in category', { status: 400 });
-    const index = parseInt(itemIndex);
-    if (index < 0 || index >= category.items.length)
-        return new NextResponse('Item index out of range', { status: 400 });
-    try {
-        const item = category.items[index];
+    if (isNaN(itemIndex) || itemIndex < 0 || itemIndex >= category.items.length)
+        return new NextResponse('Invalid item index', { status: 400 });
 
-        item.name = body.name ?? item.name;
-        item.description = body.description ?? item.description;
-        item.image = body.image ?? item.image;
+    try {
+        category.items.splice(itemIndex, 1);
         await category.save();
     } catch (e) {
         return handleDbError(e);
     }
-    return new NextResponse('Item successfully updated', { status: 200 });
+
+    return new NextResponse('Item successfully deleted', { status: 200 });
 }
