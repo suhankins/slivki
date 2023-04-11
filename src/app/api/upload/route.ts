@@ -1,9 +1,7 @@
+import { googleStorage } from '@/lib/googleStorage';
 import { getFileName } from '@/utils/server/getFileName';
 import { handleUploadQuery } from '@/utils/server/handleUploadQuery';
-import {
-    GenerateSignedPostPolicyV4Options,
-    Storage,
-} from '@google-cloud/storage';
+import { GenerateSignedPostPolicyV4Options } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
@@ -17,16 +15,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     if (filetype === undefined)
         return NextResponse.json('No filetype provided', { status: 400 });
 
-    const storage = new Storage({
-        projectId: process.env.PROJECT_ID,
-        credentials: {
-            client_email: process.env.CLIENT_EMAIL,
-            private_key: process.env.PRIVATE_KEY,
-        },
-    });
-
-    const bucket = storage.bucket(process.env.BUCKET_NAME as string);
-    const file = bucket.file(getFileName(id.toString(), itemIndex, filetype));
+    const file = googleStorage.file(
+        getFileName(id.toString(), itemIndex, filetype)
+    );
     const options: GenerateSignedPostPolicyV4Options = {
         expires: Date.now() + 60 * 1000, // 1 minute
         conditions: [

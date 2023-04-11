@@ -1,6 +1,5 @@
-import { getFileName } from '@/utils/server/getFileName';
+import { googleStorage } from '@/lib/googleStorage';
 import { handleUploadQuery } from '@/utils/server/handleUploadQuery';
-import { Storage } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -10,16 +9,7 @@ export async function POST(request: NextRequest) {
     if (filename === undefined)
         return new NextResponse('No filename provided', { status: 400 });
 
-    const storage = new Storage({
-        projectId: process.env.PROJECT_ID,
-        credentials: {
-            client_email: process.env.CLIENT_EMAIL,
-            private_key: process.env.PRIVATE_KEY,
-        },
-    });
-
-    const bucket = storage.bucket(process.env.BUCKET_NAME as string);
-    const file = bucket.file(filename);
+    const file = googleStorage.file(filename);
 
     if (!(await file.exists()))
         return new NextResponse('File does not exist', { status: 400 });
@@ -34,7 +24,7 @@ export async function POST(request: NextRequest) {
             parts[parts.length - 1] === ''
                 ? parts[parts.length - 2]
                 : parts[parts.length - 1];
-        bucket.file(filename).delete();
+        googleStorage.file(filename).delete();
     }
 
     item.image = file.publicUrl();
