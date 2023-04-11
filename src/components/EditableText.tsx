@@ -1,11 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import { AutoResizableTextarea } from './AutoResizableTextarea';
 
-export type EditableTextProps = {
+export type HTMLTextField = HTMLInputElement & HTMLTextAreaElement;
+
+export interface EditableTextProps {
     textarea?: boolean;
     className?: string;
-    placeholder?: string;
     defaultValue?: string;
+    onInput?: (event: React.FormEvent<HTMLTextField>) => void;
     /**
      * The URL to fetch to update the value
      * @example '/api/category/1'
@@ -26,43 +28,32 @@ export type EditableTextProps = {
      * @default 'text'
      */
     type?: string;
-    /**
-     * The id of the input field. Mainly for label htmlfor.
-     */
-    id?: string;
-};
+    props?: React.HTMLAttributes<HTMLTextField>;
+}
 
 export function EditableText({
     textarea,
     className,
-    placeholder,
     defaultValue,
     fetchUrl,
     valueName,
     shouldUpdateMainPage = true,
     type = 'text',
-    id,
+    ...props
 }: EditableTextProps) {
     const defaultRef = useRef(defaultValue);
-    const fieldRef = useRef(null);
+    const fieldRef = useRef<HTMLTextField>(null);
     const [loading, setLoading] = useState(false);
 
     function reset() {
         if (!fieldRef.current) return;
-        (textarea
-            ? (fieldRef.current as HTMLTextAreaElement)
-            : (fieldRef.current as HTMLInputElement)
-        ).value = defaultRef.current ?? '';
+        fieldRef.current.value = defaultRef.current ?? '';
     }
 
     const updateCategory = () => {
         if (!fieldRef.current) return;
 
-        const newValue = (
-            textarea
-                ? (fieldRef.current as HTMLTextAreaElement)
-                : (fieldRef.current as HTMLInputElement)
-        ).value.trim();
+        const newValue = fieldRef.current.value.trim();
 
         if (newValue === '') {
             reset();
@@ -88,10 +79,8 @@ export function EditableText({
 
     const staticProps = useMemo(() => {
         return {
-            id: id,
             ref: fieldRef,
             type: type,
-            placeholder: placeholder,
             defaultValue: defaultValue,
             onBlur: () => updateCategory(),
             onKeyUp: (e: React.KeyboardEvent) => {
@@ -100,6 +89,7 @@ export function EditableText({
                     updateCategory();
                 }
             },
+            ...props,
         };
     }, []);
 
