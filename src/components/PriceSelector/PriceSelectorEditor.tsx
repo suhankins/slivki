@@ -37,9 +37,10 @@ export function PriceSelectorEditor({
                             disabled={loading}
                             setLoading={setLoading}
                             defaultValue={size.trim()}
-                            className="w-12 bg-transparent p-0 text-center uppercase"
+                            className="input-ghost input invisible absolute -top-14 w-32 text-center group-[&.btn-active]:visible"
                             fetchUrl={`/api/category/${categoryId}/${itemIndex}/sizes/${index}`}
                         />
+                        {size}
                     </button>
                 ))}
                 {(sizes === undefined || sizes?.length < 3) && (
