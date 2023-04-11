@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { PriceSelector } from './PriceSelector';
 import { EditableText } from '../EditableText';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 export interface PriceSelectorEdtiorProps {
     categoryId: string;
@@ -21,33 +21,48 @@ export function PriceSelectorEditor({
     const [loading, setLoading] = useState(false);
 
     return (
-        <PriceSelector>
+        <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
             <div className="btn-group">
                 {sizes?.map((size, index) => (
                     <button
                         disabled={loading}
                         type="button"
-                        className={`btn-secondary btn ${
+                        className={`group btn-secondary btn relative ${
                             selectedSize === index && 'btn-active'
                         }`}
                         key={index}
                         onClick={() => setSelectedSize(index)}
                     >
-                        {size}
+                        <EditableText
+                            disabled={loading}
+                            setLoading={setLoading}
+                            defaultValue={size.trim()}
+                            className="w-12 bg-transparent p-0 text-center uppercase"
+                            fetchUrl={`/api/category/${categoryId}/${itemIndex}/sizes/${index}`}
+                        />
                     </button>
                 ))}
+                {(sizes === undefined || sizes?.length < 3) && (
+                    <button // TODO: Add a new size
+                        disabled={loading}
+                        type="button"
+                        className={`btn-accent btn-square btn`}
+                    >
+                        <PlusIcon className="h-6 w-6" />
+                    </button>
+                )}
             </div>
-            <p className="w-16 py-4 text-center text-3xl font-bold">
+            <p className="flex w-16 flex-nowrap items-center py-4 text-center text-3xl font-bold">
                 <EditableText
                     disabled={loading}
                     setLoading={setLoading}
                     defaultValue={prices[selectedSize].toString()}
                     type="number"
-                    className="input-ghost input inline-block w-10 rounded px-0 py-1 text-center text-3xl font-bold"
+                    className="input-ghost input w-10 rounded px-0 py-1 text-right text-3xl font-bold focus:text-center"
                     fetchUrl={`/api/category/${categoryId}/${itemIndex}/price/${selectedSize}`}
                 />
-                <span className="inline">&#8382;</span>
+                <span>&#8382;</span>
             </p>
-        </PriceSelector>
+        </div>
     );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { PriceSelector } from './PriceSelector';
 
 export interface PriceSelectorViewerProps {
     sizes?: string[];
@@ -15,7 +14,7 @@ export function PriceSelectorViewer({
     const [selectedSize, setSelectedSize] = useState(0);
 
     return (
-        <PriceSelector>
+        <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
             <div className="btn-group">
                 {sizes?.map((size, index) => (
                     <button
@@ -33,6 +32,6 @@ export function PriceSelectorViewer({
             <p className="w-16 py-4 text-center text-3xl font-bold">
                 {prices[selectedSize]}&#8382;
             </p>
-        </PriceSelector>
+        </div>
     );
 }

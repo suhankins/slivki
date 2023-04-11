@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .skeleton {
-    @apply animate-pulse bg-primary; 
+    @apply animate-pulse bg-primary;
 }
 
 @mixin vertical-list {
@@ -15,7 +15,24 @@
     @apply gap-4;
 }
 
-.vertical-list-lg {
-    @include vertical-list;
-    @apply gap-8;
+// This removes the default arrows from number inputs
+@layer base {
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number'] {
+        -webkit-appearance: none;
+        margin: 0;
+        -moz-appearance: textfield !important;
+        appearance: none;
+    }
+}
+
+// This is needed so that last button has rounded corners even if there is something after it
+.btn-group {
+    .btn:last-of-type:not(:first-of-type) {
+        border-top-left-radius: 0;
+        border-top-right-radius: var(--rounded-btn, 0.5rem);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: var(--rounded-btn, 0.5rem);
+    }
 }
