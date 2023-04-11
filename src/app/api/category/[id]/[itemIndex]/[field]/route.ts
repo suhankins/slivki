@@ -17,11 +17,9 @@ export async function DELETE(
 
     const category = await findCategory(id);
     if (category instanceof NextResponse) return category;
-
     if (category.items === undefined || category.items.length === 0)
         return new NextResponse('No items in category', { status: 400 });
-
-    if (isNaN(itemIndex) || itemIndex < 0 || itemIndex >= category.items.length)
+    if (!(itemIndex in category.items))
         return new NextResponse('Invalid item index', { status: 400 });
 
     const image = category.items[itemIndex].image;
@@ -50,13 +48,11 @@ export async function PUT(
         params: { id, itemIndex, field },
     }: { params: { id: string; itemIndex: number; field: string } }
 ) {
-    if (!(field in ItemClass))
+    if (!ItemClass.fields.includes(field))
         return new NextResponse('Invalid field', { status: 400 });
     const key = field as keyof ItemClass;
-
     const result = await getBodyAndCategory(request, id);
     if (result instanceof NextResponse) return result;
-
     const [body, category] = result;
 
     if (body.value === undefined)

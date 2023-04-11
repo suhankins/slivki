@@ -7,6 +7,8 @@ import '@/lib/mongodb'; // Importing library to connect to MongoDB
     },
 })
 export class ItemClass {
+    static readonly fields = ['name', 'description', 'sizes', 'price', 'image'];
+
     @prop({ required: [true, 'English name is required!'] })
     public name!: string;
 
