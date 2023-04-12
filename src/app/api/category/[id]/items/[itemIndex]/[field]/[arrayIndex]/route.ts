@@ -1,9 +1,9 @@
 import { ItemClass } from '@/models/Item';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../../../getBodyAndCategory';
+import { getBodyAndCategory } from '../../../../getBodyAndCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 
-export async function PUT(
+export async function PATCH(
     request: NextRequest,
     {
         params: { id, itemIndex, field, arrayIndex },

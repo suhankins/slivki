@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../../getBodyAndCategory';
+import { getBodyAndCategory } from '../../../getBodyAndCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { ItemClass } from '@/models/Item';
 import { findCategory } from '@/utils/server/findCategory';
@@ -42,7 +42,7 @@ export async function DELETE(
     return new NextResponse(`${field} successfully updated`, { status: 200 });
 }
 
-export async function PUT(
+export async function PATCH(
     request: NextRequest,
     {
         params: { id, itemIndex, field },

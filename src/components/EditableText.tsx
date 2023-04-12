@@ -77,7 +77,7 @@ export function EditableText({
                 setLoading(true);
                 const result = await fetch(fetchUrl, {
                     body: JSON.stringify({ [valueName]: newValue }),
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                 });
                 if (result.status === 200) {

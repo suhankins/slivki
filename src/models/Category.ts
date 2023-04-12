@@ -44,6 +44,8 @@ export class CategoryClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
     public id!: string;
 
+    public static fields = ['name', 'index', 'items'];
+
     @prop({ required: [true, 'English name is required!'], minlength: 1 })
     public name!: string;
 

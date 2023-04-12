@@ -1,5 +1,5 @@
 export async function newCategory() {
-    const result = await fetch(`/api/category/new`, {
+    const result = await fetch(`/api/category/`, {
         method: 'POST',
         body: JSON.stringify({
             name: 'New Category',

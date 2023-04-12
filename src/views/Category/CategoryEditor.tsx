@@ -10,8 +10,7 @@ export function CategoryEditor({ category }: { category: SimpleCategory }) {
             title={
                 <EditableText
                     defaultValue={category.name}
-                    valueName="name"
-                    fetchUrl={`/api/category/${category._id}/`}
+                    fetchUrl={`/api/category/${category._id}/name`}
                     className="input-ghost input text-center text-xl font-bold"
                     placeholder="Category name"
                 />

@@ -5,7 +5,7 @@ import { getBodyAndCategory } from './getBodyAndCategory';
 /**
  * Update category (for changing name and index)
  */
-export async function PUT(
+export async function PATCH(
     request: NextRequest,
     { params: { id } }: { params: { id: string } }
 ) {

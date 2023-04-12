@@ -24,7 +24,7 @@ export function ItemEditor({
             }
             title={
                 <EditableText
-                    fetchUrl={`/api/category/${categoryId}/${itemIndex}/name`}
+                    fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/name`}
                     placeholder="Title"
                     defaultValue={item.name}
                     textarea={true}
@@ -33,7 +33,7 @@ export function ItemEditor({
             }
             description={
                 <EditableText
-                    fetchUrl={`/api/category/${categoryId}/${itemIndex}/description`}
+                    fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/description`}
                     placeholder="Description"
                     defaultValue={item.description}
                     textarea={true}

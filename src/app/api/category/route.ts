@@ -1,5 +1,6 @@
 import { CategoryModel } from '@/models/Category';
-import { NextResponse } from 'next/server';
+import { handleDbError } from '@/utils/server/handleDbError';
+import { NextRequest, NextResponse } from 'next/server';
 
 // I'm honestly surprised API routes can even be static
 export const revalidate = 0;
@@ -14,4 +15,14 @@ export async function GET() {
     );
     response.headers.set('Content-Type', 'application/json');
     return response;
+}
+
+export async function POST(request: NextRequest) {
+    try {
+        const body = await request.json();
+        await CategoryModel.create(body);
+    } catch (e) {
+        return handleDbError(e);
+    }
+    return new NextResponse('Category successfully created', { status: 201 });
 }

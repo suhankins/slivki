@@ -38,7 +38,7 @@ export function PriceSelectorEditor({
                             setLoading={setLoading}
                             defaultValue={size.trim()}
                             className="input invisible absolute -top-14 w-32 text-center group-hover:visible group-focus:visible group-active:visible"
-                            fetchUrl={`/api/category/${categoryId}/${itemIndex}/sizes/${index}`}
+                            fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/sizes/${index}`}
                         />
                         {size}
                     </button>
@@ -60,7 +60,7 @@ export function PriceSelectorEditor({
                     defaultValue={prices[selectedSize].toString()}
                     type="number"
                     className="input-ghost input w-10 rounded px-0 py-1 text-right text-3xl font-bold focus:text-center"
-                    fetchUrl={`/api/category/${categoryId}/${itemIndex}/price/${selectedSize}`}
+                    fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/price/${selectedSize}`}
                 />
                 <span>&#8382; {/* Georgian lari symbol */}</span>
             </p>
