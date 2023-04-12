@@ -18,6 +18,7 @@ export type HTMLTextFieldAttributes =
 export interface EditableTextProps extends HTMLTextFieldAttributes {
     textarea?: boolean;
     className?: string;
+    disabled?: boolean;
     defaultValue?: string;
     setLoading?: Dispatch<SetStateAction<boolean>>;
     /**
@@ -51,6 +52,7 @@ export function EditableText({
     shouldUpdateMainPage = true,
     type = 'text',
     setLoading: setOutsideLoading,
+    disabled,
     ...props
 }: EditableTextProps) {
     const fieldRef = useRef<HTMLTextField>(null);
@@ -89,7 +91,7 @@ export function EditableText({
                 setLoading(false);
             }
         },
-        [fetchUrl, valueName, shouldUpdateMainPage]
+        [fetchUrl, valueName, shouldUpdateMainPage, defaultValue]
     );
 
     const staticProps = useMemo(() => {
@@ -104,10 +106,10 @@ export function EditableText({
     const dynamicProps = useMemo(() => {
         return {
             className: `${className ?? ''} ${loading && 'skeleton'}`,
-            disabled: loading,
+            disabled: loading || disabled,
             'aria-busy': loading,
         };
-    }, [loading, className]);
+    }, [loading, className, disabled]);
 
     const handlers = useMemo(() => {
         return {
