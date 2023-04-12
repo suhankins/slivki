@@ -57,5 +57,7 @@ export async function PUT(
         return handleDbError(e);
     }
 
-    return new NextResponse('Update successful', { status: 200 });
+    return new NextResponse(`Field ${key} successfully updated`, {
+        status: 200,
+    });
 }
