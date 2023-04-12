@@ -7,6 +7,9 @@ import { googleStorage } from '@/lib/googleStorage';
 
 type pathParams = { params: { id: string; itemIndex: number; field: string } };
 
+/**
+ * Meant for deleting fields of items (e.g. image)
+ */
 export async function DELETE(
     _request: NextRequest,
     { params: { id, itemIndex, field } }: pathParams
@@ -19,10 +22,11 @@ export async function DELETE(
     if (category instanceof NextResponse) return category;
     if (category.items === undefined || category.items.length === 0)
         return new NextResponse('No items in category', { status: 400 });
-    if (!(itemIndex in category.items))
+    const item = category.items[itemIndex];
+    if (item === undefined)
         return new NextResponse('Invalid item index', { status: 400 });
 
-    const image = category.items[itemIndex].image;
+    const image = item.image;
     if (image === undefined)
         return new NextResponse('No image to delete', { status: 400 });
     const parts = image.split('/');
@@ -32,7 +36,7 @@ export async function DELETE(
             : parts[parts.length - 1];
 
     try {
-        category.items[itemIndex].image = undefined;
+        item.image = undefined;
         await category.save();
         googleStorage.file(filename).delete();
     } catch (e) {
@@ -42,6 +46,9 @@ export async function DELETE(
     return new NextResponse(`${field} successfully updated`, { status: 200 });
 }
 
+/**
+ * Meant for updating fields of items (e.g. name, description)
+ */
 export async function PATCH(
     request: NextRequest,
     { params: { id, itemIndex, field } }: pathParams
@@ -59,18 +66,56 @@ export async function PATCH(
     if (category.items === undefined || category.items.length === 0)
         return new NextResponse('No items in category', { status: 400 });
 
-    if (isNaN(itemIndex) || itemIndex < 0 || itemIndex >= category.items.length)
+    const item = category.items[itemIndex];
+    if (item === undefined)
         return new NextResponse('Invalid item index', { status: 400 });
 
     try {
-        const item = category.items[itemIndex];
-
         item[key] = body.value ?? item[key];
         await category.save();
     } catch (e) {
         return handleDbError(e);
     }
     return new NextResponse(`Field ${key} successfully updated`, {
+        status: 200,
+    });
+}
+
+/**
+ * Meant for adding new items to arrays (e.g. sizes)
+ */
+export async function POST(
+    request: NextRequest,
+    { params: { id, itemIndex, field } }: pathParams
+) {
+    // Currently, this function is only meant for adding another item to sizes
+    if (field !== 'sizes')
+        return new NextResponse('Invalid field', { status: 400 });
+    const result = await getBodyAndCategory(request, id);
+    if (result instanceof NextResponse) return result;
+    const [body, category] = result;
+
+    if (body.value === undefined)
+        return new NextResponse('No value provided', { status: 400 });
+
+    if (category.items === undefined || category.items.length === 0)
+        return new NextResponse('No items in category', { status: 400 });
+
+    const item = category.items[itemIndex];
+    if (item === undefined)
+        return new NextResponse('Invalid item index', { status: 400 });
+
+    // TODO: perhaps support other fields?
+    if (item.sizes === undefined) item.sizes = [];
+    item.sizes.push(body.value);
+    if (item.sizes.length !== 1) item.price.push(0); // By default first size always has a price, so only future sizes need it to be added
+
+    try {
+        await category.save();
+    } catch (e) {
+        return handleDbError(e);
+    }
+    return new NextResponse(`Successfully added another item to ${field}`, {
         status: 200,
     });
 }

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { EditableText } from '../EditableText';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { mutate } from 'swr';
 
 export interface PriceSelectorEdtiorProps {
     categoryId: string;
@@ -19,6 +20,27 @@ export function PriceSelectorEditor({
 }: PriceSelectorEdtiorProps) {
     const [selectedSize, setSelectedSize] = useState(0);
     const [loading, setLoading] = useState(false);
+
+    const addNewSize = useMemo(
+        () => async () => {
+            setLoading(true);
+            const result = await fetch(
+                `/api/category/${categoryId}/items/${itemIndex}/sizes`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ value: 'size' }),
+                }
+            );
+            if (result.status === 200) {
+                await mutate('/api/category');
+            } else {
+                // TODO: Add error toasts
+                console.error(await result.text());
+            }
+            setLoading(false);
+        },
+        []
+    );
 
     return (
         <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
@@ -44,10 +66,11 @@ export function PriceSelectorEditor({
                     </button>
                 ))}
                 {(sizes === undefined || sizes?.length < 3) && (
-                    <button // TODO: Add a new size
+                    <button
+                        onClick={addNewSize}
                         disabled={loading}
                         type="button"
-                        className={`btn-accent btn-square btn`}
+                        className="btn-accent btn-square btn"
                     >
                         <PlusIcon className="h-6 w-6" />
                     </button>
