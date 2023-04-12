@@ -64,7 +64,7 @@ export function EditableText({
     }
 
     const updateCategory = useMemo(
-        () => () => {
+        () => async () => {
             if (!fieldRef.current) return;
 
             const newValue = fieldRef.current.value.trim();
@@ -75,19 +75,18 @@ export function EditableText({
             }
             if (newValue !== defaultValue) {
                 setLoading(true);
-                fetch(fetchUrl, {
+                const result = await fetch(fetchUrl, {
                     body: JSON.stringify({ [valueName]: newValue }),
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                }).then(async (res) => {
-                    if (res.status === 200) {
-                        if (shouldUpdateMainPage) fetch('/api/revalidate');
-                        await mutate('/api/category');
-                    } else {
-                        reset();
-                    }
-                    setLoading(false);
                 });
+                if (result.status === 200) {
+                    if (shouldUpdateMainPage) fetch('/api/revalidate');
+                    await mutate('/api/category');
+                } else {
+                    reset();
+                }
+                setLoading(false);
             }
         },
         [fetchUrl, valueName, shouldUpdateMainPage]
