@@ -1,6 +1,6 @@
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../getBodyAndCategory';
+import { getBodyAndCategory } from '@/utils/server/getBodyAndCategory';
 
 export async function POST(
     request: NextRequest,

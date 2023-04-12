@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../../../getBodyAndCategory';
+import { getBodyAndCategory } from '@/utils/server/getBodyAndCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { ItemClass } from '@/models/Item';
 import { findCategory } from '@/utils/server/findCategory';
 import { googleStorage } from '@/lib/googleStorage';
 
+type pathParams = { params: { id: string; itemIndex: number; field: string } };
+
 export async function DELETE(
     _request: NextRequest,
-    {
-        params: { id, itemIndex, field },
-    }: { params: { id: string; itemIndex: number; field: string } }
+    { params: { id, itemIndex, field } }: pathParams
 ) {
     // Currently, this function is only meant for deleting images
     if (field !== 'image')
@@ -44,9 +44,7 @@ export async function DELETE(
 
 export async function PATCH(
     request: NextRequest,
-    {
-        params: { id, itemIndex, field },
-    }: { params: { id: string; itemIndex: number; field: string } }
+    { params: { id, itemIndex, field } }: pathParams
 ) {
     if (!ItemClass.fields.includes(field))
         return new NextResponse('Invalid field', { status: 400 });

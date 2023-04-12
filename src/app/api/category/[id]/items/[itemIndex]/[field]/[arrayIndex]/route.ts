@@ -1,6 +1,6 @@
 import { ItemClass } from '@/models/Item';
 import { NextRequest, NextResponse } from 'next/server';
-import { getBodyAndCategory } from '../../../../getBodyAndCategory';
+import { getBodyAndCategory } from '@/utils/server/getBodyAndCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 
 export async function PATCH(
