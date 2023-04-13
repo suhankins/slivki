@@ -1,10 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { mutate } from 'swr';
 
-export function DeleteButton({ fetchUrl }: { fetchUrl: string }) {
+export function DeleteButton({
+    fetchUrl,
+    className,
+    ...props
+}: {
+    fetchUrl: string;
+    className?: string;
+    props?: HTMLAttributes<HTMLButtonElement>;
+}) {
     const [loading, setLoading] = useState(false);
     const handleDelete = async () => {
         setLoading(true);
@@ -17,10 +25,12 @@ export function DeleteButton({ fetchUrl }: { fetchUrl: string }) {
 
     return (
         <button
-            className={`btn-error btn-square btn ${loading && 'loading'}`}
-            aria-label="Delete image"
+            className={`btn-error btn-square btn ${
+                loading && 'loading'
+            } ${className}`}
             onClick={handleDelete}
             disabled={loading}
+            {...props}
         >
             <TrashIcon className="h-6 w-6" />
         </button>

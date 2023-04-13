@@ -23,6 +23,7 @@ export function EditableImage({
                             categoryId={categoryId}
                         />
                         <DeleteButton
+                            aria-label="Delete image"
                             fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/image`}
                         />
                     </div>
