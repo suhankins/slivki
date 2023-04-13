@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { EditableText } from '../EditableText';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { mutate } from 'swr';
+import { DeleteButton } from '../DeleteButton';
 
 export interface PriceSelectorEdtiorProps {
     categoryId: string;
@@ -44,26 +45,44 @@ export function PriceSelectorEditor({
 
     return (
         <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
-            <div className="btn-group">
+            <div className="flex">
                 {sizes?.map((size, index) => (
-                    <button
-                        disabled={loading}
-                        type="button"
-                        className={`group btn-secondary btn relative ${
-                            selectedSize === index && !loading && 'btn-active'
-                        }`}
-                        key={index}
-                        onClick={() => setSelectedSize(index)}
-                    >
-                        <EditableText
+                    <div className="group relative" key={index}>
+                        <button
                             disabled={loading}
-                            setLoading={setLoading}
-                            defaultValue={size.trim()}
-                            className="input invisible absolute -top-14 w-32 text-center group-hover:visible group-focus:visible group-active:visible"
-                            fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/sizes/${index}`}
-                        />
-                        {size}
-                    </button>
+                            type="button"
+                            className={`btn ${
+                                (sizes.length === 1 && 'rounded-full') ||
+                                (index === 0 && 'rounded-l-full') ||
+                                (index === sizes.length - 1 &&
+                                    'rounded-r-full') ||
+                                'rounded-none'
+                            } ${
+                                (selectedSize === index &&
+                                    'btn-primary btn-active') ||
+                                'btn-secondary'
+                            }`}
+                            onClick={() => setSelectedSize(index)}
+                        >
+                            {size}
+                        </button>
+                        <div className="absolute -top-14 -left-8 flex">
+                            <EditableText
+                                aria-label="Edit size"
+                                disabled={loading}
+                                setLoading={setLoading}
+                                defaultValue={size.trim()}
+                                fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/sizes/${index}`}
+                                className="input-bordered input invisible w-24 text-center group-hover:visible group-focus:visible group-active:visible"
+                            />
+                            <DeleteButton
+                                setLoading={setLoading}
+                                aria-label="Delete size"
+                                fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/sizes/${index}`}
+                                className="invisible group-hover:visible group-focus:visible group-active:visible"
+                            />
+                        </div>
+                    </div>
                 ))}
                 {(sizes === undefined || sizes?.length < 3) && (
                     <button
