@@ -1,4 +1,4 @@
-import { DeleteButton } from './DeleteButton';
+import { DeleteButton } from '../DeleteButton';
 import { ImageView } from './ImageView';
 import { UploadButton } from './UploadButton';
 
@@ -23,8 +23,7 @@ export function EditableImage({
                             categoryId={categoryId}
                         />
                         <DeleteButton
-                            itemIndex={itemIndex}
-                            categoryId={categoryId}
+                            fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/image`}
                         />
                     </div>
 
