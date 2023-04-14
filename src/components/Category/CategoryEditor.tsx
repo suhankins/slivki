@@ -4,6 +4,7 @@ import { EditableText } from '@/components/EditableText';
 import { Category } from './Category';
 import { NewItem } from '../Item/NewItem';
 import { DeleteButton } from '../DeleteButton';
+import { EllipsisMenu } from '../EllipsisMenu';
 
 export function CategoryEditor({
     category,
@@ -23,7 +24,13 @@ export function CategoryEditor({
                         className="input-bordered input w-48 text-center text-xl font-bold xs:w-64"
                         placeholder="Category name"
                     />
-                    <DeleteButton fetchUrl={`/api/category/${category._id}`} />
+                    <EllipsisMenu>
+                        <li>
+                            <DeleteButton
+                                fetchUrl={`/api/category/${category._id}`}
+                            />
+                        </li>
+                    </EllipsisMenu>
                 </>
             }
         >
