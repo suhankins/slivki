@@ -5,12 +5,19 @@ import { Category } from './Category';
 import { NewItem } from '../Item/NewItem';
 import { DeleteButton } from '../DeleteButton';
 
-export function CategoryEditor({ category }: { category: SimpleCategory }) {
+export function CategoryEditor({
+    category,
+    id,
+}: {
+    category: SimpleCategory;
+    id?: string;
+}) {
     return (
         <Category
             title={
                 <>
                     <EditableText
+                        id={id}
                         defaultValue={category.name}
                         fetchUrl={`/api/category/${category._id}/name`}
                         className="input-bordered input w-48 text-center text-xl font-bold xs:w-64"

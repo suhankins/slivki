@@ -57,8 +57,9 @@ export default function AdminPage() {
                         <span>Reload the page or call the programmer</span>
                     </div>
                 )}
-                {data?.map((category) => (
+                {data?.map((category, index) => (
                     <CategoryEditor
+                        id={getCategoryElementId(category.name, index)}
                         category={category}
                         key={category._id.toString()}
                     />
