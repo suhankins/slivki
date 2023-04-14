@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
         return new NextResponse('No items found', { status: 400 });
 
     const item = model.items[itemIndex];
-    if (item.image !== undefined) {
+    if (item.image !== undefined && item.image !== '' && item.image !== null) {
         const parts = item.image.split('/');
         const filename =
             parts[parts.length - 1] === ''
