@@ -3,6 +3,7 @@ export interface ItemParams {
     title: React.ReactNode;
     description?: React.ReactNode;
     priceSelector: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export function Item({
@@ -10,9 +11,11 @@ export function Item({
     title,
     description,
     priceSelector,
+    children,
 }: ItemParams) {
     return (
         <article className="relative grid min-h-[9rem] w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
+            {children}
             {picture}
             <header className="flex flex-col gap-4">
                 {title}

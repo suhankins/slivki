@@ -3,6 +3,9 @@ import { Item } from './Item';
 import { EditableImage } from '@/components/Image/EditableImage';
 import { ItemClass } from '@/models/Item';
 import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEditor';
+import { DeleteButton } from '@/components/DeleteButton';
+import { UploadButton } from '@/components/Image/UploadButton';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
 export function ItemEditor({
     item,
@@ -19,7 +22,7 @@ export function ItemEditor({
                 <EditableImage
                     categoryId={categoryId}
                     itemIndex={itemIndex}
-                    picture={item.image}
+                    image={item.image}
                 />
             }
             title={
@@ -48,6 +51,29 @@ export function ItemEditor({
                     prices={item.price}
                 />
             }
-        />
+        >
+            <div className="dropdown-end dropdown absolute top-0 right-0">
+                <label tabIndex={0} className="btn-ghost btn w-min">
+                    <EllipsisVerticalIcon className="absolute h-6 w-6" />
+                </label>
+                <ul className="dropdown-content menu rounded-box gap-1 bg-base-100 p-2 shadow">
+                    {!item.image && (
+                        <li>
+                            <UploadButton
+                                itemIndex={itemIndex}
+                                categoryId={categoryId}
+                            />
+                        </li>
+                    )}
+                    <li>
+                        <DeleteButton
+                            aria-label="Delete item"
+                            className="btn-square"
+                            fetchUrl={`/api/category/${categoryId}/items/${itemIndex}`}
+                        />
+                    </li>
+                </ul>
+            </div>
+        </Item>
     );
 }

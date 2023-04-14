@@ -3,19 +3,19 @@ import { ImageView } from './ImageView';
 import { UploadButton } from './UploadButton';
 
 export interface EditableImageProps {
-    picture?: string;
+    image?: string;
     itemIndex: number;
     categoryId: string;
 }
 
 export function EditableImage({
-    picture,
+    image,
     itemIndex,
     categoryId,
 }: EditableImageProps) {
     return (
         <>
-            {picture ? (
+            {image && (
                 <figure className="group relative sm:row-span-2">
                     <div className="invisible absolute right-1 top-1 flex gap-1 group-hover:visible">
                         <UploadButton
@@ -27,15 +27,8 @@ export function EditableImage({
                             fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/image`}
                         />
                     </div>
-
-                    <ImageView src={picture} />
+                    <ImageView src={image} />
                 </figure>
-            ) : (
-                <UploadButton
-                    className="absolute right-4 top-4"
-                    itemIndex={itemIndex}
-                    categoryId={categoryId}
-                />
             )}
         </>
     );
