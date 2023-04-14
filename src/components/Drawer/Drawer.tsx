@@ -54,7 +54,7 @@ export function Drawer({
                     </Link>
                     {navbarElements}
                 </nav>
-                <div className="max-w-screen-lg p-4">{children}</div>
+                <div className="w-full max-w-screen-lg p-4">{children}</div>
             </div>
             <aside className="drawer-side" aria-label="Table of contents">
                 <label
