@@ -1,4 +1,4 @@
-import { CategorySkeleton } from '@/views/Category/CategorySkeleton';
+import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
 
 export default function Loading() {
     return (

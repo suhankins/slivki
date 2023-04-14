@@ -4,11 +4,11 @@ import { Drawer } from '@/components/Drawer/Drawer';
 import { Logout } from '@/components/Logout';
 import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
-import { CategoryEditor } from '@/views/Category/CategoryEditor';
-import { CategorySkeleton } from '@/views/Category/CategorySkeleton';
+import { CategoryEditor } from '@/components/Category/CategoryEditor';
+import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
 import { useId } from 'react';
 import useSwr, { preload } from 'swr';
-import { NewCategory } from '@/views/Category/NewCategory';
+import { NewCategory } from '@/components/Category/NewCategory';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

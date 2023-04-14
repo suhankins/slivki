@@ -1,7 +1,7 @@
 import { Drawer } from '@/components/Drawer/Drawer';
 import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { CategoryModel, SimpleCategory } from '@/models/Category';
-import { CategoryViewer } from '@/views/Category/CategoryViewer';
+import { CategoryViewer } from '@/components/Category/CategoryViewer';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
