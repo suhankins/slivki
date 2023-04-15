@@ -8,8 +8,6 @@ export async function PATCH(
     { params: { id } }: { params: { id: string } }
 ) {
     const direction = request.nextUrl.searchParams.get('direction');
-    if (direction === null)
-        return new NextResponse('No direction specified', { status: 400 });
     if (direction !== 'up' && direction !== 'down')
         return new NextResponse('Invalid direction specified', { status: 400 });
     const category = await findCategory(id);
