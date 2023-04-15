@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { EditableText } from '../EditableText';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { mutate } from 'swr';
-import { DeleteButton } from '../DeleteButton';
+import { DeleteButton } from '../buttons/DeleteButton';
 
 export interface PriceSelectorEdtiorProps {
     categoryId: string;

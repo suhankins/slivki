@@ -50,10 +50,9 @@ export class CategoryClass implements defaultClasses.Base {
     public name!: string;
 
     /**
-     * Index of the category in the list of categories,
-     * i.e. coffee is displayed first, then tea, etc.
+     * More like priority actually. Higher index means higher priority, so it's on the top of the screen. Bottom is always 0.
      */
-    @prop()
+    @prop({ default: 0 })
     public index?: number;
 
     @prop({ type: () => [ItemClass], default: [] }, PropType.ARRAY)

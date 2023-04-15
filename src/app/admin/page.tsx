@@ -9,6 +9,7 @@ import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
 import { useId } from 'react';
 import useSwr, { preload } from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
+import { Position, getPosition } from '@/utils/client/Position';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -57,13 +58,16 @@ export default function AdminPage() {
                         <span>Reload the page or call the programmer</span>
                     </div>
                 )}
-                {data?.map((category, index) => (
-                    <CategoryEditor
-                        id={getCategoryElementId(category.name, index)}
-                        category={category}
-                        key={category._id.toString()}
-                    />
-                ))}
+                {data
+                    ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
+                    .map((category, index) => (
+                        <CategoryEditor
+                            id={getCategoryElementId(category.name, index)}
+                            position={getPosition(index, data.length)}
+                            category={category}
+                            key={category._id.toString()}
+                        />
+                    ))}
                 {data && <NewCategory />}
                 <div className="divider" />
                 <h1 className="text-2xl font-bold" id={accountHeaderId}>

@@ -3,8 +3,8 @@ import { Item } from './Item';
 import { EditableImage } from '@/components/Image/EditableImage';
 import { ItemClass } from '@/models/Item';
 import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEditor';
-import { DeleteButton } from '@/components/DeleteButton';
-import { UploadButton } from '@/components/Image/UploadButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
+import { UploadButton } from '@/components/buttons/UploadButton';
 import { EllipsisMenu } from '../EllipsisMenu';
 
 export function ItemEditor({

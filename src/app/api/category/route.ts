@@ -20,7 +20,13 @@ export async function GET() {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        await CategoryModel.create(body);
+        const category = await CategoryModel.create(body);
+
+        // Moving everything up by 1
+        await CategoryModel.updateMany(
+            { _id: { $ne: category._id } },
+            { $inc: { index: 1 } }
+        ).exec();
     } catch (e) {
         return handleDbError(e);
     }

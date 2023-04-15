@@ -24,13 +24,15 @@ export default async function Home() {
             })}
         >
             <main className="vertical-list w-full">
-                {categories.map((category, index) => (
-                    <CategoryViewer
-                        id={getCategoryElementId(category.name, index)}
-                        key={index}
-                        category={category}
-                    />
-                ))}
+                {categories
+                    ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
+                    .map((category, index) => (
+                        <CategoryViewer
+                            id={getCategoryElementId(category.name, index)}
+                            key={index}
+                            category={category}
+                        />
+                    ))}
             </main>
         </Drawer>
     );
