@@ -31,6 +31,7 @@ export function MoveButton({
             method: 'PATCH',
         });
         if (result.status === 200) {
+            fetch('/api/revalidate');
             await mutate('/api/category');
         } else {
             // TODO: Add toasts for errors
