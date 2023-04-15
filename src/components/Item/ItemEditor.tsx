@@ -6,15 +6,19 @@ import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEdi
 import { DeleteButton } from '@/components/buttons/DeleteButton';
 import { UploadButton } from '@/components/buttons/UploadButton';
 import { EllipsisMenu } from '../EllipsisMenu';
+import { Position } from '@/utils/client/Position';
+import { MoveButton } from '../buttons/MoveButton';
 
 export function ItemEditor({
     item,
     categoryId,
     itemIndex,
+    position,
 }: {
     item: ItemClass;
     categoryId: string;
     itemIndex: number;
+    position: Position;
 }) {
     return (
         <Item
@@ -68,6 +72,28 @@ export function ItemEditor({
                         fetchUrl={`/api/category/${categoryId}/items/${itemIndex}`}
                     />
                 </li>
+                {position !== 'alone' && (
+                    <>
+                        {position !== 'first' && (
+                            <li>
+                                <MoveButton
+                                    direction="up"
+                                    categoryId={categoryId}
+                                    itemIndex={itemIndex}
+                                />
+                            </li>
+                        )}
+                        {position !== 'last' && (
+                            <li>
+                                <MoveButton
+                                    direction="down"
+                                    categoryId={categoryId}
+                                    itemIndex={itemIndex}
+                                />
+                            </li>
+                        )}
+                    </>
+                )}
             </EllipsisMenu>
         </Item>
     );

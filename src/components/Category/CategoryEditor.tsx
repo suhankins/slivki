@@ -6,7 +6,7 @@ import { NewItem } from '../Item/NewItem';
 import { DeleteButton } from '../buttons/DeleteButton';
 import { EllipsisMenu } from '../EllipsisMenu';
 import { MoveButton } from '../buttons/MoveButton';
-import { Position } from '@/utils/client/Position';
+import { Position, getPosition } from '@/utils/client/Position';
 
 export function CategoryEditor({
     category,
@@ -59,8 +59,9 @@ export function CategoryEditor({
             }
         >
             {category.items &&
-                category.items.map((item, index) => (
+                category.items.map((item, index, array) => (
                     <ItemEditor
+                        position={getPosition(index, array.length)}
                         itemIndex={index}
                         categoryId={category._id}
                         item={item}

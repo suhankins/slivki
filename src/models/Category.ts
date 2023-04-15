@@ -70,16 +70,6 @@ export class CategoryClass implements defaultClasses.Base {
         this.items?.splice(this.items.indexOf(item), 1);
         await this.save();
     }
-
-    public async repositionItem(
-        this: DocumentType<CategoryClass>,
-        item: ItemClass,
-        index: number
-    ) {
-        this.items?.splice(this.items.indexOf(item), 1);
-        this.items?.splice(index, 0, item);
-        await this.save();
-    }
 }
 
 export const CategoryModel = getModelForClass(CategoryClass);
