@@ -14,8 +14,7 @@ export async function DELETE(
         return new NextResponse('Invalid item index', { status: 400 });
 
     try {
-        category.items.splice(itemIndex, 1);
-        await category.save();
+        await category.removeItem(category.items[itemIndex]);
     } catch (e) {
         return handleDbError(e);
     }
