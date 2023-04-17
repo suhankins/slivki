@@ -1,5 +1,6 @@
 'use client';
 
+import { scrollIdIntoView } from '@/utils/client/scrollIdIntoView';
 import { Header } from './Header';
 
 export interface DrawerLinkProps {
@@ -30,10 +31,7 @@ export function DrawerLink({
                     type="button"
                     className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
                     onClick={() => {
-                        const element = document.getElementById(header.id);
-                        element?.scrollIntoView({
-                            behavior: 'smooth',
-                        });
+                        scrollIdIntoView(header.id);
                         document.getElementById(drawerInputId)?.click();
                     }}
                 >
