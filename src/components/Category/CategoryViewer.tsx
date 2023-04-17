@@ -10,8 +10,9 @@ export interface CategoryProps {
 export function CategoryViewer({ category, id }: CategoryProps) {
     return (
         <Category
+            id={id}
             title={
-                <span className="text-center text-xl font-bold" id={id}>
+                <span className="text-center text-xl font-bold">
                     {category.name}
                 </span>
             }

@@ -47,7 +47,7 @@ export default function AdminPage() {
             name="Slivki Admin Panel"
             headers={headers}
         >
-            <main className="vertical-list w-full">
+            <main className="vertical-list w-full max-w-screen-lg p-4">
                 <h1 className="text-2xl font-bold" id={categoriesHeaderId}>
                     Categories
                 </h1>

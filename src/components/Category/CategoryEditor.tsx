@@ -19,10 +19,10 @@ export function CategoryEditor({
 }) {
     return (
         <Category
+            id={id}
             title={
                 <>
                     <EditableText
-                        id={id}
                         defaultValue={category.name}
                         fetchUrl={`/api/category/${category._id}/name`}
                         className="input-bordered input w-48 text-center text-xl font-bold xs:w-64"

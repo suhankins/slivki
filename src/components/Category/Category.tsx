@@ -4,13 +4,20 @@ export interface CategoryParams {
     title: React.ReactNode;
     children?: React.ReactNode;
     props?: HTMLAttributes<HTMLDivElement>;
+    id?: string;
 }
 
-export function Category({ title, children, props }: CategoryParams) {
+export function Category({ title, children, id, ...props }: CategoryParams) {
     return (
-        <section className="flex w-full flex-col items-center gap-4" {...props}>
-            <h2 className="divider">{title}</h2>
-            {children}
-        </section>
+        <>
+            <section
+                className="flex w-full flex-col items-center gap-4"
+                {...props}
+            >
+                <h2 className="divider">{title}</h2>
+                <div id={id} className="relative -top-32" />
+                {children}
+            </section>
+        </>
     );
 }

@@ -12,6 +12,7 @@ export interface DrawerLinkProps {
      * Depth of the header, used for indentation
      */
     depth?: number;
+    className?: string;
 }
 
 const indent = ['', 'ml-4', 'ml-8']; // We have to spell it out so tailwind detects it
@@ -20,13 +21,14 @@ export function DrawerLink({
     drawerInputId,
     header,
     depth = 0,
+    className,
 }: DrawerLinkProps) {
     return (
         <>
             <li>
                 <button
                     type="button"
-                    className={`btn-ghost btn justify-start ${indent[depth]}`}
+                    className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
                     onClick={() => {
                         const element = document.getElementById(header.id);
                         element?.scrollIntoView({

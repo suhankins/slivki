@@ -17,6 +17,7 @@ export function Drawer({
     headers,
 }: DrawerProps) {
     const drawerInputId = useId();
+    const topId = useId();
     return (
         <div className="drawer">
             <input
@@ -54,7 +55,8 @@ export function Drawer({
                     </Link>
                     {navbarElements}
                 </nav>
-                <div className="w-full max-w-screen-lg p-4">{children}</div>
+                <div id={topId} className="absolute top-0 left-0" />
+                {children}
             </div>
             <aside className="drawer-side" aria-label="Table of contents">
                 <label
@@ -62,12 +64,15 @@ export function Drawer({
                     className="drawer-overlay"
                 ></label>
                 <ul className="menu w-60 gap-2 bg-base-100 p-4">
-                    <li>
-                        <Link className="text-xl font-bold" href="/">
-                            Slivki
-                        </Link>
-                    </li>
-                    {headers?.map((header, index) => (
+                    <DrawerLink
+                        className="h-full text-2xl font-bold"
+                        drawerInputId={drawerInputId}
+                        header={{
+                            name: 'Slivki',
+                            id: topId,
+                        }}
+                    />
+                    {headers?.map((header) => (
                         <DrawerLink
                             key={header.id}
                             drawerInputId={drawerInputId}
