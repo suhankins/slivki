@@ -18,6 +18,7 @@ export default async function Home() {
     const categories = await getCategories();
     return (
         <Drawer
+            navbarChangeOnScroll={true}
             headers={categories.map((category, index) => {
                 return {
                     name: category.name,
@@ -53,7 +54,10 @@ export default async function Home() {
                     />
                 </a>
                 <HeroScrollButton
-                    id={getCategoryElementId(categories[0]?.name, 0)}
+                    id={getCategoryElementId(
+                        categories[0] ? categories[0].name : '',
+                        0
+                    )}
                     className="absolute bottom-4"
                     aria-label="Scroll down to the menu"
                 >

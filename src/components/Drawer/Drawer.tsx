@@ -9,6 +9,7 @@ export interface DrawerProps {
     navbarElements?: React.ReactNode;
     headers?: Header[];
     name?: string;
+    navbarChangeOnScroll?: boolean;
 }
 
 export function Drawer({
@@ -16,6 +17,7 @@ export function Drawer({
     navbarElements,
     name,
     headers,
+    navbarChangeOnScroll,
 }: DrawerProps) {
     const drawerInputId = useId();
     const topId = useId();
@@ -31,7 +33,10 @@ export function Drawer({
                 className="drawer-content flex flex-col items-center"
                 id={drawerContentId}
             >
-                <Navbar parentId={drawerContentId}>
+                <Navbar
+                    parentId={drawerContentId}
+                    changeOnScroll={navbarChangeOnScroll}
+                >
                     <div className="flex-none">
                         <label
                             htmlFor={drawerInputId}

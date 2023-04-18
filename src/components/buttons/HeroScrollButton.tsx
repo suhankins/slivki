@@ -11,14 +11,14 @@ export function HeroScrollButton({
 }: {
     children: React.ReactNode;
     className?: string;
-    id: string;
+    id?: string;
     props?: HTMLAttributes<HTMLButtonElement>;
 }) {
     return (
         <button
             type="button"
             className={`btn-ghost btn-square btn text-white ${className}`}
-            onClick={() => scrollIdIntoView(id)}
+            onClick={() => id && scrollIdIntoView(id)}
             {...props}
         >
             {children}
