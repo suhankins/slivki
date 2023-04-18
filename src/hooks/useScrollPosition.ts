@@ -1,5 +1,10 @@
+import { isBrowser } from '@/utils/client/isBrowser';
 import { useEffect, useState } from 'react';
 
+/**
+ * Returns the scroll position of the window or an element.
+ * @param elementId The id of the element to get the scroll position from. If not provided, the window scroll position will be returned.
+ */
 export function useScrollPosition(elementId?: string) {
     const [scrollPosition, setScrollPosition] = useState<number>(0);
 
@@ -12,7 +17,10 @@ export function useScrollPosition(elementId?: string) {
             setScrollPosition(target.scrollTop);
         };
 
-        const element = elementId ? document.getElementById(elementId) : window;
+        const element =
+            (elementId && document.getElementById(elementId)) ||
+            (isBrowser() && window) ||
+            null;
         if (!element) throw new Error('Element not found');
 
         element.addEventListener('scroll', handleScroll, { passive: true });

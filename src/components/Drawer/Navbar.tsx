@@ -1,6 +1,7 @@
 'use client';
 
 import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { isBrowser } from '@/utils/client/isBrowser';
 
 export function Navbar({
     children,
@@ -13,7 +14,8 @@ export function Navbar({
     return (
         <nav
             className={`navbar sticky top-0 left-0 z-40 ${
-                scrollPosition < (window.visualViewport?.height ?? 0)
+                scrollPosition <
+                ((isBrowser() && window.visualViewport?.height) || 0)
                     ? 'text-white backdrop-blur'
                     : 'bg-base-300'
             }`}
