@@ -46,3 +46,8 @@
         #d300c5 85.69%
     );
 }
+
+.min-h-s-screen {
+    min-height: calc(100vh - 4rem);
+    min-height: 100svh;
+}

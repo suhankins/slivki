@@ -26,7 +26,7 @@ export default async function Home() {
             })}
         >
             <div
-                className="hero relative -top-16 min-h-screen"
+                className="min-h-s-screen hero relative -top-16"
                 style={{
                     backgroundImage: `url("/backgroundPlaceholder.jpg")`,
                 }}
