@@ -3,7 +3,6 @@ import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { CategoryModel, SimpleCategory } from '@/models/Category';
 import { CategoryViewer } from '@/components/Category/CategoryViewer';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { scrollIdIntoView } from '@/utils/client/scrollIdIntoView';
 import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
 
 async function getCategories() {

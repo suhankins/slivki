@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
 import { useId } from 'react';
 import { Header } from './Header';
+import { Navbar } from './Navbar';
 
 export interface DrawerProps {
     children: React.ReactNode;
@@ -18,6 +19,7 @@ export function Drawer({
 }: DrawerProps) {
     const drawerInputId = useId();
     const topId = useId();
+    const drawerContentId = useId();
     return (
         <div className="drawer">
             <input
@@ -25,8 +27,11 @@ export function Drawer({
                 type="checkbox"
                 className="drawer-toggle"
             />
-            <div className="drawer-content flex flex-col items-center">
-                <nav className="navbar sticky top-0 left-0 z-40 bg-base-300">
+            <div
+                className="drawer-content flex flex-col items-center"
+                id={drawerContentId}
+            >
+                <Navbar parentId={drawerContentId}>
                     <div className="flex-none">
                         <label
                             htmlFor={drawerInputId}
@@ -54,7 +59,7 @@ export function Drawer({
                         {name ?? 'Slivki'}
                     </Link>
                     {navbarElements}
-                </nav>
+                </Navbar>
                 <div id={topId} className="absolute top-0 left-0" />
                 {children}
             </div>
