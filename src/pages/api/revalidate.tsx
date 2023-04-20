@@ -14,7 +14,8 @@ export default async function handler(
                 "Can't revalidate in development mode\nhttps://github.com/vercel/next.js/issues/43132"
             );
     try {
-        await res.revalidate('/');
+        await res.revalidate('/en/');
+        await res.revalidate('/ru/');
     } catch (e) {
         if (e instanceof Error)
             return res

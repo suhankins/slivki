@@ -5,7 +5,7 @@ import { CategoryViewer } from '@/components/Category/CategoryViewer';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
 import { getDictionary } from '@/lib/getDictionary';
-import { Locale } from '@/lib/i18n-config';
+import { Locale, i18n } from '@/lib/i18n-config';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -15,6 +15,11 @@ async function getCategories() {
 }
 
 export const revalidate = false;
+export async function generateStaticParams() {
+    return i18n.locales.map((locale) => ({
+        lang: locale,
+    }));
+}
 
 export default async function Home({
     params: { lang },
