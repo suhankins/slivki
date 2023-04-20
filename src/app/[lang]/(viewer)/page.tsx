@@ -29,7 +29,7 @@ export default async function Home() {
             <div
                 className="min-h-s-screen hero relative -top-16"
                 style={{
-                    backgroundImage: `url("/backgroundPlaceholder.jpg")`,
+                    backgroundImage: `url("/static/backgroundPlaceholder.jpg")`,
                 }}
             >
                 <div className="hero-overlay bg-opacity-60"></div>
@@ -49,7 +49,7 @@ export default async function Home() {
                     </span>
                     <img
                         alt="Instagram logo"
-                        src="/instagram.svg"
+                        src="/static/instagram.svg"
                         className="inline h-6 w-6"
                     />
                 </a>
