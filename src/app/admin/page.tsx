@@ -9,7 +9,7 @@ import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
 import { useId } from 'react';
 import useSwr, { preload } from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
-import { Position, getPosition } from '@/utils/client/Position';
+import { getPosition } from '@/utils/client/Position';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

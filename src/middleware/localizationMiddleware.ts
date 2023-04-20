@@ -26,7 +26,8 @@ export function localizationMiddleware(
 ) {
     const pathname = request.nextUrl.pathname;
     // If the url starts with /api/ we don't need to do anything
-    if (pathname.startsWith('/api/')) return response;
+    if (pathname.startsWith('/api/') || pathname.startsWith('/admin'))
+        return response;
     const pathnameIsMissingLocale = i18n.locales.every(
         (locale) =>
             !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
