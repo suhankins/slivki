@@ -15,10 +15,13 @@ export default async function handler(
             );
     try {
         await res.revalidate('/');
-        return res.send('Revalidated');
     } catch (e) {
         if (e instanceof Error)
-            res.status(500).send(`Error during revalidation: ${e.message}`);
+            return res
+                .status(500)
+                .send(`Error during revalidation: ${e.message}`);
         return res.status(500).send('Unknown error during revalidation');
     }
+
+    return res.send('Revalidated');
 }
