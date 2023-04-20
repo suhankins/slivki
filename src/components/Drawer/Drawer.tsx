@@ -78,7 +78,7 @@ export function Drawer({
                         className="h-full text-2xl font-bold"
                         drawerInputId={drawerInputId}
                         header={{
-                            name: 'Slivki',
+                            name: name ?? 'Slivki',
                             id: topId,
                         }}
                     />

@@ -4,6 +4,8 @@ import { CategoryModel, SimpleCategory } from '@/models/Category';
 import { CategoryViewer } from '@/components/Category/CategoryViewer';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
+import { getDictionary } from '@/lib/getDictionary';
+import { Locale } from '@/lib/i18n-config';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -14,10 +16,17 @@ async function getCategories() {
 
 export const revalidate = false;
 
-export default async function Home() {
+export default async function Home({
+    params: { lang },
+}: {
+    params: { lang: Locale };
+}) {
     const categories = await getCategories();
+    const dictionary = await getDictionary(lang);
+
     return (
         <Drawer
+            name={dictionary.companyName}
             navbarChangeOnScroll={true}
             headers={categories.map((category, index) => {
                 return {
@@ -35,8 +44,10 @@ export default async function Home() {
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">
-                        <h1 className="mb-5 text-5xl font-bold">Slivki</h1>
-                        <p className="mb-5">Food delivery someday, maybe.</p>
+                        <h1 className="mb-5 text-5xl font-bold">
+                            {dictionary.hero.top}
+                        </h1>
+                        <p className="mb-5">{dictionary.hero.bottom}</p>
                     </div>
                 </div>
                 <a
