@@ -11,7 +11,9 @@ export function PriceSelectorViewer({
     sizes,
     prices,
 }: PriceSelectorViewerProps) {
-    const [selectedSize, setSelectedSize] = useState(0);
+    const [selectedSize, setSelectedSize] = useState(
+        prices.findIndex((value) => value !== null)
+    );
 
     return (
         <div className="col-span-2 flex w-full flex-wrap items-center justify-center gap-4 self-end xs:flex-nowrap xs:justify-end sm:col-span-1 sm:flex-row">
@@ -19,6 +21,7 @@ export function PriceSelectorViewer({
                 {sizes?.map((size, index) => (
                     <button
                         type="button"
+                        disabled={prices[index] === null}
                         className={`btn-secondary btn ${
                             selectedSize === index && 'btn-active'
                         }`}
