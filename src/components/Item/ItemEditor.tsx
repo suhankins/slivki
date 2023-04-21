@@ -25,7 +25,7 @@ export function ItemEditor({
 }) {
     return (
         <Item
-            picture={
+            image={
                 item.image && (
                     <EditableImage
                         categoryId={categoryId}
