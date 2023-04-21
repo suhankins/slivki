@@ -26,9 +26,9 @@ export const AutoResizableTextarea = forwardRef(
                 {...props}
                 ref={ref}
                 onInput={(event) => {
-                    if (allowNewLine) return;
                     const target = event.target as HTMLTextAreaElement;
-                    target.value = target.value.replace(/[\r\n\v]+/g, ''); // removing all new line symbols
+                    if (!allowNewLine)
+                        target.value = target.value.replace(/[\r\n\v]+/g, ''); // removing all new line symbols
                     resizeTextarea(target);
                 }}
             />
