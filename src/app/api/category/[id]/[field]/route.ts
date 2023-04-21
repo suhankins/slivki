@@ -49,6 +49,7 @@ export async function POST(
 
     if (category.sizes === undefined) category.sizes = [];
     category.sizes.push(body.value);
+    category.items?.forEach((item) => item.price.push(null));
 
     try {
         await category.save();

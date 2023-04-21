@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getBodyAndCategory } from '@/utils/server/getBodyAndCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { findCategory } from '@/utils/server/findCategory';
-import { SimpleCategory } from '@/models/Category';
+import { CategoryClass, SimpleCategory } from '@/models/Category';
 
 /*
  * TODO: Refactor this hell.
@@ -74,6 +74,7 @@ export async function DELETE(
                     status: 400,
                 });
             category.sizes.splice(arrayIndex, 1);
+            category.items?.forEach((item) => item.price.splice(arrayIndex, 1));
             break;
         default:
             return new NextResponse('Invalid field', { status: 400 });
