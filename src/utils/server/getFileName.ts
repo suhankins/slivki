@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * File name standard for images uploaded to the server.
  * Adds some random numbers to the end of the file name to avoid duplicate file names.

@@ -1,3 +1,4 @@
+import 'server-only';
 import { CategoryClass } from '@/models/Category';
 import { findCategory } from '@/utils/server/findCategory';
 import { getRequestJSONBody } from '@/utils/server/getRequestJSONBody';

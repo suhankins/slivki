@@ -1,3 +1,4 @@
+import 'server-only';
 import { CategoryClass, CategoryModel } from '@/models/Category';
 import { DocumentType, mongoose } from '@typegoose/typegoose';
 import { NextResponse } from 'next/server';
