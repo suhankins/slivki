@@ -13,7 +13,7 @@ export function ItemSkeleton(): JSX.Element {
                     <div className="skeleton h-6 w-16 rounded-lg" />
                 </div>
             }
-            picture={
+            image={
                 <div className="skeleton aspect-square h-full w-full rounded-lg sm:row-span-2" />
             }
             priceSelector={
