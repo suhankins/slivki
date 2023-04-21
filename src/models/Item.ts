@@ -20,12 +20,6 @@ export class ItemClass {
     public description?: string;
 
     /**
-     * Array of available sizes, e.g. S (X ml), M (Y ml), L (Z ml), etc.
-     */
-    @prop({ type: () => [String], default: [] })
-    public sizes?: string[];
-
-    /**
      * Price in lari. If no sizes are specified, then only first element of the array is used.
      */
     @prop({
@@ -33,7 +27,7 @@ export class ItemClass {
         required: [true, 'Price is required!'],
         validate: [(v: number[]) => v.length > 0, 'Price is required!'],
     })
-    public price!: number[];
+    public price!: (number | null)[];
 
     @prop()
     public image?: string;
