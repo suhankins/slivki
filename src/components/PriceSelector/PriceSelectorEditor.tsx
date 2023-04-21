@@ -50,7 +50,11 @@ export function PriceSelectorEditor({
                 <EditableText
                     disabled={loading}
                     setLoading={setLoading}
-                    defaultValue={(prices[selectedSize] ?? '').toString()}
+                    defaultValue={
+                        prices[selectedSize]
+                            ? prices[selectedSize]?.toString()
+                            : ''
+                    }
                     type="number"
                     className="input-ghost input w-10 rounded px-0 py-1 text-right text-3xl font-bold focus:text-center"
                     fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/price/${selectedSize}`}
