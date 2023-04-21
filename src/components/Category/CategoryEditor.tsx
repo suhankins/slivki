@@ -7,6 +7,7 @@ import { DeleteButton } from '../buttons/DeleteButton';
 import { EllipsisMenu } from '../EllipsisMenu';
 import { MoveButton } from '../buttons/MoveButton';
 import { Position, getPosition } from '@/utils/client/Position';
+import { SizeEditor } from './SizeEditor';
 
 export function CategoryEditor({
     category,
@@ -58,9 +59,11 @@ export function CategoryEditor({
                 </>
             }
         >
+            <SizeEditor sizes={category.sizes} categoryId={category._id} />
             {category.items &&
                 category.items.map((item, index, array) => (
                     <ItemEditor
+                        category={category}
                         position={getPosition(index, array.length)}
                         itemIndex={index}
                         categoryId={category._id}

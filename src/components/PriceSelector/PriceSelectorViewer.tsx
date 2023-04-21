@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export interface PriceSelectorViewerProps {
     sizes?: string[];
-    prices: number[];
+    prices: (number | null)[];
 }
 
 export function PriceSelectorViewer({

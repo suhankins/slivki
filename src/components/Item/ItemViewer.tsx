@@ -2,8 +2,15 @@ import { ItemClass } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
 import { ImageView } from '@/components/Image/ImageView';
+import { SimpleCategory } from '@/models/Category';
 
-export function ItemViewer({ item }: { item: ItemClass }) {
+export function ItemViewer({
+    item,
+    category,
+}: {
+    item: ItemClass;
+    category: SimpleCategory;
+}) {
     return (
         <Item
             picture={
@@ -12,7 +19,10 @@ export function ItemViewer({ item }: { item: ItemClass }) {
             title={<h3 className="text-2xl">{item.name}</h3>}
             description={<p>{item.description}</p>}
             priceSelector={
-                <PriceSelectorViewer sizes={item.sizes} prices={item.price} />
+                <PriceSelectorViewer
+                    sizes={category.sizes}
+                    prices={item.price}
+                />
             }
         />
     );

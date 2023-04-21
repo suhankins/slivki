@@ -14,6 +14,7 @@ export type SimpleCategory = {
     _id: string;
     name: string;
     index?: number;
+    sizes: string[];
     items?: ItemClass[];
 };
 
@@ -58,7 +59,11 @@ export class CategoryClass implements defaultClasses.Base {
     @prop({ type: () => [ItemClass], default: [] }, PropType.ARRAY)
     public items?: ItemClass[];
 
+    @prop({ type: () => [String], default: [] }, PropType.ARRAY)
+    public sizes?: string[];
+
     public async addItem(this: DocumentType<CategoryClass>, item: ItemClass) {
+        item.price = Array(this.sizes?.length || 1).map((value) => null);
         this.items?.push(item);
         await this.save();
     }

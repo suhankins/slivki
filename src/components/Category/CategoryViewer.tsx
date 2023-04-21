@@ -19,7 +19,7 @@ export function CategoryViewer({ category, id }: CategoryProps) {
         >
             {category.items &&
                 category.items.map((item, index) => (
-                    <ItemViewer item={item} key={index} />
+                    <ItemViewer category={category} item={item} key={index} />
                 ))}
         </Category>
     );

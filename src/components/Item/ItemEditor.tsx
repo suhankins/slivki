@@ -8,15 +8,18 @@ import { UploadButton } from '@/components/buttons/UploadButton';
 import { EllipsisMenu } from '../EllipsisMenu';
 import { Position } from '@/utils/client/Position';
 import { MoveButton } from '../buttons/MoveButton';
+import { SimpleCategory } from '@/models/Category';
 
 export function ItemEditor({
     item,
     categoryId,
+    category,
     itemIndex,
     position,
 }: {
     item: ItemClass;
     categoryId: string;
+    category: SimpleCategory;
     itemIndex: number;
     position: Position;
 }) {
@@ -51,7 +54,7 @@ export function ItemEditor({
                 <PriceSelectorEditor
                     categoryId={categoryId}
                     itemIndex={itemIndex}
-                    sizes={item.sizes}
+                    sizes={category.sizes}
                     prices={item.price}
                 />
             }
