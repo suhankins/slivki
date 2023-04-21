@@ -23,11 +23,13 @@ export function ItemEditor({
     return (
         <Item
             picture={
-                <EditableImage
-                    categoryId={categoryId}
-                    itemIndex={itemIndex}
-                    image={item.image}
-                />
+                item.image && (
+                    <EditableImage
+                        categoryId={categoryId}
+                        itemIndex={itemIndex}
+                        image={item.image}
+                    />
+                )
             }
             title={
                 <EditableText
