@@ -1,12 +1,13 @@
 import { ForwardedRef, HTMLAttributes, forwardRef, useEffect } from 'react';
 
 export interface AutoResizableTextareaParams {
+    allowNewLine?: boolean;
     props?: HTMLAttributes<HTMLTextAreaElement>;
 }
 
 export const AutoResizableTextarea = forwardRef(
     (
-        { ...props }: AutoResizableTextareaParams,
+        { allowNewLine, ...props }: AutoResizableTextareaParams,
         ref: ForwardedRef<HTMLTextAreaElement>
     ) => {
         const resizeTextarea = (textarea: HTMLTextAreaElement) => {
@@ -25,6 +26,7 @@ export const AutoResizableTextarea = forwardRef(
                 {...props}
                 ref={ref}
                 onInput={(event) => {
+                    if (allowNewLine) return;
                     const target = event.target as HTMLTextAreaElement;
                     target.value = target.value.replace(/[\r\n\v]+/g, ''); // removing all new line symbols
                     resizeTextarea(target);

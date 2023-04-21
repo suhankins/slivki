@@ -45,6 +45,7 @@ export function ItemEditor({
             }
             description={
                 <EditableText
+                    allowNewLine={true}
                     fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/description`}
                     placeholder="Description"
                     defaultValue={item.description}

@@ -20,6 +20,10 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
     className?: string;
     disabled?: boolean;
     defaultValue?: string;
+    /**
+     * Allows for new line characters in textarea. False by default.
+     */
+    allowNewLine?: boolean;
     setLoading?: Dispatch<SetStateAction<boolean>>;
     /**
      * The URL to fetch to update the value
@@ -45,6 +49,7 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
 
 export function EditableText({
     textarea,
+    allowNewLine,
     className,
     defaultValue,
     fetchUrl,
@@ -135,6 +140,7 @@ export function EditableText({
                     {...staticProps}
                     {...dynamicProps}
                     {...handlers}
+                    allowNewLine={allowNewLine}
                 />
             ) : (
                 <input {...staticProps} {...dynamicProps} {...handlers} />
