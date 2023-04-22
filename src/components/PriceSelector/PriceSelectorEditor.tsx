@@ -48,6 +48,7 @@ export function PriceSelectorEditor({
             </div>
             <p className="flex w-16 flex-nowrap items-center py-4 text-center text-3xl font-bold">
                 <EditableText
+                    nullable={true}
                     disabled={loading}
                     setLoading={setLoading}
                     defaultValue={

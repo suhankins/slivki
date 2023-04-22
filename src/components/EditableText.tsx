@@ -21,6 +21,10 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
     disabled?: boolean;
     defaultValue?: string;
     /**
+     * Allows for string to be completely erased. False by default.
+     */
+    nullable?: boolean;
+    /**
      * Allows for new line characters in textarea. False by default.
      */
     allowNewLine?: boolean;
@@ -50,6 +54,7 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
 export function EditableText({
     textarea,
     allowNewLine,
+    nullable,
     className,
     defaultValue,
     fetchUrl,
@@ -74,11 +79,14 @@ export function EditableText({
         () => async () => {
             if (!fieldRef.current) return;
 
-            const newValue = fieldRef.current.value.trim();
+            let newValue: string | null = fieldRef.current.value.trim();
 
             if (newValue === '') {
-                reset();
-                return;
+                if (!nullable) {
+                    reset();
+                    return;
+                }
+                newValue = null;
             }
             if (newValue !== defaultValue) {
                 setLoading(true);
