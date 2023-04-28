@@ -55,15 +55,17 @@ export function CategoryEditor({
                                 )}
                             </>
                         )}
+                        <li>
+                            <SizeEditor
+                                sizes={category.sizes}
+                                categoryId={category._id}
+                                className=""
+                            />
+                        </li>
                     </EllipsisMenu>
                 </>
             }
         >
-            <SizeEditor
-                sizes={category.sizes}
-                categoryId={category._id}
-                className="col-span-2"
-            />
             {category.items &&
                 category.items.map((item, index, array) => (
                     <ItemEditor
