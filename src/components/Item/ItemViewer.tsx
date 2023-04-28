@@ -1,7 +1,7 @@
 import { ItemClass } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
-import { ImageView } from '@/components/Image/ImageView';
+import { ImageViewer } from '@/components/Image/ImageViewer';
 import { SimpleCategory } from '@/models/Category';
 
 export function ItemViewer({
@@ -13,8 +13,10 @@ export function ItemViewer({
 }) {
     return (
         <Item
-            image={item.image && <ImageView src={item.image} alt={item.name} />}
-            title={<h3 className="text-2xl">{item.name}</h3>}
+            image={
+                item.image && <ImageViewer src={item.image} alt={item.name} />
+            }
+            title={<h3 className="card-title text-2xl">{item.name}</h3>}
             description={<p>{item.description}</p>}
             priceSelector={
                 <PriceSelectorViewer

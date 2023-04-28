@@ -1,6 +1,6 @@
 import { EditableText } from '@/components/EditableText';
 import { Item } from './Item';
-import { EditableImage } from '@/components/Image/EditableImage';
+import { ImageEditor } from '@/components/Image/ImageEditor';
 import { ItemClass } from '@/models/Item';
 import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEditor';
 import { DeleteButton } from '@/components/buttons/DeleteButton';
@@ -27,7 +27,7 @@ export function ItemEditor({
         <Item
             image={
                 item.image && (
-                    <EditableImage
+                    <ImageEditor
                         categoryId={categoryId}
                         itemIndex={itemIndex}
                         image={item.image}
@@ -40,7 +40,7 @@ export function ItemEditor({
                     placeholder="Title"
                     defaultValue={item.name}
                     textarea={true}
-                    className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
+                    className="input-ghost input card-title w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
                 />
             }
             description={

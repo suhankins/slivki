@@ -1,6 +1,7 @@
 import { DeleteButton } from '../buttons/DeleteButton';
-import { ImageView } from './ImageView';
+import { ImageViewer } from './ImageViewer';
 import { UploadButton } from '../buttons/UploadButton';
+import { ImageView } from './ImageView';
 
 export interface EditableImageProps {
     image?: string;
@@ -8,7 +9,7 @@ export interface EditableImageProps {
     categoryId: string;
 }
 
-export function EditableImage({
+export function ImageEditor({
     image,
     itemIndex,
     categoryId,
@@ -16,7 +17,7 @@ export function EditableImage({
     return (
         <>
             {image && (
-                <figure className="group relative sm:row-span-2">
+                <ImageView>
                     <div className="invisible absolute right-1 top-1 flex gap-1 group-hover:visible">
                         <UploadButton
                             itemIndex={itemIndex}
@@ -27,8 +28,8 @@ export function EditableImage({
                             fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/image`}
                         />
                     </div>
-                    <ImageView src={image} />
-                </figure>
+                    <ImageViewer src={image} />
+                </ImageView>
             )}
         </>
     );

@@ -14,18 +14,16 @@ export function Item({
     children,
 }: ItemParams) {
     return (
-        <article className="relative grid w-full max-w-2xl grid-cols-2 gap-4 rounded-lg bg-base-200 p-4">
+        <article className="card card-compact w-full max-w-2xl bg-base-200">
             {children}
             {image}
-            <header
-                className={`flex flex-col gap-4 ${
-                    !image && 'col-span-2 sm:col-span-1'
-                }`}
-            >
-                {title}
-                {description}
-            </header>
-            {priceSelector}
+            <div className="card-body">
+                <header className={`flex flex-col gap-4`}>
+                    {title}
+                    {description}
+                </header>
+                {priceSelector}
+            </div>
         </article>
     );
 }
