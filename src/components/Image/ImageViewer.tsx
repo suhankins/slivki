@@ -14,7 +14,7 @@ export function ImageViewer({
                 width={312} // Resolution of the image at 4K display
                 height={312}
                 alt={altText ?? ''}
-                className="aspect-square h-full max-h-64 w-full bg-base-300 object-cover"
+                className="aspect-square h-full max-h-64 w-full rounded-t-xl bg-base-300 object-cover"
                 src={picture}
             />
         </ImageView>
