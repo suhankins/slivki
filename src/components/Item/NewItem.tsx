@@ -2,7 +2,13 @@ import { newItem } from '@/utils/client/new/newItem';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 
-export function NewItem({ categoryId }: { categoryId: string }) {
+export function NewItem({
+    categoryId,
+    className,
+}: {
+    categoryId: string;
+    className?: string;
+}) {
     const [loading, setLoading] = useState(false);
     const { mutate } = useSWRConfig();
     const handleNewItemClick = async () => {
@@ -18,7 +24,9 @@ export function NewItem({ categoryId }: { categoryId: string }) {
     };
     return (
         <button
-            className={`btn-success btn w-1/2 ${loading && 'loading'}`}
+            className={`btn-success btn h-full w-full ${
+                loading && 'loading'
+            } ${className}`}
             disabled={loading}
             onClick={handleNewItemClick}
         >

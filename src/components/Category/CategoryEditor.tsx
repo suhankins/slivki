@@ -59,7 +59,11 @@ export function CategoryEditor({
                 </>
             }
         >
-            <SizeEditor sizes={category.sizes} categoryId={category._id} />
+            <SizeEditor
+                sizes={category.sizes}
+                categoryId={category._id}
+                className="col-span-2"
+            />
             {category.items &&
                 category.items.map((item, index, array) => (
                     <ItemEditor

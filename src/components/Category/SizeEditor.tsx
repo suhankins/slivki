@@ -8,9 +8,11 @@ import { DeleteButton } from '../buttons/DeleteButton';
 export function SizeEditor({
     sizes,
     categoryId,
+    className,
 }: {
     sizes: string[];
     categoryId: string;
+    className?: string;
 }) {
     const [loading, setLoading] = useState(false);
     const addNewSize = useMemo(
@@ -32,7 +34,7 @@ export function SizeEditor({
         []
     );
     return (
-        <div className="flex gap-4">
+        <div className={`flex gap-4 ${className}`}>
             <div className="flex">
                 {sizes?.map((size, index) => (
                     <div key={index} className="group relative">

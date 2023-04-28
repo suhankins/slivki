@@ -9,15 +9,11 @@ export interface CategoryParams {
 
 export function Category({ title, children, id, ...props }: CategoryParams) {
     return (
-        <>
-            <section
-                className="flex w-full flex-col items-center gap-4"
-                {...props}
-            >
-                <h2 className="divider">{title}</h2>
-                <div id={id} className="relative -top-32" />
-                {children}
-            </section>
-        </>
+        <section className="flex w-full flex-col items-center gap-4" {...props}>
+            <h2 className="divider">{title}</h2>
+            {/* Div for scroll to things */}
+            <div id={id} className="relative -top-32" />
+            <div className="grid grid-cols-2 gap-4">{children}</div>
+        </section>
     );
 }
