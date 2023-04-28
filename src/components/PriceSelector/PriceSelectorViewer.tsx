@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PriceSelector } from './PriceSelector';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 export interface PriceSelectorViewerProps {
     sizes?: string[];
@@ -37,9 +38,16 @@ export function PriceSelectorViewer({
                 </div>
             }
             price={
-                <p className="w-16 py-4 text-center text-3xl font-bold">
-                    {prices[selectedSize]}&#8382;
-                </p>
+                <div className="flex items-center gap-2">
+                    <p className="w-16 py-4 text-center text-3xl font-bold">
+                        {prices[selectedSize]}&#8382;
+                    </p>
+                    {!process.env.PRODUCTION && (
+                        <button className="btn-success btn-square btn">
+                            <ShoppingCartIcon className="absolute h-6 w-6" />
+                        </button>
+                    )}
+                </div>
             }
         />
     );
