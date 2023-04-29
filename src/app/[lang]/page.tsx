@@ -33,12 +33,15 @@ export default async function Home({
         <Drawer
             name={dictionary.companyName}
             navbarChangeOnScroll={true}
-            headers={categories.map((category, index) => {
-                return {
-                    name: category.name,
-                    id: getCategoryElementId(category.name, index),
-                };
-            })}
+            headers={categories
+                .sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
+                .map((category, index) => {
+                    return {
+                        name: category.name,
+                        id: getCategoryElementId(category.name, index),
+                        depth: category.depth,
+                    };
+                })}
         >
             <div
                 className="min-h-s-screen hero relative -top-16"

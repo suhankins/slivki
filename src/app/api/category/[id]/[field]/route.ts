@@ -20,6 +20,7 @@ export async function PATCH(
         return new NextResponse('No value provided', { status: 400 });
 
     try {
+        if (typeof category[key] === 'number') body.value = +body.value;
         category[key] = body.value ?? category[key];
         await category.save();
     } catch (e) {

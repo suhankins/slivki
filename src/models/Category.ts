@@ -14,6 +14,7 @@ export type SimpleCategory = {
     _id: string;
     name: string;
     index?: number;
+    depth?: number;
     sizes: string[];
     items?: ItemClass[];
 };
@@ -45,7 +46,7 @@ export class CategoryClass implements defaultClasses.Base {
     public _id!: mongoose.Types.ObjectId;
     public id!: string;
 
-    public static fields = ['name', 'index', 'items'];
+    public static fields = ['name', 'index', 'items', 'depth'];
 
     @prop({ required: [true, 'English name is required!'], minlength: 1 })
     public name!: string;
@@ -61,6 +62,12 @@ export class CategoryClass implements defaultClasses.Base {
 
     @prop({ type: () => [String], default: [] }, PropType.ARRAY)
     public sizes?: string[];
+
+    /**
+     * Depth of the category. 0 means it's on the top level, 1 means it's in the first subcategory, etc.
+     */
+    @prop({ default: 0 })
+    public depth?: number;
 
     public async addItem(this: DocumentType<CategoryClass>, item: ItemClass) {
         item.price = Array(this.sizes?.length || 1).map((value) => null);

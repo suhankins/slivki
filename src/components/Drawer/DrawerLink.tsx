@@ -16,14 +16,15 @@ export interface DrawerLinkProps {
     className?: string;
 }
 
-const indent = ['', 'ml-4', 'ml-8']; // We have to spell it out so tailwind detects it
+const indent = ['', 'ml-4', 'ml-8', 'ml-12']; // We have to spell it out so tailwind detects it
 
 export function DrawerLink({
     drawerInputId,
     header,
-    depth = 0,
+    depth: paramDepth = 0,
     className,
 }: DrawerLinkProps) {
+    const depth = header.depth ?? paramDepth;
     return (
         <>
             <li>

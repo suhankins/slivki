@@ -5,4 +5,5 @@ export interface Header {
      */
     id: string;
     innerHeaders?: Header[];
+    depth?: number;
 }

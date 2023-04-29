@@ -56,6 +56,15 @@ export function CategoryEditor({
                             </>
                         )}
                         <li>
+                            <EditableText
+                                defaultValue={category.depth?.toString() ?? '0'}
+                                fetchUrl={`/api/category/${category._id}/depth`}
+                                type="number"
+                                className="input-bordered input w-32"
+                                placeholder="Depth"
+                            />
+                        </li>
+                        <li>
                             <SizeEditor
                                 sizes={category.sizes}
                                 categoryId={category._id}

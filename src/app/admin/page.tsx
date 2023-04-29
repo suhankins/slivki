@@ -32,6 +32,7 @@ export default function AdminPage() {
                 return {
                     name: category.name,
                     id: getCategoryElementId(category.name, index),
+                    depth: (category.depth ?? 0) + 1,
                 };
             }),
         },
