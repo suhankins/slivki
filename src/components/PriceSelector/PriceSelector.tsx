@@ -6,7 +6,7 @@ export function PriceSelector({
     price: React.ReactNode;
 }) {
     return (
-        <div className="col-span-2 flex w-full flex-grow flex-col items-center justify-center sm:col-span-1 lg:flex-row">
+        <div className="flex w-full flex-grow flex-col items-center justify-end lg:flex-row">
             {sizeSelector}
             {price}
         </div>
