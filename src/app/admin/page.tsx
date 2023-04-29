@@ -26,13 +26,15 @@ export default function AdminPage() {
         {
             name: 'Categories',
             id: categoriesHeaderId,
-            innerHeaders: data?.map((category, index) => {
-                return {
-                    name: category.name,
-                    id: getCategoryElementId(category.name, index),
-                    depth: (category.depth ?? 0) + 1,
-                };
-            }),
+            innerHeaders: data
+                ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
+                .map((category, index) => {
+                    return {
+                        name: category.name,
+                        id: getCategoryElementId(category.name, index),
+                        depth: (category.depth ?? 0) + 1,
+                    };
+                }),
         },
         {
             name: 'Account',
