@@ -1,6 +1,6 @@
 import { EditableText } from '@/components/EditableText';
 import { Item } from './Item';
-import { ImageEditor } from '@/components/Image/ImageEditor';
+import { ImageEditor } from '@/components/Item/Image/ImageEditor';
 import { ItemClass } from '@/models/Item';
 import { PriceSelectorEditor } from '@/components/PriceSelector/PriceSelectorEditor';
 import { DeleteButton } from '@/components/buttons/DeleteButton';

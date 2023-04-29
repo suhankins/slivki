@@ -1,7 +1,7 @@
 import { ItemClass } from '@/models/Item';
 import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
-import { ImageViewer } from '@/components/Image/ImageViewer';
+import { ImageViewer } from '@/components/Item/Image/ImageViewer';
 import { SimpleCategory } from '@/models/Category';
 
 export function ItemViewer({

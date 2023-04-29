@@ -1,6 +1,6 @@
-import { DeleteButton } from '../buttons/DeleteButton';
+import { DeleteButton } from '../../buttons/DeleteButton';
 import { ImageViewer } from './ImageViewer';
-import { UploadButton } from '../buttons/UploadButton';
+import { UploadButton } from '../../buttons/UploadButton';
 import { ImageView } from './ImageView';
 
 export interface EditableImageProps {
