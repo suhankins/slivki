@@ -42,7 +42,7 @@ export function PriceSelectorViewer({
                     <p className="w-16 py-4 text-center text-3xl font-bold">
                         {prices[selectedSize]}&#8382;
                     </p>
-                    {!process.env.PRODUCTION && (
+                    {process.env.NEXT_PUBLIC_DEV && (
                         <button className="btn-success btn-square btn">
                             <ShoppingCartIcon className="absolute h-6 w-6" />
                         </button>
