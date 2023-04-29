@@ -38,7 +38,7 @@ export function PriceSelectorViewer({
                 </>
             }
             price={
-                <div className="flex items-center gap-2">
+                <>
                     <p className="w-16 py-4 text-center text-3xl font-bold">
                         {prices[selectedSize]}&#8382;
                     </p>
@@ -47,7 +47,7 @@ export function PriceSelectorViewer({
                             <ShoppingCartIcon className="absolute h-6 w-6" />
                         </button>
                     )}
-                </div>
+                </>
             }
         />
     );

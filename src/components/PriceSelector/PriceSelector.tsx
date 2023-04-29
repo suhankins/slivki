@@ -8,7 +8,7 @@ export function PriceSelector({
     return (
         <div className="flex w-full flex-grow flex-col items-center justify-end lg:flex-row">
             <div className="flex w-full justify-evenly">{sizeSelector}</div>
-            {price}
+            <div className="flex items-center gap-2">{price}</div>
         </div>
     );
 }
