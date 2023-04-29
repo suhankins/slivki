@@ -7,6 +7,7 @@ export const metadata = {
     openGraph: {
         locale: 'en_US',
         siteName: 'Slivki',
+        title: 'Slivki',
         description: 'Slivki coffee shop in Batumi, Georgia',
         images: [
             // TODO: Add actual images
