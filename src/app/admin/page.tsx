@@ -7,13 +7,11 @@ import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/components/Category/CategoryEditor';
 import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
 import { useId } from 'react';
-import useSwr, { preload } from 'swr';
+import useSwr from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
 import { getPosition } from '@/utils/client/Position';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-preload('/api/category', fetcher);
 
 export default function AdminPage() {
     const categoriesHeaderId = useId();
