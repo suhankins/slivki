@@ -23,7 +23,7 @@ export function PriceSelectorEditor({
     return (
         <PriceSelector
             sizeSelector={
-                <div className="flex w-full justify-evenly">
+                <>
                     {sizes?.map((size, index) => (
                         <div className="form-control" key={index}>
                             <label className="label cursor-pointer flex-col">
@@ -39,7 +39,7 @@ export function PriceSelectorEditor({
                             </label>
                         </div>
                     ))}
-                </div>
+                </>
             }
             price={
                 <p className="flex w-16 flex-nowrap items-center py-4 text-center text-3xl font-bold">

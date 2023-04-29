@@ -20,7 +20,7 @@ export function PriceSelectorViewer({
     return (
         <PriceSelector
             sizeSelector={
-                <div className="flex w-full justify-evenly">
+                <>
                     {sizes?.map((size, index) => (
                         <div className="form-control" key={index}>
                             <label className="label cursor-pointer flex-col">
@@ -35,7 +35,7 @@ export function PriceSelectorViewer({
                             </label>
                         </div>
                     ))}
-                </div>
+                </>
             }
             price={
                 <div className="flex items-center gap-2">
