@@ -16,6 +16,31 @@ export async function PATCH(
     if (result instanceof NextResponse) return result;
     const [body, category] = result;
 
+    try {
+        if (key === 'name') {
+            if (body.en) category.name.set('en', body.en);
+            if (body.ru) category.name.set('ru', body.ru);
+        }
+        category.save();
+    } catch (e) {
+        return handleDbError(e);
+    }
+    return new NextResponse(`Field ${key} successfully updated`, {
+        status: 200,
+    });
+}
+
+export async function PUT(
+    request: NextRequest,
+    { params: { id, field } }: pathParams
+) {
+    if (!CategoryClass.fields.includes(field))
+        return new NextResponse('Invalid field', { status: 400 });
+    const key = field as keyof CategoryClass;
+    const result = await getBodyAndCategory(request, id);
+    if (result instanceof NextResponse) return result;
+    const [body, category] = result;
+
     if (body.value === undefined)
         return new NextResponse('No value provided', { status: 400 });
 

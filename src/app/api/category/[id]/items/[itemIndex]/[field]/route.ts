@@ -49,7 +49,7 @@ export async function DELETE(
 /**
  * Meant for updating fields of items (e.g. name, description)
  */
-export async function PATCH(
+export async function PUT(
     request: NextRequest,
     { params: { id, itemIndex, field } }: pathParams
 ) {

@@ -17,7 +17,7 @@ type pathParams = {
     };
 };
 
-export async function PATCH(
+export async function PUT(
     request: NextRequest,
     { params: { id, field, arrayIndex } }: pathParams
 ) {

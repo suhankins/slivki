@@ -21,6 +21,10 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
     disabled?: boolean;
     defaultValue?: string;
     /**
+     * The HTTP method to use when updating the value. PUT by default.
+     */
+    method?: string;
+    /**
      * Allows for string to be completely erased. False by default.
      */
     nullable?: boolean;
@@ -58,6 +62,7 @@ export function EditableText({
     className,
     defaultValue,
     fetchUrl,
+    method = 'PUT',
     valueName = 'value',
     shouldUpdateMainPage = true,
     type = 'text',
@@ -82,7 +87,7 @@ export function EditableText({
             let newValue: string | null = fieldRef.current.value.trim();
 
             if (newValue === '') {
-                if (!nullable) {
+                if (!nullable || defaultValue === undefined) {
                     reset();
                     return;
                 }
@@ -92,7 +97,7 @@ export function EditableText({
                 setLoading(true);
                 const result = await fetch(fetchUrl, {
                     body: JSON.stringify({ [valueName]: newValue }),
-                    method: 'PATCH',
+                    method: method,
                     headers: { 'Content-Type': 'application/json' },
                 });
                 if (result.status === 200) {

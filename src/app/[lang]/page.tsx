@@ -93,6 +93,7 @@ export default async function Home({
                     ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                     .map((category, index) => (
                         <CategoryViewer
+                            lang={lang}
                             id={getCategoryElementId(
                                 getLocalizedString(category.name, lang),
                                 index

@@ -11,6 +11,7 @@ import useSwr from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
 import { getPosition } from '@/utils/client/Position';
 import { Locale, getLocalizedString } from '@/lib/i18n-config';
+import { LanguagePicker } from '@/components/LanguagePicker';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -49,7 +50,12 @@ export default function AdminPage() {
 
     return (
         <Drawer
-            navbarElements={<Logout className="ml-auto" />}
+            navbarElements={
+                <>
+                    <Logout className="ml-auto" />
+                    <LanguagePicker selectedLang={lang} setLang={setLang} />
+                </>
+            }
             name="Slivki Admin Panel"
             headers={headers}
         >
@@ -68,6 +74,7 @@ export default function AdminPage() {
                     ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                     .map((category, index) => (
                         <CategoryEditor
+                            lang={lang}
                             id={getCategoryElementId(
                                 getLocalizedString(category.name, lang),
                                 index

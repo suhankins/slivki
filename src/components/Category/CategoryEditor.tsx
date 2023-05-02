@@ -8,12 +8,15 @@ import { EllipsisMenu } from '../EllipsisMenu';
 import { MoveButton } from '../buttons/MoveButton';
 import { Position, getPosition } from '@/utils/client/Position';
 import { SizeEditor } from './SizeEditor';
+import { Locale, getLocalizedString } from '@/lib/i18n-config';
 
 export function CategoryEditor({
+    lang,
     category,
     position,
     id,
 }: {
+    lang: Locale;
     category: SimpleCategory;
     position: Position;
     id?: string;
@@ -24,7 +27,9 @@ export function CategoryEditor({
             title={
                 <>
                     <EditableText
-                        defaultValue={category.name}
+                        defaultValue={getLocalizedString(category.name, lang)}
+                        valueName={lang}
+                        method="PATCH"
                         fetchUrl={`/api/category/${category._id}/name`}
                         className="input-bordered input w-48 text-center text-xl font-bold xs:w-64"
                         placeholder="Category name"
