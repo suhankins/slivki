@@ -5,7 +5,7 @@ import { CategoryViewer } from '@/components/Category/CategoryViewer';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
 import { getDictionary } from '@/lib/getDictionary';
-import { Locale, i18n } from '@/lib/i18n-config';
+import { Locale, getLocalizedString, i18n } from '@/lib/i18n-config';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -37,8 +37,11 @@ export default async function Home({
                 .sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                 .map((category, index) => {
                     return {
-                        name: category.name,
-                        id: getCategoryElementId(category.name, index),
+                        name: getLocalizedString(category.name, lang),
+                        id: getCategoryElementId(
+                            getLocalizedString(category.name, lang),
+                            index
+                        ),
                         depth: category.depth,
                     };
                 })}
@@ -74,7 +77,9 @@ export default async function Home({
                 </a>
                 <HeroScrollButton
                     id={getCategoryElementId(
-                        categories[0] ? categories[0].name : '',
+                        categories[0]
+                            ? getLocalizedString(categories[0].name, lang)
+                            : '',
                         0
                     )}
                     className="absolute bottom-4"
@@ -88,7 +93,10 @@ export default async function Home({
                     ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                     .map((category, index) => (
                         <CategoryViewer
-                            id={getCategoryElementId(category.name, index)}
+                            id={getCategoryElementId(
+                                getLocalizedString(category.name, lang),
+                                index
+                            )}
                             key={index}
                             category={category}
                         />

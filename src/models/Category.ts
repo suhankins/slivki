@@ -9,10 +9,11 @@ import {
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
 import { ItemClass } from './Item';
+import type { LocalizedString } from '@/lib/i18n-config';
 
 export type SimpleCategory = {
     _id: string;
-    name: string;
+    name: LocalizedString;
     index?: number;
     depth?: number;
     sizes: string[];
@@ -48,8 +49,8 @@ export class CategoryClass implements defaultClasses.Base {
 
     public static fields = ['name', 'index', 'items', 'depth'];
 
-    @prop({ required: [true, 'English name is required!'], minlength: 1 })
-    public name!: string;
+    @prop({ type: () => String }, PropType.MAP)
+    public name!: LocalizedString;
 
     /**
      * More like priority actually. Higher index means higher priority, so it's on the top of the screen. Bottom is always 0.

@@ -6,14 +6,16 @@ import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/components/Category/CategoryEditor';
 import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import useSwr from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
 import { getPosition } from '@/utils/client/Position';
+import { Locale, getLocalizedString } from '@/lib/i18n-config';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AdminPage() {
+    const [lang, setLang] = useState<Locale>('en');
     const categoriesHeaderId = useId();
     const accountHeaderId = useId();
 
@@ -30,8 +32,11 @@ export default function AdminPage() {
                 ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                 .map((category, index) => {
                     return {
-                        name: category.name,
-                        id: getCategoryElementId(category.name, index),
+                        name: getLocalizedString(category.name, lang),
+                        id: getCategoryElementId(
+                            getLocalizedString(category.name, lang),
+                            index
+                        ),
                         depth: (category.depth ?? 0) + 1,
                     };
                 }),
@@ -63,7 +68,10 @@ export default function AdminPage() {
                     ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
                     .map((category, index) => (
                         <CategoryEditor
-                            id={getCategoryElementId(category.name, index)}
+                            id={getCategoryElementId(
+                                getLocalizedString(category.name, lang),
+                                index
+                            )}
                             position={getPosition(index, data.length)}
                             category={category}
                             key={category._id.toString()}

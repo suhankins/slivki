@@ -2,7 +2,7 @@ export async function newCategory() {
     const result = await fetch(`/api/category/`, {
         method: 'POST',
         body: JSON.stringify({
-            name: 'New Category',
+            name: { en: 'New Category' },
         }),
     });
     if (result.ok) console.log('New category added successfully');
