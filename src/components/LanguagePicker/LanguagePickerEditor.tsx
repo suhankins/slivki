@@ -1,6 +1,6 @@
 import { Locale, i18n } from '@/lib/i18n-config';
 
-export function LanguagePicker({
+export function LanguagePickerEditor({
     className,
     selectedLang,
     setLang,

@@ -11,7 +11,7 @@ import useSwr from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
 import { getPosition } from '@/utils/client/Position';
 import { Locale, getLocalizedString } from '@/lib/i18n-config';
-import { LanguagePicker } from '@/components/LanguagePicker';
+import { LanguagePickerEditor } from '@/components/LanguagePicker/LanguagePickerEditor';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -52,7 +52,7 @@ export default function AdminPage() {
         <Drawer
             navbarElements={
                 <>
-                    <LanguagePicker
+                    <LanguagePickerEditor
                         className="ml-auto"
                         selectedLang={lang}
                         setLang={setLang}

@@ -6,6 +6,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
 import { getDictionary } from '@/lib/getDictionary';
 import { Locale, getLocalizedString, i18n } from '@/lib/i18n-config';
+import { LanguagePickerViewer } from '@/components/LanguagePicker/LanguagePickerViewer';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -32,6 +33,7 @@ export default async function Home({
     return (
         <Drawer
             name={dictionary.companyName}
+            navbarElements={<LanguagePickerViewer selectedLang={lang} />}
             navbarChangeOnScroll={true}
             headers={categories
                 .sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
