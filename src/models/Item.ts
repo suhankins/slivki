@@ -1,5 +1,6 @@
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { PropType, modelOptions, prop } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
+import type { LocalizedString } from '@/lib/i18n-config';
 
 @modelOptions({
     schemaOptions: {
@@ -9,15 +10,15 @@ import '@/lib/mongodb'; // Importing library to connect to MongoDB
 export class ItemClass {
     static readonly fields = ['name', 'description', 'sizes', 'price', 'image'];
 
-    @prop({ required: [true, 'English name is required!'] })
-    public name!: string;
+    @prop({ type: () => String }, PropType.MAP)
+    public name!: LocalizedString;
 
     /**
      * Ingredients of the item, e.g. milk, sugar, etc.
      * or whatever else you want to tell about given item
      */
-    @prop()
-    public description?: string;
+    @prop({ type: () => String }, PropType.MAP)
+    public description?: LocalizedString;
 
     /**
      * Price in lari. If no sizes are specified, then only first element of the array is used.

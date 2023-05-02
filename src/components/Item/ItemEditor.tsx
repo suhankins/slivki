@@ -9,6 +9,7 @@ import { EllipsisMenu } from '../EllipsisMenu';
 import { Position } from '@/utils/client/Position';
 import { MoveButton } from '../buttons/MoveButton';
 import { SimpleCategory } from '@/models/Category';
+import { Locale, getLocalizedString } from '@/lib/i18n-config';
 
 export function ItemEditor({
     item,
@@ -16,12 +17,14 @@ export function ItemEditor({
     category,
     itemIndex,
     position,
+    lang,
 }: {
     item: ItemClass;
     categoryId: string;
     category: SimpleCategory;
     itemIndex: number;
     position: Position;
+    lang: Locale;
 }) {
     return (
         <Item
@@ -38,7 +41,9 @@ export function ItemEditor({
                 <EditableText
                     fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/name`}
                     placeholder="Title"
-                    defaultValue={item.name}
+                    valueName={lang}
+                    method="PATCH"
+                    defaultValue={getLocalizedString(item.name, lang)}
                     textarea={true}
                     className="input-ghost input card-title w-full resize-none overflow-hidden rounded pl-0 pr-0 text-2xl"
                 />
@@ -48,8 +53,14 @@ export function ItemEditor({
                     nullable={true}
                     allowNewLine={true}
                     fetchUrl={`/api/category/${categoryId}/items/${itemIndex}/description`}
+                    valueName={lang}
+                    method="PATCH"
                     placeholder="Description"
-                    defaultValue={item.description}
+                    defaultValue={getLocalizedString(
+                        item.description,
+                        lang,
+                        false
+                    )}
                     textarea={true}
                     className="input-ghost input w-full resize-none overflow-hidden rounded pl-0 pr-0"
                 />

@@ -1,3 +1,4 @@
+import 'server-only';
 import { Storage } from '@google-cloud/storage';
 
 const storage = new Storage({
