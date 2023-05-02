@@ -52,8 +52,12 @@ export default function AdminPage() {
         <Drawer
             navbarElements={
                 <>
-                    <Logout className="ml-auto" />
-                    <LanguagePicker selectedLang={lang} setLang={setLang} />
+                    <LanguagePicker
+                        className="ml-auto"
+                        selectedLang={lang}
+                        setLang={setLang}
+                    />
+                    <Logout className="ml-2" />
                 </>
             }
             name="Slivki Admin Panel"
