@@ -14,6 +14,7 @@ export interface DrawerLinkProps {
      */
     depth?: number;
     className?: string;
+    isStep?: boolean;
 }
 
 const indent = ['', 'ml-4', 'ml-8', 'ml-12']; // We have to spell it out so tailwind detects it
@@ -23,22 +24,21 @@ export function DrawerLink({
     header,
     depth: paramDepth = 0,
     className,
+    isStep = true,
 }: DrawerLinkProps) {
     const depth = header.depth ?? paramDepth;
     return (
-        <>
-            <li>
-                <button
-                    type="button"
-                    className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
-                    onClick={() => {
-                        scrollIdIntoView(header.id);
-                        document.getElementById(drawerInputId)?.click();
-                    }}
-                >
-                    {header.name}
-                </button>
-            </li>
-        </>
+        <li className={`${isStep ? 'step' : ''}`} data-content="">
+            <button
+                type="button"
+                className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
+                onClick={() => {
+                    scrollIdIntoView(header.id);
+                    document.getElementById(drawerInputId)?.click();
+                }}
+            >
+                {header.name}
+            </button>
+        </li>
     );
 }

@@ -73,8 +73,9 @@ export function Drawer({
                     htmlFor={drawerInputId}
                     className="drawer-overlay"
                 ></label>
-                <ul className="menu w-60 gap-2 bg-base-100 p-4">
+                <ul className="w-60 gap-2 bg-base-100 p-4">
                     <DrawerLink
+                        isStep={false}
                         className="h-full text-2xl font-bold"
                         drawerInputId={drawerInputId}
                         header={{
@@ -82,13 +83,18 @@ export function Drawer({
                             id: topId,
                         }}
                     />
-                    {headers?.map((header) => (
-                        <DrawerLink
-                            key={header.id}
-                            drawerInputId={drawerInputId}
-                            header={header}
-                        />
-                    ))}
+                    <li>
+                        <ul className="steps steps-vertical w-full">
+                            {headers?.map((header) => (
+                                <DrawerLink
+                                    key={header.id}
+                                    drawerInputId={drawerInputId}
+                                    header={header}
+                                    className="w-full"
+                                />
+                            ))}
+                        </ul>
+                    </li>
                 </ul>
             </aside>
         </div>
