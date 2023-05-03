@@ -60,7 +60,7 @@ export default function AdminPage() {
                     <Logout className="ml-2" />
                 </>
             }
-            name="Slivki Admin Panel"
+            name="Admin Panel"
             headers={headers}
         >
             <main className="vertical-list w-full max-w-screen-lg p-4">
