@@ -4,6 +4,5 @@ export interface Header {
      * Element id to scroll to
      */
     id: string;
-    innerHeaders?: Header[];
     depth?: number;
 }

@@ -39,15 +39,6 @@ export function DrawerLink({
                     {header.name}
                 </button>
             </li>
-            {header.innerHeaders &&
-                header.innerHeaders.map((innerHeader, index) => (
-                    <DrawerLink
-                        drawerInputId={drawerInputId}
-                        header={innerHeader}
-                        depth={depth + 1}
-                        key={index}
-                    />
-                ))}
         </>
     );
 }
