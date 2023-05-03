@@ -133,7 +133,7 @@ export function EditableText({
         return {
             onBlur: () => updateCategory(),
             onKeyUp: (e: React.KeyboardEvent) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !allowNewLine) {
                     e.preventDefault();
                     updateCategory();
                 }
