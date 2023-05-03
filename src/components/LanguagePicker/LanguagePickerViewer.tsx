@@ -22,7 +22,13 @@ export function LanguagePickerViewer({
                     (locale) =>
                         locale !== selectedLang && (
                             <li key={locale}>
-                                <Link href={`/${locale}`}>{locale}</Link>
+                                <Link
+                                    scroll={false}
+                                    replace
+                                    href={`/${locale}`}
+                                >
+                                    {locale}
+                                </Link>
                             </li>
                         )
                 )}
