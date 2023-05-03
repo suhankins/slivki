@@ -10,7 +10,7 @@ And food delivery service soon!
 ├───public - static files
 └───src
     ├───app
-    │   ├───(viewer) - what normal visitors will see
+    │   ├───[lang] - what normal visitors will see
     │   ├───admin - admin panel
     │   └───api - API endpoints
     ├───components - React components
@@ -19,6 +19,7 @@ And food delivery service soon!
     │   └───*name*Editor.tsx - Admin components
     ├───hooks - React hooks
     ├───lib - Things for interacting with external APIs
+    ├───dictionaries - Dictionaries for translations
     ├───models - Mongoose models
     ├───pages - Only used for NextAuth until NextAuth supports app route
     └───utils - Utility functions
