@@ -43,7 +43,11 @@ export function PriceSelectorViewer({
                         {prices[selectedSize]}&#8382;
                     </p>
                     {process.env.NEXT_PUBLIC_DEV && (
-                        <button className="btn-success btn-square btn">
+                        <button
+                            className="btn-success btn-square btn"
+                            title="Add to cart"
+                            type="button"
+                        >
                             <ShoppingCartIcon className="absolute h-6 w-6" />
                         </button>
                     )}
