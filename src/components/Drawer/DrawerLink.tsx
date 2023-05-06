@@ -1,7 +1,9 @@
 'use client';
 
-import { scrollIdIntoView } from '@/utils/client/scrollIdIntoView';
+import { scrollElementIntoView } from '@/utils/client/scrollElementIntoView';
 import { Header } from './Header';
+import { isBrowser } from '@/utils/client/isBrowser';
+import { useMemo } from 'react';
 
 export interface DrawerLinkProps {
     /**
@@ -27,13 +29,17 @@ export function DrawerLink({
     isStep = true,
 }: DrawerLinkProps) {
     const depth = header.depth ?? paramDepth;
+    const element = useMemo(() => {
+        if (!isBrowser()) return null;
+        return document.getElementById(header.id);
+    }, [header]);
     return (
         <li className={`${isStep ? 'step' : ''}`} data-content="">
             <button
                 type="button"
                 className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
                 onClick={() => {
-                    scrollIdIntoView(header.id);
+                    scrollElementIntoView(element);
                     document.getElementById(drawerInputId)?.click();
                 }}
             >

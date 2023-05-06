@@ -1,7 +1,8 @@
 'use client';
 
-import { scrollIdIntoView } from '@/utils/client/scrollIdIntoView';
-import { HTMLAttributes } from 'react';
+import { isBrowser } from '@/utils/client/isBrowser';
+import { scrollElementIntoView } from '@/utils/client/scrollElementIntoView';
+import { HTMLAttributes, useMemo } from 'react';
 
 export function HeroScrollButton({
     children,
@@ -14,11 +15,15 @@ export function HeroScrollButton({
     id?: string;
     props?: HTMLAttributes<HTMLButtonElement>;
 }) {
+    const element = useMemo(() => {
+        if (!isBrowser() || !id) return null;
+        return document.getElementById(id);
+    }, [id]);
     return (
         <button
             type="button"
             className={`btn-ghost btn-square btn text-white ${className}`}
-            onClick={() => id && scrollIdIntoView(id)}
+            onClick={() => id && scrollElementIntoView(element)}
             {...props}
         >
             {children}
