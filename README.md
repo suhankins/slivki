@@ -13,6 +13,7 @@ And food delivery service soon!
     │   ├───[lang] - what normal visitors will see
     │   ├───admin - admin panel
     │   └───api - API endpoints
+    │       └───revalidate - updates main page for both languages
     ├───components - React components
     │   ├───*name*.tsx - Basic layouts for components
     │   ├───*name*Viewer.tsx - Viewer components
