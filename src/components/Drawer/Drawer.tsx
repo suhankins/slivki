@@ -87,6 +87,7 @@ export function Drawer({
                         <ul className="steps steps-vertical w-full overflow-x-hidden">
                             {headers?.map((header) => (
                                 <DrawerLink
+                                    isStep={false}
                                     key={header.id}
                                     drawerInputId={drawerInputId}
                                     header={header}
