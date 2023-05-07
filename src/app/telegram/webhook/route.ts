@@ -9,7 +9,9 @@ export async function POST(request: NextRequest) {
     )
         return new Response('Unauthorized', { status: 401 });
     const { message } = await request.json();
-    if (!message || !message.text || message.chat.type !== 'private') {
+    if (!message || !message.text) return new Response('OK');
+    if (message.chat.type !== 'private') {
+        sendMessage(message.chat.id, 'This bot only works in private chats');
         return new Response('OK');
     }
     const text: string = message.text;
