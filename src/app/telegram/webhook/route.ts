@@ -12,7 +12,10 @@ export async function POST(request: NextRequest) {
     console.log(message);
     //if (!message || !message.text) return new Response('OK');
     if (message.chat.type !== 'private') {
-        sendMessage(message.chat.id, 'This bot only works in private chats');
+        await sendMessage(
+            message.chat.id,
+            'This bot only works in private chats'
+        );
         return new Response('OK');
     }
     const text: string = message.text;
@@ -21,11 +24,11 @@ export async function POST(request: NextRequest) {
         (await ListenerModel.findOne({ telegramId: message.chat.id })) !== null
     ) {
         await ListenerModel.findOneAndDelete({ telegramId: message.chat.id });
-        sendMessage(message.chat.id, 'You have been unsubscribed');
+        await sendMessage(message.chat.id, 'You have been unsubscribed');
         return new Response('OK');
     }
     if (text !== process.env.TELEGRAM_PASSWORD) {
-        sendMessage(message.chat_id, 'Wrong password');
+        await sendMessage(message.chat_id, 'Wrong password');
         return new Response('OK');
     }
 
