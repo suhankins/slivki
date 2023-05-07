@@ -12,7 +12,7 @@ export async function GET() {
         },
         body: JSON.stringify({
             url: process.env.NEXTAUTH_URL + 'telegram/webhook',
-            secret_token: process.env.NEXTAUTH_SECRET,
+            secret_token: process.env.TELEGRAM_SECRET,
             allowed_updates: ['message'],
             drop_pending_updates: true,
         }),
