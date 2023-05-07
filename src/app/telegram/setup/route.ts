@@ -1,4 +1,4 @@
-import { telegramUrl } from '@/utils/server/telegramUrl';
+import { telegramUrl } from '@/lib/telegramApi';
 
 /**
  * Sets the webhook for the bot.
