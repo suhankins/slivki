@@ -17,9 +17,9 @@ export async function POST(request: NextRequest) {
     const text: string = message.text;
     if (
         text.trim().toLowerCase() === 'unsubscribe' &&
-        (await ListenerModel.findById(message.chat.id)) !== null
+        (await ListenerModel.findOne({ telegramId: message.chat.id })) !== null
     ) {
-        await ListenerModel.findByIdAndDelete(message.chat.id);
+        await ListenerModel.findOneAndDelete({ telegramId: message.chat.id });
         sendMessage(message.chat.id, 'You have been unsubscribed');
         return new Response('OK');
     }
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        await ListenerModel.create({ _id: message.chat.id });
+        await ListenerModel.create({ telegramId: message.chat.id });
         await fetch(telegramUrl + 'ReplyKeyboardMarkup', {
             method: 'POST',
             headers: {
