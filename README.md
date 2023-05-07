@@ -12,8 +12,11 @@ And food delivery service soon!
     ├───app
     │   ├───[lang] - what normal visitors will see
     │   ├───admin - admin panel
-    │   └───api - API endpoints
-    │       └───revalidate - updates main page for both languages
+    │   ├───api - API endpoints
+    │   │   └───revalidate - updates main page for both languages
+    │   └───telegram - Telegram bot
+    │       ├───setup - sets up webhook
+    │       └───webhook - receives updates from Telegram, mainly for registering people as listeners
     ├───components - React components
     │   ├───*name*.tsx - Basic layouts for components
     │   ├───*name*Viewer.tsx - Viewer components
@@ -38,3 +41,6 @@ And food delivery service soon!
 -   CLIENT_EMAIL - Google Cloud client email
 -   PRIVATE_KEY - Google Cloud private key
 -   BUCKET_NAME - Google Cloud bucket name
+-   TELEGRAM_TOKEN - Telegram bot token
+-   TELEGRAM_SECRET - Secret code that telegram will send with its webhook requests
+-   TELEGRAM_PASSWORD - Code that user needs to send to be registered as listener for updates
