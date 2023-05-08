@@ -1,14 +1,17 @@
 export const telegramUrl =
     'https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/';
 
-export async function sendMessage(chat_id: string, text: string) {
-    const result = await fetch(telegramUrl + 'sendMessage', {
+export async function callApi(method: string, content: any) {
+    const result = await fetch(telegramUrl + method, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ chat_id, text }),
+        body: JSON.stringify(content),
+        next: {
+            revalidate: 0,
+        },
     });
-    console.log('Sent message to telegram. Response:', result);
+    console.log(`Called ${method} on telegram. Response:`, await result.text());
     return result;
 }
