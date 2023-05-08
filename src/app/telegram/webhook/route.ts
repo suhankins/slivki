@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
     console.log(message);
     //if (!message || !message.text) return new Response('OK');
     if (message.chat.type !== 'private') {
+        console.log('Message sent in a group, ignoring');
         await sendMessage(
             message.chat.id,
             'This bot only works in private chats'
@@ -23,16 +24,19 @@ export async function POST(request: NextRequest) {
         text.trim().toLowerCase() === 'unsubscribe' &&
         (await ListenerModel.findOne({ telegramId: message.chat.id })) !== null
     ) {
+        console.log('Unsubscribing');
         await ListenerModel.findOneAndDelete({ telegramId: message.chat.id });
         await sendMessage(message.chat.id, 'You have been unsubscribed');
         return new Response('OK');
     }
     if (text !== process.env.TELEGRAM_PASSWORD) {
+        console.log('Wrong password');
         await sendMessage(message.chat_id, 'Wrong password');
         return new Response('OK');
     }
 
     try {
+        console.log('Subscribing');
         await ListenerModel.create({ telegramId: message.chat.id });
         await fetch(telegramUrl + 'ReplyKeyboardMarkup', {
             method: 'POST',
@@ -49,10 +53,12 @@ export async function POST(request: NextRequest) {
             }),
         });
     } catch (e) {
+        console.log(e);
         await sendMessage(
             message.chat.id,
             'You are already in the club, buddy!'
         );
     }
+    console.log('Done');
     return new Response('OK');
 }
