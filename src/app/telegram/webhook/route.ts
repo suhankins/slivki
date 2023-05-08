@@ -51,14 +51,16 @@ export async function POST(request: NextRequest) {
         await callApi('sendMessage', {
             chat_id: chatId,
             text: 'You have been subscribed',
-        });
-        await callApi('ReplyKeyboardMarkup', {
-            keyboard: [
-                {
-                    text: 'Unsubscribe',
-                },
-            ],
-            is_persistent: true,
+            reply_markup: {
+                keyboard: [
+                    [
+                        {
+                            text: 'Unsubscribe',
+                        },
+                    ],
+                ],
+                one_time_keyboard: true,
+            },
         });
     } catch (e) {
         console.log(e);
