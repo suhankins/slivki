@@ -15,3 +15,15 @@ export async function callApi(method: string, content: any) {
     console.log(`Called ${method} on telegram. Response:`, await result.text());
     return result;
 }
+
+export interface TelegramMessage {
+    text: string;
+    chat: {
+        id: number;
+        type: 'private' | 'group' | 'supergroup' | 'channel';
+    };
+}
+
+export interface TelegramUpdate {
+    message?: TelegramMessage;
+}
