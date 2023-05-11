@@ -51,7 +51,7 @@ export default async function Home({
             <div
                 className="min-h-s-screen hero relative -top-16"
                 style={{
-                    backgroundImage: `url("/static/backgroundPlaceholder.jpg")`,
+                    backgroundImage: `url("/static/backgroundPlaceholder.webp")`,
                 }}
             >
                 <div className="hero-overlay bg-opacity-60"></div>
