@@ -36,6 +36,7 @@ function checkPrivate(message: TelegramMessage): boolean {
         });
         return false;
     }
+    console.log('Message sent in private chat');
     return true;
 }
 
@@ -43,6 +44,7 @@ async function handleListener(
     message: TelegramMessage,
     listener: DocumentType<ListenerClass>
 ): Promise<void> {
+    console.log('Listener found');
     if (message.text.trim().toLowerCase() === 'unsubscribe') {
         console.log('Unsubscribing');
         try {
@@ -51,6 +53,7 @@ async function handleListener(
                 chat_id: message.chat.id,
                 text: 'You have been unsubscribed',
             });
+            console.log('Unsubscribed');
         } catch (e) {
             console.log(e);
             await callApi('sendMessage', {
@@ -62,6 +65,7 @@ async function handleListener(
 }
 
 async function handleNotListener(message: TelegramMessage): Promise<void> {
+    console.log('Listener not found');
     if (message.text !== process.env.TELEGRAM_PASSWORD) {
         console.log('Wrong password');
         await callApi('sendMessage', {
@@ -70,6 +74,7 @@ async function handleNotListener(message: TelegramMessage): Promise<void> {
         });
         return;
     }
+    console.log('Password correct');
 
     try {
         console.log('Subscribing');
@@ -88,6 +93,7 @@ async function handleNotListener(message: TelegramMessage): Promise<void> {
                 one_time_keyboard: true,
             },
         });
+        console.log('Subscribed');
     } catch (e) {
         console.log(e);
         await callApi('sendMessage', {
