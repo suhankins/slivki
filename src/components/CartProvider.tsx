@@ -6,6 +6,8 @@ import { createContext, useEffect, useReducer } from 'react';
 export interface CartItem {
     name: LocalizedStringObject;
     price: number;
+    sizeString?: string;
+    selectedSize: number;
     categoryId: string;
     itemIndex: number;
     quantity?: number;
@@ -19,7 +21,9 @@ export type CartAction = {
 };
 
 const itemEquals = (a: CartItem, b: CartItem): boolean =>
-    a.categoryId === b.categoryId && a.itemIndex === b.itemIndex;
+    a.categoryId === b.categoryId &&
+    a.itemIndex === b.itemIndex &&
+    a.selectedSize === b.selectedSize;
 
 function cartReducer(state: Cart, action: CartAction) {
     switch (action.type) {

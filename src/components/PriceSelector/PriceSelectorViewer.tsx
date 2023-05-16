@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PriceSelector } from './PriceSelector';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { AddToCartButton } from '../buttons/AddToCartButton';
 
 export interface PriceSelectorViewerProps {
@@ -43,7 +42,21 @@ export function PriceSelectorViewer({
                     <p className="w-16 py-4 text-center text-3xl font-bold">
                         {prices[selectedSize]}&#8382;
                     </p>
-                    {process.env.NEXT_PUBLIC_DEV && <AddToCartButton />}
+                    {process.env.NEXT_PUBLIC_DEV && (
+                        <AddToCartButton
+                            cartItem={{
+                                name: {
+                                    en: 'Test',
+                                    ru: 'Тест',
+                                },
+                                price: prices[selectedSize] ?? 0,
+                                selectedSize,
+                                sizeString: sizes?.[selectedSize],
+                                categoryId: 'test',
+                                itemIndex: 0,
+                            }}
+                        />
+                    )}
                 </>
             }
         />
