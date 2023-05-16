@@ -30,4 +30,12 @@ export function newLocalizedString() {
     return new Map<Locale, string>();
 }
 
+export function mapToObject(map: LocalizedString): LocalizedStringObject {
+    const obj: LocalizedStringObject = {} as any;
+    map.forEach((value, key) => {
+        obj[key] = value;
+    });
+    return obj;
+}
+
 export type LocalizedStringObject = { [locale in Locale]: string };

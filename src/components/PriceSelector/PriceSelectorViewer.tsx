@@ -3,13 +3,20 @@
 import { useState } from 'react';
 import { PriceSelector } from './PriceSelector';
 import { AddToCartButton } from '../buttons/AddToCartButton';
+import { LocalizedStringObject } from '@/lib/i18n-config';
 
 export interface PriceSelectorViewerProps {
+    name: LocalizedStringObject;
+    categoryId: string;
+    itemIndex: number;
     sizes?: string[];
     prices: (number | null)[];
 }
 
 export function PriceSelectorViewer({
+    name,
+    categoryId,
+    itemIndex,
     sizes,
     prices,
 }: PriceSelectorViewerProps) {
@@ -45,15 +52,12 @@ export function PriceSelectorViewer({
                     {process.env.NEXT_PUBLIC_DEV && (
                         <AddToCartButton
                             cartItem={{
-                                name: {
-                                    en: 'Test',
-                                    ru: 'Тест',
-                                },
+                                name,
                                 price: prices[selectedSize] ?? 0,
                                 selectedSize,
                                 sizeString: sizes?.[selectedSize],
-                                categoryId: 'test',
-                                itemIndex: 0,
+                                categoryId,
+                                itemIndex,
                             }}
                         />
                     )}

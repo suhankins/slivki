@@ -3,14 +3,16 @@ import { Item } from './Item';
 import { PriceSelectorViewer } from '@/components/PriceSelector/PriceSelectorViewer';
 import { ImageViewer } from '@/components/Item/Image/ImageViewer';
 import { SimpleCategory } from '@/models/Category';
-import { Locale, getLocalizedString } from '@/lib/i18n-config';
+import { Locale, getLocalizedString, mapToObject } from '@/lib/i18n-config';
 
 export function ItemViewer({
     item,
+    itemIndex,
     category,
     lang,
 }: {
     item: ItemClass;
+    itemIndex: number;
     category: SimpleCategory;
     lang: Locale;
 }) {
@@ -34,6 +36,9 @@ export function ItemViewer({
             }
             priceSelector={
                 <PriceSelectorViewer
+                    name={mapToObject(item.name)}
+                    categoryId={category._id}
+                    itemIndex={itemIndex}
                     sizes={category.sizes}
                     prices={item.price}
                 />
