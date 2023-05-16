@@ -23,18 +23,46 @@ const itemEquals = (a: CartItem, b: CartItem): boolean =>
 
 function cartReducer(state: Cart, action: CartAction) {
     switch (action.type) {
-        case 'ADD_ITEM':
+        case 'ADD_ITEM': {
             console.log('Adding item to cart');
             const foundItem = state.find((item) =>
                 itemEquals(item, action.payload)
             );
-            if (!foundItem) return [...state, action.payload];
+            if (!foundItem) {
+                console.log('Item not found in cart, adding new item');
+                return [...state, action.payload];
+            }
+            console.log('Item found in cart, increasing quantity');
             foundItem.quantity =
                 (foundItem.quantity ?? 1) + (action.payload.quantity ?? 1);
             return state;
-        case 'REMOVE_ITEM':
+        }
+        case 'REMOVE_ITEM': {
             console.log('Removing item from cart');
+            const foundItem = state.find((item) =>
+                itemEquals(item, action.payload)
+            );
+            if (!foundItem) {
+                console.log('Item not found in cart, doing nothing');
+                return state;
+            }
+            const decreaseQuantity = action.payload.quantity ?? 1;
+            if (
+                foundItem.quantity &&
+                foundItem.quantity > 1 &&
+                foundItem.quantity > decreaseQuantity
+            ) {
+                console.log(
+                    'Item found in cart and has quantity > 1, decreasing quantity'
+                );
+                foundItem.quantity -= decreaseQuantity;
+                return state;
+            }
+            console.log(
+                'Item found in cart and quantity is too low, removing item'
+            );
             return state.filter((item) => !itemEquals(item, action.payload));
+        }
         default:
             return state;
     }
