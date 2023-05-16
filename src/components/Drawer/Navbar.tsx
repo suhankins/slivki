@@ -18,7 +18,8 @@ export function Navbar({
             className={`navbar sticky top-0 left-0 z-40 ${
                 changeOnScroll &&
                 (!isBrowser() ||
-                    scrollPosition < (window.visualViewport?.height ?? 1080))
+                    scrollPosition <
+                        (window.visualViewport?.height ?? 1080) - 64)
                     ? 'bg-transparent text-white'
                     : 'bg-base-300'
             }`}
