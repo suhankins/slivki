@@ -29,7 +29,8 @@ function cartReducer(state: Cart, action: CartAction) {
                 itemEquals(item, action.payload)
             );
             if (!foundItem) return [...state, action.payload];
-            foundItem.quantity = (foundItem.quantity ?? 1) + 1;
+            foundItem.quantity =
+                (foundItem.quantity ?? 1) + (action.payload.quantity ?? 1);
             return state;
         case 'REMOVE_ITEM':
             console.log('Removing item from cart');
