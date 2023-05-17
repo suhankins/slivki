@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
-import { useId } from 'react';
+import { useId, useRef } from 'react';
 import { Header } from './Header';
 import { Navbar } from './Navbar';
 
@@ -22,9 +24,11 @@ export function Drawer({
     const drawerInputId = useId();
     const topId = useId();
     const drawerContentId = useId();
+    const drawerCheckboxRef = useRef<HTMLInputElement>(null);
     return (
         <div className="drawer">
             <input
+                ref={drawerCheckboxRef}
                 id={drawerInputId}
                 type="checkbox"
                 className="drawer-toggle"
@@ -77,11 +81,11 @@ export function Drawer({
                     <DrawerLink
                         isStep={false}
                         className="h-full text-2xl font-bold"
-                        drawerInputId={drawerInputId}
                         header={{
                             name: name ?? 'Slivki',
                             id: topId,
                         }}
+                        drawerCheckboxRef={drawerCheckboxRef}
                     />
                     <li>
                         <ul className="steps steps-vertical w-full overflow-x-hidden">
@@ -89,9 +93,9 @@ export function Drawer({
                                 <DrawerLink
                                     isStep={false}
                                     key={header.id}
-                                    drawerInputId={drawerInputId}
                                     header={header}
                                     className="w-full"
+                                    drawerCheckboxRef={drawerCheckboxRef}
                                 />
                             ))}
                         </ul>

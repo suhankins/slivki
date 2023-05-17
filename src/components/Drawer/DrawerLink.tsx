@@ -9,7 +9,6 @@ export interface DrawerLinkProps {
     /**
      * Id of the input that controls the drawer, so buttons can close it when clicked
      */
-    drawerInputId: string;
     header: Header;
     /**
      * Depth of the header, used for indentation
@@ -17,16 +16,17 @@ export interface DrawerLinkProps {
     depth?: number;
     className?: string;
     isStep?: boolean;
+    drawerCheckboxRef?: React.RefObject<HTMLInputElement>;
 }
 
 const indent = ['', 'ml-4', 'ml-8', 'ml-12']; // We have to spell it out so tailwind detects it
 
 export function DrawerLink({
-    drawerInputId,
     header,
     depth: paramDepth = 0,
     className,
     isStep = true,
+    drawerCheckboxRef,
 }: DrawerLinkProps) {
     const depth = header.depth ?? paramDepth;
     const element = useMemo(() => {
@@ -40,7 +40,7 @@ export function DrawerLink({
                 className={`btn-ghost btn justify-start ${indent[depth]} ${className}`}
                 onClick={() => {
                     scrollElementIntoView(element);
-                    document.getElementById(drawerInputId)?.click();
+                    drawerCheckboxRef?.current?.click();
                 }}
             >
                 {header.name}
