@@ -12,6 +12,9 @@ export interface CartItem {
     itemIndex: number;
     quantity?: number;
 }
+function cloneItem(item: CartItem) {
+    return { ...item };
+}
 
 export type Cart = CartItem[];
 
@@ -34,18 +37,14 @@ function cartReducer(state: Cart, action: CartAction) {
             );
             if (!foundItem) {
                 console.log('Item not found in cart, adding new item');
-                return [...state, action.payload];
+                return [...state, cloneItem(action.payload)];
             }
             console.log('Item found in cart, increasing quantity');
             if (!foundItem.quantity) {
                 console.log('Item had no quantity, setting it to 1');
                 foundItem.quantity = 1;
             }
-            console.log(
-                'Increasing quantity by',
-                action.payload.quantity ?? 1,
-                action.payload
-            );
+            console.log('Increasing quantity by', action.payload.quantity ?? 1);
             foundItem.quantity += action.payload.quantity ?? 1;
             return [...state];
         }
