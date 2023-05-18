@@ -37,9 +37,17 @@ function cartReducer(state: Cart, action: CartAction) {
                 return [...state, action.payload];
             }
             console.log('Item found in cart, increasing quantity');
-            foundItem.quantity =
-                (foundItem.quantity ?? 1) + (action.payload.quantity ?? 1);
-            return state;
+            if (!foundItem.quantity) {
+                console.log('Item had no quantity, setting it to 1');
+                foundItem.quantity = 1;
+            }
+            console.log(
+                'Increasing quantity by',
+                action.payload.quantity ?? 1,
+                action.payload
+            );
+            foundItem.quantity += action.payload.quantity ?? 1;
+            return [...state];
         }
         case 'REMOVE_ITEM': {
             console.log('Removing item from cart');
@@ -72,10 +80,12 @@ function cartReducer(state: Cart, action: CartAction) {
     }
 }
 
-export const CartContext = createContext({
+export const CartActionContext = createContext({
     addToCart: (item: CartItem) => {},
     removeFromCart: (item: CartItem) => {},
 });
+
+export const CartContentsContext = createContext<Cart>([]);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [cartItems, dispatch] = useReducer(cartReducer, []);
@@ -93,8 +103,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <CartContext.Provider value={{ addToCart, removeFromCart }}>
-            {children}
-        </CartContext.Provider>
+        <CartContentsContext.Provider value={cartItems}>
+            <CartActionContext.Provider value={{ addToCart, removeFromCart }}>
+                {children}
+            </CartActionContext.Provider>
+        </CartContentsContext.Provider>
     );
 }
