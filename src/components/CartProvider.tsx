@@ -1,6 +1,7 @@
 'use client';
 
 import { LocalizedStringObject } from '@/lib/i18n-config';
+import { isBrowser } from '@/utils/client/isBrowser';
 import { createContext, useEffect, useReducer } from 'react';
 
 export interface CartItem {
@@ -16,11 +17,9 @@ function cloneItem(item: CartItem) {
     return { ...item };
 }
 
-export type Cart = CartItem[];
-
 export type CartAction = {
-    type: 'ADD_ITEM' | 'REMOVE_ITEM';
-    payload: CartItem;
+    type: 'ADD_ITEM' | 'REMOVE_ITEM' | 'SET_CART';
+    payload: CartItem | CartItem[];
 };
 
 const itemEquals = (a: CartItem, b: CartItem): boolean =>
@@ -28,36 +27,35 @@ const itemEquals = (a: CartItem, b: CartItem): boolean =>
     a.itemIndex === b.itemIndex &&
     a.selectedSize === b.selectedSize;
 
-function cartReducer(state: Cart, action: CartAction) {
+function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
+    const payload = action.payload;
     switch (action.type) {
         case 'ADD_ITEM': {
+            if (Array.isArray(payload)) return state;
             console.log('Adding item to cart');
-            const foundItem = state.find((item) =>
-                itemEquals(item, action.payload)
-            );
+            const foundItem = state.find((item) => itemEquals(item, payload));
             if (!foundItem) {
                 console.log('Item not found in cart, adding new item');
-                return [...state, cloneItem(action.payload)];
+                return [...state, cloneItem(payload)];
             }
             console.log('Item found in cart, increasing quantity');
             if (!foundItem.quantity) {
                 console.log('Item had no quantity, setting it to 1');
                 foundItem.quantity = 1;
             }
-            console.log('Increasing quantity by', action.payload.quantity ?? 1);
-            foundItem.quantity += action.payload.quantity ?? 1;
+            console.log('Increasing quantity by', payload.quantity ?? 1);
+            foundItem.quantity += payload.quantity ?? 1;
             return [...state];
         }
         case 'REMOVE_ITEM': {
+            if (Array.isArray(payload)) return state;
             console.log('Removing item from cart');
-            const foundItem = state.find((item) =>
-                itemEquals(item, action.payload)
-            );
+            const foundItem = state.find((item) => itemEquals(item, payload));
             if (!foundItem) {
                 console.log('Item not found in cart, doing nothing');
                 return state;
             }
-            const decreaseQuantity = action.payload.quantity ?? 1;
+            const decreaseQuantity = payload.quantity ?? 1;
             if (
                 foundItem.quantity &&
                 foundItem.quantity > 1 &&
@@ -72,7 +70,12 @@ function cartReducer(state: Cart, action: CartAction) {
             console.log(
                 'Item found in cart and quantity is too low, removing item'
             );
-            return state.filter((item) => !itemEquals(item, action.payload));
+            return state.filter((item) => !itemEquals(item, payload));
+        }
+        case 'SET_CART': {
+            console.log('Setting cart');
+            if (Array.isArray(payload)) return payload;
+            return [payload];
         }
         default:
             return state;
@@ -84,13 +87,20 @@ export const CartActionContext = createContext({
     removeFromCart: (item: CartItem) => {},
 });
 
-export const CartContentsContext = createContext<Cart>([]);
+export const CartContentsContext = createContext<CartItem[]>([]);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [cartItems, dispatch] = useReducer(cartReducer, []);
 
     useEffect(() => {
         console.log('Items updated!', cartItems);
+        if (cartItems.length !== 0)
+            sessionStorage.setItem('cart', JSON.stringify(cartItems));
+        else
+            dispatch({
+                type: 'SET_CART',
+                payload: JSON.parse(sessionStorage.getItem('cart') ?? '[]'),
+            });
     }, [cartItems]);
 
     function addToCart(item: CartItem) {
