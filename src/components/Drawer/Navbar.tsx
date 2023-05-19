@@ -18,7 +18,8 @@ export function Navbar({
         () =>
             !changeOnScroll ||
             (isBrowser() &&
-                scrollPosition >= (window.visualViewport?.height ?? 1080) - 64),
+                scrollPosition >=
+                    (window.visualViewport?.height ?? 1080) - 128),
         [scrollPosition]
     );
     return (
