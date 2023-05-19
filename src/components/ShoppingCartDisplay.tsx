@@ -3,10 +3,11 @@
 import ShoppingCartIcon from '@heroicons/react/24/outline/ShoppingCartIcon';
 import { useContext, useMemo, useRef } from 'react';
 import { CartContentsContext } from './CartProvider';
+import Link from 'next/link';
 
 export function ShoppingCartDisplay() {
     const cart = useContext(CartContentsContext);
-    const buttonRef = useRef<HTMLButtonElement>(null);
+    const buttonRef = useRef<HTMLAnchorElement>(null);
 
     const cartItemCount = useMemo(() => {
         buttonRef?.current?.classList.add('animate-ping-once');
@@ -21,12 +22,13 @@ export function ShoppingCartDisplay() {
     );
 
     return (
-        <button
+        <Link
             className="btn-ghost btn-square btn relative mr-3"
             type="button"
             aria-label="Shopping cart"
             ref={buttonRef}
             onAnimationEnd={handleAnimationEnd}
+            href={'/checkout'}
         >
             <div className="indicator absolute">
                 {cartItemCount !== 0 && (
@@ -36,6 +38,6 @@ export function ShoppingCartDisplay() {
                 )}
                 <ShoppingCartIcon className="h-6 w-6" />
             </div>
-        </button>
+        </Link>
     );
 }
