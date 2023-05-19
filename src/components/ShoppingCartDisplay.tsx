@@ -13,11 +13,11 @@ export function ShoppingCartDisplay() {
 
     return (
         <div className="indicator">
-            <span className="indicator-start indicator-bottom badge-secondary badge indicator-item">
+            <span className="indicator-start indicator-bottom badge-secondary badge indicator-item bottom-1">
                 {cartItemCount}
             </span>
             <button
-                className="btn-square btn relative"
+                className={`animate-bounce-once btn-ghost btn-square btn relative`}
                 type="button"
                 aria-label="Shopping cart"
             >
