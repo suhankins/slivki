@@ -1,5 +1,4 @@
-import { isBrowser } from '@/utils/client/isBrowser';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Returns the scroll position of the window or an element.
@@ -7,12 +6,9 @@ import { useEffect, useMemo, useState } from 'react';
  */
 export function useScrollPosition(elementId?: string) {
     const [scrollPosition, setScrollPosition] = useState<number>(0);
-
-    const element = useMemo(
-        () =>
-            isBrowser()
-                ? elementId && document.getElementById(elementId)
-                : null,
+    const [element, setElement] = useState<HTMLElement | null>(null);
+    useEffect(
+        () => setElement(elementId ? document.getElementById(elementId) : null),
         [elementId]
     );
 
@@ -25,12 +21,12 @@ export function useScrollPosition(elementId?: string) {
             setScrollPosition(target.scrollTop);
         };
 
-        if (!element) throw new Error('Element not found');
+        if (!element) return;
 
         element.addEventListener('scroll', handleScroll, { passive: true });
 
         return () => element.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [element]);
 
     return scrollPosition;
 }
