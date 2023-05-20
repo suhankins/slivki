@@ -94,20 +94,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         console.log('Items updated!', cartItems);
-        if (cartItems.length !== 0)
-            sessionStorage.setItem('cart', JSON.stringify(cartItems));
-        else {
-            try {
-                const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]');
-                if (Array.isArray(cart) && cart.length > 0)
-                    dispatch({ type: 'SET_CART', payload: cart });
-            } catch (e) {
-                console.log(
-                    "Cart storage could not be parsed, it's probably empty"
-                );
-            }
-        }
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    useEffect(() => {
+        try {
+            const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]');
+            if (Array.isArray(cart) && cart.length > 0)
+                dispatch({ type: 'SET_CART', payload: cart });
+        } catch (e) {
+            console.log('Cart storage could not be parsed');
+        }
+    }, []);
 
     function addToCart(item: CartItem) {
         dispatch({ type: 'ADD_ITEM', payload: item });
