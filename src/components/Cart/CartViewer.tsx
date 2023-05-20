@@ -13,7 +13,7 @@ export function CartViewer({ lang }: { lang: Locale }) {
         <table className="w-full border-collapse">
             <tbody>
                 {cart.map((item, index) => (
-                    <tr key={index} className="border-between-rows">
+                    <tr key={index} className="border-b-2">
                         <td className="w-full py-3">
                             <p className="text-lg font-bold">
                                 {item.name[lang]}
@@ -53,6 +53,25 @@ export function CartViewer({ lang }: { lang: Locale }) {
                     </tr>
                 ))}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td />
+                    <td className="w-full py-3" colSpan={3}>
+                        <p className="text-right text-2xl font-bold">Total</p>
+                    </td>
+                    <td className="px-4">
+                        <p className="text-3xl font-bold">
+                            {cart.reduce(
+                                (acc, item) =>
+                                    acc +
+                                    (item.price ?? 0) * (item.quantity ?? 1),
+                                0
+                            )}
+                            &#8382;
+                        </p>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     );
 }
