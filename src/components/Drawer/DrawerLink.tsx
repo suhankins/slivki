@@ -2,8 +2,7 @@
 
 import { scrollElementIntoView } from '@/utils/client/scrollElementIntoView';
 import { Header } from './Header';
-import { isBrowser } from '@/utils/client/isBrowser';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface DrawerLinkProps {
     /**
@@ -29,10 +28,11 @@ export function DrawerLink({
     drawerCheckboxRef,
 }: DrawerLinkProps) {
     const depth = header.depth ?? paramDepth;
-    const element = useMemo(() => {
-        if (!isBrowser()) return null;
-        return document.getElementById(header.id);
-    }, [header]);
+    const [element, setElement] = useState<HTMLElement | null>(null);
+    useEffect(
+        () => setElement(header.id ? document.getElementById(header.id) : null),
+        [header]
+    );
     return (
         <li className={`${isStep ? 'step' : ''}`} data-content="">
             <button
