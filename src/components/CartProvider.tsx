@@ -1,7 +1,6 @@
 'use client';
 
 import { LocalizedStringObject } from '@/lib/i18n-config';
-import { isBrowser } from '@/utils/client/isBrowser';
 import { createContext, useEffect, useReducer } from 'react';
 
 export interface CartItem {
