@@ -1,7 +1,7 @@
 'use client';
 
 import { Drawer } from '@/components/Drawer/Drawer';
-import { Logout } from '@/components/Logout';
+import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/components/Category/CategoryEditor';
@@ -57,7 +57,7 @@ export default function AdminPage() {
                         selectedLang={lang}
                         setLang={setLang}
                     />
-                    <Logout className="ml-2" />
+                    <LogoutButton className="ml-2" />
                 </>
             }
             name="Admin Panel"

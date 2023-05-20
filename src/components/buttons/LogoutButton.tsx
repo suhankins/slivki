@@ -7,7 +7,7 @@ export interface LogoutProps {
     className?: string;
 }
 
-export function Logout({ className }: LogoutProps) {
+export function LogoutButton({ className }: LogoutProps) {
     return (
         <button
             aria-label="logout"
