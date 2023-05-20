@@ -5,7 +5,7 @@ import { useContext, useMemo, useRef } from 'react';
 import { CartContentsContext } from './CartProvider';
 import Link from 'next/link';
 
-export function ShoppingCartDisplay() {
+export function CartDisplay() {
     const cart = useContext(CartContentsContext);
     const buttonRef = useRef<HTMLAnchorElement>(null);
 

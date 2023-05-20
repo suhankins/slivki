@@ -7,7 +7,7 @@ import { HeroScrollButton } from '@/components/buttons/HeroScrollButton';
 import { getDictionary } from '@/lib/getDictionary';
 import { Locale, getLocalizedString, i18n } from '@/lib/i18n-config';
 import { LanguagePickerViewer } from '@/components/LanguagePicker/LanguagePickerViewer';
-import { ShoppingCartDisplay } from '@/components/ShoppingCartDisplay';
+import { CartDisplay } from '@/components/Cart/CartDisplay';
 
 async function getCategories() {
     const categories = (await CategoryModel.find()).map(
@@ -37,7 +37,7 @@ export default async function Home({
             navbarElements={
                 <>
                     <LanguagePickerViewer selectedLang={lang} />
-                    <ShoppingCartDisplay />
+                    <CartDisplay />
                 </>
             }
             navbarChangeOnScroll={true}

@@ -1,7 +1,7 @@
 'use client';
 
 import ShoppingCartIcon from '@heroicons/react/24/outline/ShoppingCartIcon';
-import { CartActionContext, CartItem } from '../CartProvider';
+import { CartActionContext, CartItem } from '../Cart/CartProvider';
 import { useContext } from 'react';
 
 export function AddToCartButton({ cartItem }: { cartItem: CartItem }) {
