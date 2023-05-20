@@ -10,9 +10,9 @@ export function useScrollPosition(elementId?: string) {
 
     const element = useMemo(
         () =>
-            (elementId && document.getElementById(elementId)) ||
-            (isBrowser() && window) ||
-            null,
+            isBrowser()
+                ? elementId && document.getElementById(elementId)
+                : null,
         [elementId]
     );
 
