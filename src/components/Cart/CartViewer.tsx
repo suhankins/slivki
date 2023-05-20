@@ -13,7 +13,7 @@ export function CartViewer({ lang }: { lang: Locale }) {
         <table className="w-full border-collapse">
             <tbody>
                 {cart.map((item, index) => (
-                    <tr key={index} className="border-b-2">
+                    <tr key={index} className="border-between-rows">
                         <td className="w-full py-3">
                             <p className="text-lg font-bold">
                                 {item.name[lang]}
