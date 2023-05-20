@@ -1,22 +1,21 @@
-'use client';
+import { CartViewer } from '@/components/CartViewer';
+import { Navbar } from '@/components/Navbar';
+import { GoBackButton } from '@/components/buttons/GoBackButton';
+import { Locale } from '@/lib/i18n-config';
 
-import { CartContentsContext } from '@/components/CartProvider';
-import { useContext } from 'react';
-
-export default function page() {
-    const cart = useContext(CartContentsContext);
+export default async function Page({
+    params: { lang },
+}: {
+    params: { lang: Locale };
+}) {
     return (
-        <div>
-            <h1>Checkout</h1>
-            <p>Cart contents:</p>
-            <ul>
-                {cart.map((item, index) => (
-                    <li key={index}>
-                        {item.name.en} ({item.sizeString}) x {item.quantity} |{' '}
-                        {item.price}$
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <Navbar>
+                <GoBackButton />
+            </Navbar>
+            <main className="vertical-list mx-auto w-full max-w-screen-md p-4">
+                <CartViewer lang={lang} />
+            </main>
+        </>
     );
 }

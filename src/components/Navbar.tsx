@@ -13,7 +13,7 @@ export function Navbar({
     changeOnScroll?: boolean;
 }) {
     const scrollPosition = useScrollPosition(parentId);
-    const [isBelowThreshold, setIsBelowThreshold] = useState(false);
+    const [isBelowThreshold, setIsBelowThreshold] = useState(!changeOnScroll);
     useEffect(() => {
         if (!changeOnScroll) return;
         setIsBelowThreshold(

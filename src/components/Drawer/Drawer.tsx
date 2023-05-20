@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
 import { useId, useRef } from 'react';
 import { Header } from './Header';
-import { Navbar } from './Navbar';
+import { Navbar } from '../Navbar';
 
 export interface DrawerProps {
     children: React.ReactNode;

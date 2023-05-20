@@ -1,7 +1,7 @@
 'use client';
 
 import { LocalizedStringObject } from '@/lib/i18n-config';
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 
 export interface CartItem {
     name: LocalizedStringObject;
@@ -42,8 +42,7 @@ function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
                 console.log('Item had no quantity, setting it to 1');
                 foundItem.quantity = 1;
             }
-            console.log('Increasing quantity by', payload.quantity ?? 1);
-            foundItem.quantity += payload.quantity ?? 1;
+            foundItem.quantity++;
             return [...state];
         }
         case 'REMOVE_ITEM': {
@@ -54,17 +53,12 @@ function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
                 console.log('Item not found in cart, doing nothing');
                 return state;
             }
-            const decreaseQuantity = payload.quantity ?? 1;
-            if (
-                foundItem.quantity &&
-                foundItem.quantity > 1 &&
-                foundItem.quantity > decreaseQuantity
-            ) {
+            if (foundItem.quantity && foundItem.quantity > 1) {
                 console.log(
                     'Item found in cart and has quantity > 1, decreasing quantity'
                 );
-                foundItem.quantity -= decreaseQuantity;
-                return state;
+                foundItem.quantity--;
+                return [...state];
             }
             console.log(
                 'Item found in cart and quantity is too low, removing item'
@@ -72,7 +66,7 @@ function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
             return state.filter((item) => !itemEquals(item, payload));
         }
         case 'SET_CART': {
-            console.log('Setting cart');
+            console.log('Setting cart', payload);
             if (Array.isArray(payload)) return payload;
             return [payload];
         }
@@ -90,20 +84,31 @@ export const CartContentsContext = createContext<CartItem[]>([]);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [cartItems, dispatch] = useReducer(cartReducer, []);
+    const [cartLoaded, setCartLoaded] = useState(false);
 
     useEffect(() => {
         console.log('Items updated!', cartItems);
-        sessionStorage.setItem('cart', JSON.stringify(cartItems));
+        if (cartLoaded)
+            sessionStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
     useEffect(() => {
-        try {
-            const cart = JSON.parse(sessionStorage.getItem('cart') ?? '[]');
-            if (Array.isArray(cart) && cart.length > 0)
-                dispatch({ type: 'SET_CART', payload: cart });
-        } catch (e) {
-            console.log('Cart storage could not be parsed');
+        if (cartItems.length > 0) return;
+        const cart = sessionStorage.getItem('cart');
+        if (cart) {
+            try {
+                const parsedCart = JSON.parse(cart) as CartItem[];
+                if (Array.isArray(parsedCart) && parsedCart.length > 0) {
+                    console.log('Cart found in session storage, setting cart');
+                    dispatch({ type: 'SET_CART', payload: parsedCart });
+                }
+            } catch (e) {
+                console.log(
+                    "Couldn't parse data from session storage, skipping"
+                );
+            }
         }
+        setCartLoaded(true);
     }, []);
 
     function addToCart(item: CartItem) {
