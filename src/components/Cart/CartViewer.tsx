@@ -14,16 +14,11 @@ export function CartViewer({ lang }: { lang: Locale }) {
             <tbody>
                 {cart.map((item, index) => (
                     <tr key={index} className="border-b-2">
-                        <td className="w-full py-3 sm:w-auto">
+                        <td className="w-full py-3">
                             <p className="text-lg font-bold">
                                 {item.name[lang]}
                             </p>
                             <p className="text-sm">{item.sizeString}</p>
-                        </td>
-                        <td className="hidden w-full px-4 sm:table-row">
-                            <span className="text-2xl font-bold">
-                                {item.price}&#8382;
-                            </span>
                         </td>
                         <td className="px-2">
                             <button
@@ -61,7 +56,6 @@ export function CartViewer({ lang }: { lang: Locale }) {
             <tfoot>
                 <tr>
                     <td />
-                    <td className="hidden sm:visible" />
                     <td className="w-full py-3" colSpan={3}>
                         <p className="text-right text-2xl font-bold">Total</p>
                     </td>
@@ -69,8 +63,7 @@ export function CartViewer({ lang }: { lang: Locale }) {
                         <p className="text-3xl font-bold">
                             {cart.reduce(
                                 (acc, item) =>
-                                    acc +
-                                    (item.price ?? 0) * (item.quantity ?? 1),
+                                    acc + item.price * (item.quantity ?? 1),
                                 0
                             )}
                             &#8382;
