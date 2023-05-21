@@ -13,6 +13,7 @@ And food delivery service soon!
     │   ├───[lang] - what normal visitors will see
     │   ├───admin - admin panel
     │   ├───api - API endpoints
+    │   │   ├───auth - NextAuth endpoints
     │   │   └───revalidate - updates main page for both languages
     │   └───telegram - Telegram bot
     │       ├───setup - sets up webhook
@@ -25,7 +26,6 @@ And food delivery service soon!
     ├───lib - Things for interacting with external APIs
     ├───dictionaries - Dictionaries for translations
     ├───models - Mongoose models
-    ├───pages - Only used for NextAuth until NextAuth supports app route
     └───utils - Utility functions
         ├───client - Client-side only
         └───server - Server-side only
