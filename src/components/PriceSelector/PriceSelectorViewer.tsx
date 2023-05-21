@@ -29,18 +29,19 @@ export function PriceSelectorViewer({
             sizeSelector={
                 <>
                     {sizes?.map((size, index) => (
-                        <div className="form-control" key={index}>
-                            <label className="label cursor-pointer flex-col">
-                                <p>{size}</p>
-                                <input
-                                    onChange={() => setSelectedSize(index)}
-                                    type="radio"
-                                    className="radio-primary radio radio-lg"
-                                    checked={selectedSize === index}
-                                    disabled={prices[index] === null}
-                                />
-                            </label>
-                        </div>
+                        <label
+                            className="label flex cursor-pointer flex-col"
+                            key={index}
+                        >
+                            <p>{size}</p>
+                            <input
+                                onChange={() => setSelectedSize(index)}
+                                type="radio"
+                                className="radio-primary radio radio-lg"
+                                checked={selectedSize === index}
+                                disabled={prices[index] === null}
+                            />
+                        </label>
                     ))}
                 </>
             }
