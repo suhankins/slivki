@@ -7,7 +7,7 @@
 }
 
 @mixin vertical-list {
-    @apply flex flex-col;
+    @apply flex flex-col items-center;
 }
 
 .vertical-list {
