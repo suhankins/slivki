@@ -71,11 +71,56 @@ describe('telegram/webhook/utils', () => {
                 text: 'You have been unsubscribed',
             });
         });
+        it('should not throw an error if message is unsubscribe and delete failed', async () => {
+            message.text = 'unsubscribe';
+            spyListenerDelete.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+
+            expect(
+                async () => await handleListener(message, listener)
+            ).not.toThrow();
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Error unsubscribing: Error: Test error',
+            });
+        });
+        it('should not throw an error if message is unsubscribe and delete failed and callApi failed', async () => {
+            message.text = 'unsubscribe';
+            spyListenerDelete.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+            spyCallApi.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+
+            expect(
+                async () => await handleListener(message, listener)
+            ).not.toThrow();
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Error unsubscribing: Error: Test error',
+            });
+        });
         it('should send a message if message is not unsubscribe', async () => {
             message.text = 'not unsubscribe';
             await handleListener(message, listener);
 
             expect(spyListenerDelete).not.toHaveBeenCalled();
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'You are already subscribed',
+            });
+        });
+        it('should not throw an error if message is not unsubscribe and callApi failed', async () => {
+            message.text = 'not unsubscribe';
+            spyCallApi.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+
+            expect(
+                async () => await handleListener(message, listener)
+            ).not.toThrow();
             expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
                 chat_id: message.chat.id,
                 text: 'You are already subscribed',

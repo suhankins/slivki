@@ -25,10 +25,17 @@ export async function handleListener(
             return;
         } catch (e) {
             console.log(e);
-            await callApi('sendMessage', {
-                chat_id: message.chat.id,
-                text: `Error unsubscribing: ${e}`,
-            });
+            try {
+                await callApi('sendMessage', {
+                    chat_id: message.chat.id,
+                    text: `Error unsubscribing: ${e}`,
+                });
+            } catch (e) {
+                console.error(
+                    'Error while sending a message that unsubscription failed!',
+                    e
+                );
+            }
             return;
         }
     }
