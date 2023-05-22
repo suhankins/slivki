@@ -32,11 +32,18 @@ export async function handleListener(
             return;
         }
     }
-    await callApi('sendMessage', {
-        chat_id: message.chat.id,
-        text: 'You are already subscribed',
-    });
-    console.log('Already subscribed');
+    try {
+        await callApi('sendMessage', {
+            chat_id: message.chat.id,
+            text: 'You are already subscribed',
+        });
+        console.log('Already subscribed');
+    } catch (e) {
+        console.error(
+            'Error while sending a message that user is already subscribed!',
+            e
+        );
+    }
 }
 
 /**
@@ -45,12 +52,22 @@ export async function handleListener(
 export async function handleNotListener(
     message: TelegramMessage
 ): Promise<void> {
-    if (message.text !== process.env.TELEGRAM_PASSWORD) {
+    if (
+        !message.text ||
+        message.text.trim() !== process.env.TELEGRAM_PASSWORD
+    ) {
         console.log('Wrong password');
-        await callApi('sendMessage', {
-            chat_id: message.chat.id,
-            text: 'Wrong password',
-        });
+        try {
+            await callApi('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Wrong password',
+            });
+        } catch (e) {
+            console.error(
+                'Error while sending a message that password was wrong!',
+                e
+            );
+        }
         return;
     }
     console.log('Password correct');
@@ -75,9 +92,16 @@ export async function handleNotListener(
         console.log('Subscribed');
     } catch (e) {
         console.log(e);
-        await callApi('sendMessage', {
-            chat_id: message.chat.id,
-            text: `Error subscribing: ${e}`,
-        });
+        try {
+            await callApi('sendMessage', {
+                chat_id: message.chat.id,
+                text: `Error subscribing: ${e}`,
+            });
+        } catch (e) {
+            console.error(
+                'Error while sending a message that subscription failed!',
+                e
+            );
+        }
     }
 }
