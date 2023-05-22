@@ -1,6 +1,6 @@
-import { handleListener } from './utils';
+import { handleListener, handleNotListener } from './utils';
 import { DocumentType } from '@typegoose/typegoose';
-import { ListenerClass } from '@/models/Listener';
+import { ListenerClass, ListenerModel } from '@/models/Listener';
 import { mock } from 'vitest-mock-extended';
 import * as telegramApi from '@/lib/telegramApi';
 
@@ -20,22 +20,32 @@ vi.mock('@/lib/telegramApi', async () => {
     };
 });
 
+vi.mock('@/models/Listener', async () => {
+    return {
+        ListenerModel: {
+            create: vi.fn(),
+        },
+    };
+});
+
 describe('telegram/webhook/utils', () => {
+    const spyCallApi = vi.spyOn(telegramApi, 'callApi');
+    const message: telegramApi.TelegramMessage = {
+        chat: {
+            id: 123,
+            type: 'private' as const,
+        },
+    };
+
     describe('handleListener', () => {
         const listener = mock<DocumentType<ListenerClass>>({
             telegramId: '123',
             delete: vi.fn(),
         });
-        const message: telegramApi.TelegramMessage = {
-            chat: {
-                id: 123,
-                type: 'private' as const,
-            },
-        };
         const spyListenerDelete = vi.spyOn(listener, 'delete');
-        const spyCallApi = vi.spyOn(telegramApi, 'callApi');
 
         it("should not call delete or callApi if message doesn't contain text", async () => {
+            message.text = undefined;
             await handleListener(message, listener);
 
             expect(spyCallApi).not.toHaveBeenCalled();
@@ -69,6 +79,89 @@ describe('telegram/webhook/utils', () => {
             expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
                 chat_id: message.chat.id,
                 text: 'You are already subscribed',
+            });
+        });
+    });
+
+    describe('handleNotListener', () => {
+        vi.stubEnv('TELEGRAM_PASSWORD', 'correct_password');
+
+        it('should send a message if message is not correct password', async () => {
+            message.text = 'wrong password';
+            await handleNotListener(message);
+
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Wrong password',
+            });
+        });
+        it('should not throw an error if message is not correct password and callApi failed', async () => {
+            message.text = 'wrong password';
+            spyCallApi.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+
+            expect(async () => await handleNotListener(message)).not.toThrow();
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Wrong password',
+            });
+        });
+        it('should send a message and create a listener if message is correct password', async () => {
+            message.text = 'correct_password';
+            const spyListenerCreate = vi.spyOn(ListenerModel, 'create');
+            await handleNotListener(message);
+
+            expect(spyCallApi).toHaveBeenCalled();
+            expect(spyListenerCreate).toHaveBeenCalledWith({
+                telegramId: message.chat.id,
+            });
+        });
+        it('should not throw an error if message is correct password and callApi failed', async () => {
+            message.text = 'correct_password';
+            spyCallApi.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+            const spyListenerCreate = vi.spyOn(ListenerModel, 'create');
+
+            expect(async () => await handleNotListener(message)).not.toThrow();
+            expect(spyListenerCreate).toHaveBeenCalledWith({
+                telegramId: message.chat.id,
+            });
+        });
+        it('should not throw an error if message is correct password and create failed', async () => {
+            message.text = 'correct_password';
+            const spyListenerCreate = vi.spyOn(ListenerModel, 'create');
+            spyListenerCreate.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+
+            expect(async () => await handleNotListener(message)).not.toThrow();
+            expect(spyListenerCreate).toHaveBeenCalledWith({
+                telegramId: message.chat.id,
+            });
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Error subscribing: Error: Test error',
+            });
+        });
+        it('should not throw an error if message is correct password and create failed and callApi failed', async () => {
+            message.text = 'correct_password';
+            const spyListenerCreate = vi.spyOn(ListenerModel, 'create');
+            spyListenerCreate.mockImplementationOnce(() => {
+                throw new Error('Test error');
+            });
+            spyCallApi.mockImplementation(() => {
+                throw new Error('Test error');
+            });
+
+            expect(async () => await handleNotListener(message)).not.toThrow();
+            expect(spyListenerCreate).toHaveBeenCalledWith({
+                telegramId: message.chat.id,
+            });
+            expect(spyCallApi).toHaveBeenCalledWith('sendMessage', {
+                chat_id: message.chat.id,
+                text: 'Error subscribing: Error: Test error',
             });
         });
     });
