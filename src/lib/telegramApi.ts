@@ -17,7 +17,7 @@ export async function callApi(method: string, content: any) {
 }
 
 export interface TelegramMessage {
-    text: string;
+    text?: string;
     chat: {
         id: number;
         type: 'private' | 'group' | 'supergroup' | 'channel';
