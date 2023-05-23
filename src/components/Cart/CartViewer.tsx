@@ -25,7 +25,7 @@ export function CartViewer({ lang }: { lang: Locale }) {
                                 className="btn-primary btn-square btn"
                                 onClick={() => removeFromCart(item)}
                             >
-                                {item.quantity && item.quantity > 0 ? (
+                                {item.quantity && item.quantity > 1 ? (
                                     <MinusIcon className="h-6 w-6" />
                                 ) : (
                                     <TrashIcon className="h-6 w-6" />
