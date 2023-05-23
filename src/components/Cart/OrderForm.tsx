@@ -2,11 +2,30 @@
 
 import { Locale, getLocalizedString } from '@/lib/i18n-config';
 import { waysToContact } from '@/lib/waysToContact';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CartContentsContext } from './CartProvider';
 
 export function OrderForm({ lang }: { lang: Locale }) {
     const [selectedWayToContact, setSelectedWayToContact] = useState<number>(0);
+    const cart = useContext(CartContentsContext);
 
+    const totalPrice = cart.reduce(
+        (total, item) => total + item.price * (item.quantity ?? 1),
+        0
+    );
+
+    if (totalPrice < 20) {
+        return (
+            <div className="alert alert-error">
+                <div>
+                    <span>
+                        Delivery is only available for orders of 20&#8382; or
+                        more
+                    </span>
+                </div>
+            </div>
+        );
+    }
     return (
         <form className="flex w-full flex-col items-center gap-2">
             <h1 className="text-xl">How would you like us to contant you?</h1>
