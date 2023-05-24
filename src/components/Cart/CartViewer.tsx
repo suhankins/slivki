@@ -46,7 +46,7 @@ export function CartViewer({ lang }: { lang: Locale }) {
                             </button>
                         </td>
                         <td className="px-4">
-                            <p className="text-3xl font-bold">
+                            <p className="text-right text-3xl font-bold">
                                 {item.price * (item.quantity ?? 1)}&#8382;
                             </p>
                         </td>
