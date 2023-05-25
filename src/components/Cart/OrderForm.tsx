@@ -1,20 +1,49 @@
 'use client';
 
-import { Locale, getLocalizedString } from '@/lib/i18n-config';
+import { Locale, LocalizedString, getLocalizedString } from '@/lib/i18n-config';
 import { waysToContact } from '@/lib/waysToContact';
-import { useContext, useState } from 'react';
+import {
+    FormEvent,
+    FormEventHandler,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { CartContentsContext } from './CartProvider';
 
 export function OrderForm({ lang }: { lang: Locale }) {
     const [selectedWayToContact, setSelectedWayToContact] = useState<number>(0);
+    const [contactInfo, setContactInfo] = useState<string>('');
+    const [error, setError] = useState<LocalizedString | null>(null);
     const cart = useContext(CartContentsContext);
 
-    const totalPrice = cart.reduce(
-        (total, item) => total + item.price * (item.quantity ?? 1),
-        0
+    // Reset contact info when changing way to contact
+    useEffect(() => {
+        setContactInfo('');
+    }, [selectedWayToContact]);
+
+    useEffect(() => {
+        setError(waysToContact[selectedWayToContact].validation(contactInfo));
+    }, [contactInfo]);
+
+    const totalPrice = useMemo(
+        () =>
+            cart.reduce(
+                (total, item) => total + item.price * (item.quantity ?? 1),
+                0
+            ),
+        [cart]
     );
 
-    if (totalPrice < 20) {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (
+        event: FormEvent<HTMLFormElement>
+    ) => {
+        event.preventDefault();
+        // TODO: Submit order
+    };
+
+    if (totalPrice < 20)
         return (
             <div className="alert alert-error">
                 <div>
@@ -25,9 +54,11 @@ export function OrderForm({ lang }: { lang: Locale }) {
                 </div>
             </div>
         );
-    }
     return (
-        <form className="flex w-full flex-col items-center gap-2">
+        <form
+            className="flex w-full flex-col items-center gap-2"
+            onSubmit={handleSubmit}
+        >
             <h1 className="text-xl">How would you like us to contant you?</h1>
             <div className="flex w-full justify-evenly">
                 {waysToContact.map((way, index) => (
@@ -53,8 +84,22 @@ export function OrderForm({ lang }: { lang: Locale }) {
                         placeholder={
                             waysToContact[selectedWayToContact].placeholder
                         }
+                        onInput={(e) => setContactInfo(e.currentTarget.value)}
+                        value={contactInfo}
+                        maxLength={
+                            waysToContact[selectedWayToContact].maxLength
+                        }
+                        minLength={
+                            waysToContact[selectedWayToContact].minLength
+                        }
                         className="input-bordered input w-full max-w-2xl"
+                        required
                     />
+                </label>
+                <label className="label">
+                    <span className="h-6 text-error">
+                        {error && getLocalizedString(error, lang)}
+                    </span>
                 </label>
             </div>
             {waysToContact[selectedWayToContact].warning && (
@@ -69,7 +114,11 @@ export function OrderForm({ lang }: { lang: Locale }) {
                     </div>
                 </div>
             )}
-            <button className="btn-success btn-block btn" type="submit">
+            <button
+                className="btn-success btn-block btn"
+                type="submit"
+                disabled={!!error}
+            >
                 Order
             </button>
         </form>
