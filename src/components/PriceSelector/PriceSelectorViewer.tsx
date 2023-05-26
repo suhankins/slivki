@@ -50,18 +50,16 @@ export function PriceSelectorViewer({
                     <p className="w-16 py-4 text-center text-3xl font-bold">
                         {prices[selectedSize]}&#8382;
                     </p>
-                    {process.env.NEXT_PUBLIC_DEV && (
-                        <AddToCartButton
-                            cartItem={{
-                                name,
-                                price: prices[selectedSize] ?? 0,
-                                selectedSize,
-                                sizeString: sizes?.[selectedSize],
-                                categoryId,
-                                itemIndex,
-                            }}
-                        />
-                    )}
+                    <AddToCartButton
+                        cartItem={{
+                            name,
+                            price: prices[selectedSize] ?? 0,
+                            selectedSize,
+                            sizeString: sizes?.[selectedSize],
+                            categoryId,
+                            itemIndex,
+                        }}
+                    />
                 </>
             }
         />
