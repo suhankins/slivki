@@ -17,8 +17,12 @@ export function LanguagePickerEditor({
                 setLang(event.target.value as Locale);
             }}
         >
-            {languages.map((lang) => (
-                <option selected={lang === selectedLang} className="uppercase">
+            {languages.map((lang, index) => (
+                <option
+                    selected={lang === selectedLang}
+                    className="uppercase"
+                    key={index}
+                >
                     {lang}
                 </option>
             ))}
