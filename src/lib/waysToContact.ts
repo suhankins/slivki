@@ -12,12 +12,15 @@ export const waysToContact = [
             if (value.length > 32)
                 return newLocalizedString()
                     .set('en', 'Too long')
-                    .set('ru', 'Имя/телефон слишком длинный');
+                    .set('ru', 'Имя/телефон слишком длинное');
             if (value.length < 4)
                 return newLocalizedString()
                     .set('en', 'Too short')
-                    .set('ru', 'Имя/телефон слишком короткий');
-            if (!value.match(/^[a-z0-9_ \)\(-]+$/gim))
+                    .set('ru', 'Имя/телефон слишком короткое');
+            if (
+                !value.match(/^[a-z0-9_]+$/gim) && // Telegram username
+                !value.match(/^[0-9 \)\(-]+$/gim) // Phone number
+            )
                 return newLocalizedString()
                     .set('en', 'Invalid characters')
                     .set('ru', 'Недопустимые символы');
