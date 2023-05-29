@@ -1,20 +1,28 @@
 'use client';
 
-import { Locale, LocalizedString, getLocalizedString } from '@/lib/i18n-config';
+import {
+    Locale,
+    LocalizedString,
+    getLocalizedString,
+    newLocalizedString,
+} from '@/lib/i18n-config';
 import { waysToContact } from '@/lib/waysToContact';
 import {
     FormEvent,
     FormEventHandler,
+    createRef,
     useContext,
     useEffect,
     useMemo,
     useState,
 } from 'react';
 import { CartContentsContext } from './CartProvider';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export function OrderForm({ lang }: { lang: Locale }) {
     const [selectedWayToContact, setSelectedWayToContact] = useState<number>(0);
     const [contactInfo, setContactInfo] = useState<string>('');
+    const recaptchaRef = createRef<ReCAPTCHA>();
     const [error, setError] = useState<LocalizedString | null>(null);
     const cart = useContext(CartContentsContext);
 
@@ -25,7 +33,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
 
     useEffect(() => {
         setError(waysToContact[selectedWayToContact].validation(contactInfo));
-    }, [contactInfo]);
+    }, [contactInfo, selectedWayToContact]);
 
     const totalPrice = useMemo(
         () =>
@@ -36,11 +44,42 @@ export function OrderForm({ lang }: { lang: Locale }) {
         [cart]
     );
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (
         event: FormEvent<HTMLFormElement>
     ) => {
         event.preventDefault();
-        // TODO: Submit order
+        const recaptchaValue = recaptchaRef.current?.getValue();
+        if (!recaptchaValue) {
+            // TODO: Move localization to dictionary
+            setError(
+                newLocalizedString()
+                    .set('en', 'Please complete the reCAPTCHA verification')
+                    .set('ru', 'Пожалуйста, пройдите проверку reCAPTCHA')
+            );
+            return;
+        }
+        const result = await fetch('/order', {
+            method: 'POST',
+            body: JSON.stringify({
+                contactInfo,
+                selectedWayToContact,
+                cart,
+                recaptchaValue,
+            }),
+        });
+        if (!result.ok) {
+            // TODO: Move localization to dictionary
+            setError(
+                newLocalizedString()
+                    .set('en', 'Something went wrong, please try again later')
+                    .set(
+                        'ru',
+                        'Что-то пошло не так. Пожалуйста, попробуйте позже'
+                    )
+            );
+            return;
+        }
+        // TODO: Add a page for successful order
     };
 
     if (totalPrice < 20)
@@ -114,6 +153,11 @@ export function OrderForm({ lang }: { lang: Locale }) {
                     </div>
                 </div>
             )}
+            <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''}
+                onChange={() => setError(null)}
+            />
             <button
                 className="btn-success btn-block btn"
                 type="submit"

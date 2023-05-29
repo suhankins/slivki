@@ -37,7 +37,7 @@ export type SimpleCategory = {
         toObject: {
             transform: (_doc, ret) => {
                 delete ret.__v;
-                delete ret._id;
+                ret._id = ret._id.toString();
                 delete ret.id;
             },
         },

@@ -1,16 +1,10 @@
-'use client';
-
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function GoBackButton() {
-    const router = useRouter();
     return (
-        <button
-            className="btn-ghost btn-square btn"
-            onClick={() => router.back()}
-        >
+        <Link className="btn-ghost btn-square btn" href="/">
             <ArrowLeftIcon className="absolute h-6 w-6" />
-        </button>
+        </Link>
     );
 }
