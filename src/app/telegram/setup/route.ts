@@ -1,5 +1,7 @@
 import { telegramUrl } from '@/lib/telegramApi';
 
+export const revalidate = 0;
+
 /**
  * Sets the webhook for the bot.
  * Doesn't need to be called manually, building the project will do it automatically.
