@@ -192,7 +192,7 @@ export async function notifyListeners(
 ) {
     const listeners = await ListenerModel.find();
     console.log('Sending message to listeners');
-    listeners.forEach(async (listener) => {
+    for (const listener of listeners) {
         console.log('Sending message to listener', listener.telegramId);
         const result = await callApi('sendMessage', {
             chat_id: listener.telegramId,
@@ -200,10 +200,19 @@ export async function notifyListeners(
         }).catch((err) => {
             console.error('Error while sending message to listener', err);
             // TODO: Delete already sent messages?
+            return new Response('Error while sending message to listener', {
+                status: 500,
+            });
         });
         if (!result || !result.ok) {
             console.error('Error while sending message to listener', result);
+            // TODO: Delete already sent messages?
+            return new Response('Error while sending message to listener', {
+                status: 500,
+            });
+        } else {
+            console.log("Message successfully sent to listener's chat");
         }
-    });
+    }
     console.log('Listeners notified');
 }
