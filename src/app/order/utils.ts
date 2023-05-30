@@ -194,13 +194,15 @@ export async function notifyListeners(
     console.log('Sending message to listeners');
     listeners.forEach(async (listener) => {
         console.log('Sending message to listener', listener.telegramId);
-        await callApi('sendMessage', {
+        const result = await callApi('sendMessage', {
             chat_id: listener.telegramId,
             text: `New order!\n\n${contactString}\n\n${cartString}`,
         }).catch((err) => {
             console.error('Error while sending message to listener', err);
             // TODO: Delete already sent messages?
         });
+        if (!result || !result.ok) {
+            console.error('Error while sending message to listener', result);
+        }
     });
-    console.log('All messages sent to listeners');
 }
