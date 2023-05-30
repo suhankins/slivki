@@ -2,7 +2,6 @@ import { CategoryModel } from '@/models/Category';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
 
-// I'm honestly surprised API routes can even be static
 export const revalidate = 0;
 
 /**

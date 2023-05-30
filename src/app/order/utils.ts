@@ -202,4 +202,5 @@ export async function notifyListeners(
             // TODO: Delete already sent messages?
         });
     });
+    console.log('All messages sent to listeners');
 }

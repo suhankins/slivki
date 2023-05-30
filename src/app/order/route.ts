@@ -1,5 +1,3 @@
-import { callApi } from '@/lib/telegramApi';
-import { ListenerModel } from '@/models/Listener';
 import { NextRequest } from 'next/server';
 import {
     getCartString,
