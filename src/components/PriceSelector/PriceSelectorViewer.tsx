@@ -23,7 +23,6 @@ export function PriceSelectorViewer({
     const [selectedSize, setSelectedSize] = useState(
         prices.findIndex((value) => value !== null)
     );
-    console.log('PriceSelector Category ID: ', categoryId);
 
     return (
         <PriceSelector
