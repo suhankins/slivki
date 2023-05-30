@@ -205,4 +205,5 @@ export async function notifyListeners(
             console.error('Error while sending message to listener', result);
         }
     });
+    console.log('Listeners notified');
 }
