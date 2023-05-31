@@ -2,8 +2,15 @@ import { LanguagePickerViewer } from '@/components/LanguagePicker/LanguagePicker
 import { Navbar } from '@/components/Navbar';
 import { GoBackButton } from '@/components/buttons/GoBackButton';
 import { getDictionary } from '@/lib/getDictionary';
-import { Locale } from '@/lib/i18n-config';
+import { Locale, i18n } from '@/lib/i18n-config';
 import Link from 'next/link';
+
+export const revalidate = false;
+export async function generateStaticParams() {
+    return i18n.locales.map((locale) => ({
+        lang: locale,
+    }));
+}
 
 export default async function Layout({
     children,

@@ -1,5 +1,12 @@
 import { getDictionary } from '@/lib/getDictionary';
-import { Locale } from '@/lib/i18n-config';
+import { Locale, i18n } from '@/lib/i18n-config';
+
+export const revalidate = false;
+export async function generateStaticParams() {
+    return i18n.locales.map((locale) => ({
+        lang: locale,
+    }));
+}
 
 export default async function Page({
     params: { lang },
