@@ -28,7 +28,7 @@ export function MoveButton({
     const handleClick = async () => {
         setLoading(true);
         const result = await fetch(fetchUrl, {
-            method: 'PUT',
+            method: 'PATCH',
         });
         if (result.status === 200) {
             fetch('/api/revalidate');
