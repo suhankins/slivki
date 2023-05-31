@@ -1,7 +1,11 @@
 {
     "hero": {
         "top": "Slivki",
-        "bottom": "Доставка еды, когда-нибудь."
+        "bottom": "Доставка кофе и вкусняшек."
     },
-    "companyName": "Slivki"
+    "companyName": "Slivki",
+    "orderSuccess": {
+        "thankYou": "Спасибо за Ваш заказ!",
+        "ifWeDontContact": "Если мы не свяжемся с Вами в течении 5 минут, пожалуйста, напишите нам в"
+    }
 }

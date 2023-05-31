@@ -1,11 +1,20 @@
-export default function Page() {
+import { getDictionary } from '@/lib/getDictionary';
+import { Locale } from '@/lib/i18n-config';
+
+export default async function Page({
+    params: { lang },
+}: {
+    params: { lang: Locale };
+}) {
+    const dictionary = await getDictionary(lang);
+
     return (
         <>
             <h1 className="text-center text-4xl font-extrabold">
-                Thank you for your order!
+                {dictionary.orderSuccess.thankYou}
             </h1>
             <p className="text-center text-xl">
-                If we don't contact you within 5 minutes, please message us via
+                {dictionary.orderSuccess.ifWeDontContact}
             </p>
             <div className="flex flex-col items-center md:flex-row">
                 <a
