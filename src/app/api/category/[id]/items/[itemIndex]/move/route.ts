@@ -2,7 +2,7 @@ import { findCategory } from '@/utils/server/findCategory';
 import { handleDbError } from '@/utils/server/handleDbError';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(
+export async function PATCH(
     request: NextRequest,
     {
         params: { id, itemIndex },
