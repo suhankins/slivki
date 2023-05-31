@@ -1,11 +1,6 @@
 'use client';
 
-import {
-    Locale,
-    LocalizedString,
-    getLocalizedString,
-    newLocalizedString,
-} from '@/lib/i18n-config';
+import { Locale, getLocalizedString } from '@/lib/i18n-config';
 import { waysToContact } from '@/lib/waysToContact';
 import {
     FormEvent,
@@ -20,12 +15,26 @@ import { CartActionContext, CartContentsContext } from './CartProvider';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRouter } from 'next/navigation';
 
-export function OrderForm({ lang }: { lang: Locale }) {
+export function OrderForm({
+    lang,
+    dictionary,
+}: {
+    lang: Locale;
+    dictionary: {
+        errors: {
+            recaptcha: string;
+            somethingWentWrong: string;
+        };
+        order: string;
+        orderMinimum: string;
+        howToContactYou: string;
+    };
+}) {
     const router = useRouter();
 
     const [selectedWayToContact, setSelectedWayToContact] = useState<number>(0);
     const [contactInfo, setContactInfo] = useState<string>('');
-    const [error, setError] = useState<LocalizedString | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const recaptchaRef = createRef<ReCAPTCHA>();
@@ -33,13 +42,17 @@ export function OrderForm({ lang }: { lang: Locale }) {
     const { clearCart } = useContext(CartActionContext);
     const cart = useContext(CartContentsContext);
 
+    const wayToContact = waysToContact[selectedWayToContact];
+
     // Reset contact info when changing way to contact
     useEffect(() => {
         setContactInfo('');
     }, [selectedWayToContact]);
 
     useEffect(() => {
-        setError(waysToContact[selectedWayToContact].validation(contactInfo));
+        setError(
+            getLocalizedString(wayToContact.validation(contactInfo), lang)
+        );
     }, [contactInfo, selectedWayToContact]);
 
     const totalPrice = useMemo(
@@ -57,14 +70,10 @@ export function OrderForm({ lang }: { lang: Locale }) {
         event.preventDefault();
         const recaptchaValue = recaptchaRef.current?.getValue();
         if (!recaptchaValue) {
-            // TODO: Move localization to dictionary
-            setError(
-                newLocalizedString()
-                    .set('en', 'Please complete the reCAPTCHA verification')
-                    .set('ru', 'Пожалуйста, пройдите проверку reCAPTCHA')
-            );
+            setError(dictionary.errors.recaptcha);
             return;
         }
+        setLoading(true);
         const result = await fetch('/order', {
             method: 'POST',
             body: JSON.stringify({
@@ -74,16 +83,9 @@ export function OrderForm({ lang }: { lang: Locale }) {
                 recaptchaValue,
             }),
         });
+        setLoading(false);
         if (!result.ok) {
-            // TODO: Move localization to dictionary
-            setError(
-                newLocalizedString()
-                    .set('en', 'Something went wrong, please try again later')
-                    .set(
-                        'ru',
-                        'Что-то пошло не так. Пожалуйста, попробуйте позже'
-                    )
-            );
+            setError(dictionary.errors.somethingWentWrong);
             return;
         }
         clearCart();
@@ -94,11 +96,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
         return (
             <div className="alert alert-error">
                 <div>
-                    <span>
-                        {/* TODO: Localize */}
-                        Delivery is only available for orders of 20&#8382; or
-                        more
-                    </span>
+                    <span>{dictionary.orderMinimum}</span>
                 </div>
             </div>
         );
@@ -107,8 +105,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
             className="flex w-full flex-col items-center gap-2"
             onSubmit={handleSubmit}
         >
-            {/* TODO: Localize */}
-            <h1 className="text-xl">How would you like us to contant you?</h1>
+            <h1 className="text-xl">{dictionary.howToContactYou}</h1>
             <div className="flex w-full justify-evenly">
                 {waysToContact.map((way, index) => (
                     <label
@@ -127,38 +124,27 @@ export function OrderForm({ lang }: { lang: Locale }) {
             </div>
             <div className="form-control">
                 <label className="input-group">
-                    <span>{waysToContact[selectedWayToContact].prefix}</span>
+                    <span>{wayToContact.prefix}</span>
                     <input
                         type="text"
-                        placeholder={
-                            waysToContact[selectedWayToContact].placeholder
-                        }
+                        placeholder={wayToContact.placeholder}
                         onInput={(e) => setContactInfo(e.currentTarget.value)}
                         value={contactInfo}
-                        maxLength={
-                            waysToContact[selectedWayToContact].maxLength
-                        }
-                        minLength={
-                            waysToContact[selectedWayToContact].minLength
-                        }
+                        maxLength={wayToContact.maxLength}
+                        minLength={wayToContact.minLength}
                         className="input-bordered input w-full max-w-2xl"
                         required
                     />
                 </label>
                 <label className="label">
-                    <span className="h-6 text-error">
-                        {error && getLocalizedString(error, lang)}
-                    </span>
+                    <span className="h-6 text-error">{error}</span>
                 </label>
             </div>
-            {waysToContact[selectedWayToContact].warning && (
+            {wayToContact.warning && (
                 <div className="alert alert-warning">
                     <div>
                         <span>
-                            {getLocalizedString(
-                                waysToContact[selectedWayToContact].warning,
-                                lang
-                            )}
+                            {getLocalizedString(wayToContact.warning, lang)}
                         </span>
                     </div>
                 </div>
@@ -169,12 +155,13 @@ export function OrderForm({ lang }: { lang: Locale }) {
                 onChange={() => setError(null)}
             />
             <button
-                className="btn-success btn-block btn"
+                className={`btn-success btn-block btn ${
+                    loading ? 'loading' : ''
+                }`}
                 type="submit"
-                disabled={!!error}
+                disabled={!!error || loading}
             >
-                {/* TODO: Localize */}
-                Order
+                {dictionary.order}
             </button>
         </form>
     );

@@ -4,7 +4,7 @@ export const i18n = {
 } as const;
 
 export function getLocalizedString(
-    localizedString: LocalizedString | LocalizedStringObject | undefined,
+    localizedString: LocalizedString | LocalizedStringObject | null | undefined,
     locale: Locale,
     fallback: boolean = true
 ): string {

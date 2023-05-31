@@ -5,7 +5,15 @@ import { CartActionContext, CartContentsContext } from './CartProvider';
 import { Locale } from '@/lib/i18n-config';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
-export function CartViewer({ lang }: { lang: Locale }) {
+export function CartViewer({
+    lang,
+    dictionary,
+}: {
+    lang: Locale;
+    dictionary: {
+        total: string;
+    };
+}) {
     const { addToCart, removeFromCart } = useContext(CartActionContext);
     const cart = useContext(CartContentsContext);
 
@@ -57,7 +65,9 @@ export function CartViewer({ lang }: { lang: Locale }) {
                 <tr>
                     <td />
                     <td className="w-full py-3" colSpan={3}>
-                        <p className="text-right text-2xl font-bold">Total</p>
+                        <p className="text-right text-2xl font-bold">
+                            {dictionary.total}
+                        </p>
                     </td>
                     <td className="px-4">
                         <p className="text-3xl font-bold">

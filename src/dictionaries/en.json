@@ -7,5 +7,17 @@
     "orderSuccess": {
         "thankYou": "Thank you for your order!",
         "ifWeDontContact": "If we don't contact you within 5 minutes, please message us via"
+    },
+    "cartViewer": {
+        "total": "Total"
+    },
+    "orderForm": {
+        "errors": {
+            "recaptcha": "Please complete the reCAPTCHA verification",
+            "somethingWentWrong": "Something went wrong, please try again later"
+        },
+        "order": "Order",
+        "orderMinimum": "Delivery is only available for orders of 20&#8382; or more",
+        "howToContactYou": "How would you like us to contant you?"
     }
 }
