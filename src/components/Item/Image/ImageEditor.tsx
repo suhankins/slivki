@@ -18,7 +18,7 @@ export function ImageEditor({
         <>
             {image && (
                 <ImageView>
-                    <div className="invisible absolute right-1 top-1 flex gap-1 group-hover:visible">
+                    <div className="invisible absolute left-1 top-1 z-30 flex gap-1 group-hover:visible">
                         <UploadButton
                             itemIndex={itemIndex}
                             categoryId={categoryId}
