@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import {
+    checkTime,
     getCartString,
     getContactString,
     getValuesFromRequest,
@@ -12,6 +13,10 @@ import {
  */
 export async function POST(request: NextRequest): Promise<Response> {
     console.log('Order request received');
+
+    const checkTimeResult = checkTime();
+    if (checkTimeResult instanceof Response) return checkTimeResult;
+
     const requstHandlingResponse = await getValuesFromRequest(request);
     if (requstHandlingResponse instanceof Response)
         return requstHandlingResponse;

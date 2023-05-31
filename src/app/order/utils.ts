@@ -7,6 +7,18 @@ import { ListenerModel } from '@/models/Listener';
 import { mongoose } from '@typegoose/typegoose';
 import { NextRequest } from 'next/server';
 
+/**
+ * Online orders are only available from 9:00 to 22:00.
+ */
+export function checkTime() {
+    const currentTime = new Date();
+    const currentHour = currentTime.getUTCHours() + 4;
+    if (currentHour < 9 || currentHour >= 22)
+        return new Response('Ordering is not available at this time', {
+            status: 400,
+        });
+}
+
 export async function getCartString(
     cart: CartItem[]
 ): Promise<string | Response> {
