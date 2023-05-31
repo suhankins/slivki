@@ -1,22 +1,25 @@
 import { LanguagePickerViewer } from '@/components/LanguagePicker/LanguagePickerViewer';
 import { Navbar } from '@/components/Navbar';
 import { GoBackButton } from '@/components/buttons/GoBackButton';
+import { getDictionary } from '@/lib/getDictionary';
 import { Locale } from '@/lib/i18n-config';
 import Link from 'next/link';
 
-export default function Layout({
+export default async function Layout({
     children,
     params: { lang },
 }: {
     children: React.ReactNode;
     params: { lang: Locale };
 }) {
+    const dictionary = await getDictionary(lang);
+
     return (
         <>
             <Navbar>
                 <GoBackButton />
                 <Link href="/" className="btn-ghost btn text-xl normal-case">
-                    Slivki
+                    {dictionary.companyName}
                 </Link>
                 <LanguagePickerViewer selectedLang={lang} />
             </Navbar>
