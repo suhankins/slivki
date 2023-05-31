@@ -16,7 +16,7 @@ import {
     useMemo,
     useState,
 } from 'react';
-import { CartContentsContext } from './CartProvider';
+import { CartActionContext, CartContentsContext } from './CartProvider';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRouter } from 'next/navigation';
 
@@ -30,6 +30,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
 
     const recaptchaRef = createRef<ReCAPTCHA>();
 
+    const { clearCart } = useContext(CartActionContext);
     const cart = useContext(CartContentsContext);
 
     // Reset contact info when changing way to contact
@@ -85,6 +86,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
             );
             return;
         }
+        clearCart();
         router.push('/checkout/success');
     };
 

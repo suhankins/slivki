@@ -78,6 +78,7 @@ function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
 export const CartActionContext = createContext({
     addToCart: (item: CartItem) => {},
     removeFromCart: (item: CartItem) => {},
+    clearCart: () => {},
 });
 
 export const CartContentsContext = createContext<CartItem[]>([]);
@@ -119,9 +120,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         dispatch({ type: 'REMOVE_ITEM', payload: item });
     }
 
+    function clearCart() {
+        dispatch({ type: 'SET_CART', payload: [] });
+    }
+
     return (
         <CartContentsContext.Provider value={cartItems}>
-            <CartActionContext.Provider value={{ addToCart, removeFromCart }}>
+            <CartActionContext.Provider
+                value={{ addToCart, removeFromCart, clearCart }}
+            >
                 {children}
             </CartActionContext.Provider>
         </CartContentsContext.Provider>
