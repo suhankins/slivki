@@ -18,7 +18,7 @@ export function Item({
             {children}
             {image}
             <div className="card-body">
-                <header className={`flex flex-col gap-4`}>
+                <header className={`flex flex-col gap-4 lg:flex-grow`}>
                     {title}
                     {description}
                 </header>
