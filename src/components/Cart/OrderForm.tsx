@@ -105,7 +105,9 @@ export function OrderForm({
             className="flex w-full flex-col items-center gap-2"
             onSubmit={handleSubmit}
         >
-            <h1 className="text-xl">{dictionary.howToContactYou}</h1>
+            <h1 className="text-center text-xl">
+                {dictionary.howToContactYou}
+            </h1>
             <div className="flex w-full justify-evenly">
                 {waysToContact.map((way, index) => (
                     <label
