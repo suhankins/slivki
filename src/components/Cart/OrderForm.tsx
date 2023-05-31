@@ -18,12 +18,18 @@ import {
 } from 'react';
 import { CartContentsContext } from './CartProvider';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { useRouter } from 'next/navigation';
 
 export function OrderForm({ lang }: { lang: Locale }) {
+    const router = useRouter();
+
     const [selectedWayToContact, setSelectedWayToContact] = useState<number>(0);
     const [contactInfo, setContactInfo] = useState<string>('');
-    const recaptchaRef = createRef<ReCAPTCHA>();
     const [error, setError] = useState<LocalizedString | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const recaptchaRef = createRef<ReCAPTCHA>();
+
     const cart = useContext(CartContentsContext);
 
     // Reset contact info when changing way to contact
@@ -79,7 +85,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
             );
             return;
         }
-        // TODO: Add a page for successful order
+        router.push('/checkout/success');
     };
 
     if (totalPrice < 20)
@@ -87,6 +93,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
             <div className="alert alert-error">
                 <div>
                     <span>
+                        {/* TODO: Localize */}
                         Delivery is only available for orders of 20&#8382; or
                         more
                     </span>
@@ -98,6 +105,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
             className="flex w-full flex-col items-center gap-2"
             onSubmit={handleSubmit}
         >
+            {/* TODO: Localize */}
             <h1 className="text-xl">How would you like us to contant you?</h1>
             <div className="flex w-full justify-evenly">
                 {waysToContact.map((way, index) => (
@@ -163,6 +171,7 @@ export function OrderForm({ lang }: { lang: Locale }) {
                 type="submit"
                 disabled={!!error}
             >
+                {/* TODO: Localize */}
                 Order
             </button>
         </form>
