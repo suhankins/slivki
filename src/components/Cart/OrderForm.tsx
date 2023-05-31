@@ -14,6 +14,7 @@ import {
 import { CartActionContext, CartContentsContext } from './CartProvider';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRouter } from 'next/navigation';
+import { isWorkingHours } from '@/utils/isWorkingHours';
 
 export function OrderForm({
     lang,
@@ -28,6 +29,7 @@ export function OrderForm({
         order: string;
         orderMinimum: string;
         howToContactYou: string;
+        weAreClosed: string;
     };
 }) {
     const router = useRouter();
@@ -92,6 +94,14 @@ export function OrderForm({
         router.push('/checkout/success');
     };
 
+    if (!isWorkingHours())
+        return (
+            <div className="alert alert-error">
+                <div>
+                    <span>{dictionary.weAreClosed}</span>
+                </div>
+            </div>
+        );
     if (totalPrice < 20)
         return (
             <div className="alert alert-error">

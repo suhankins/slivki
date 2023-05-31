@@ -1,12 +1,12 @@
 import { NextRequest } from 'next/server';
 import {
-    checkTime,
     getCartString,
     getContactString,
     getValuesFromRequest,
     notifyListeners,
     validateCaptcha,
 } from './utils';
+import { isWorkingHours } from '@/utils/isWorkingHours';
 
 /**
  * Order request handler.
@@ -14,8 +14,12 @@ import {
 export async function POST(request: NextRequest): Promise<Response> {
     console.log('Order request received');
 
-    const checkTimeResult = checkTime();
-    if (checkTimeResult instanceof Response) return checkTimeResult;
+    if (!isWorkingHours()) {
+        return new Response(
+            'Online orders are not available outside of working hours',
+            { status: 400 }
+        );
+    }
 
     const requstHandlingResponse = await getValuesFromRequest(request);
     if (requstHandlingResponse instanceof Response)

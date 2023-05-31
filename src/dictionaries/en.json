@@ -18,6 +18,7 @@
         },
         "order": "Order",
         "orderMinimum": "Delivery is only available for orders of 20&#8382; or more",
-        "howToContactYou": "How would you like us to contant you?"
+        "howToContactYou": "How would you like us to contant you?",
+        "weAreClosed": "We are closed at the moment. We work from 9:00 to 22:00."
     }
 }
