@@ -2,16 +2,16 @@ import './globals.scss';
 
 export const metadata = {
     title: 'Slivki',
-    description: 'Slivki coffee shop in Batumi, Georgia',
+    description: 'Slivki coffee shop in Batumi',
     colorScheme: 'light',
+    metadataBase: new URL('https://slivki.vercel.app/'),
     openGraph: {
         locale: 'en_US',
         siteName: 'Slivki',
         title: 'Slivki',
-        description: 'Slivki coffee shop in Batumi, Georgia',
+        description: 'Slivki coffee shop in Batumi',
         images: [
-            // TODO: Add actual images
-            'https://storage.googleapis.com/slivki_pictures-f3fd48a/latte.webp',
+            'https://storage.googleapis.com/slivki_pictures-f3fd48a/wo8ykowf.jpg',
         ],
     },
 };
