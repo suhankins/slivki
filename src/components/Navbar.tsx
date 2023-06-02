@@ -22,7 +22,7 @@ export function Navbar({
     }, [changeOnScroll, scrollPosition]);
     return (
         <nav
-            className={`navbar sticky top-0 left-0 z-40 ${
+            className={`navbar sticky top-0 left-0 z-30 ${
                 isBelowThreshold
                     ? 'bg-base-300/100 text-neutral'
                     : 'bg-base-300/0 text-white'
