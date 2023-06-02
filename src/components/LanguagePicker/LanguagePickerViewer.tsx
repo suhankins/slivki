@@ -9,14 +9,14 @@ export function LanguagePickerViewer({
 }) {
     const languages = i18n.locales;
     return (
-        <div className="dropdown-end dropdown ml-auto">
+        <div className="dropdown ml-auto">
             <label tabIndex={0} className="btn-ghost btn m-1 flex gap-2">
                 <span>{selectedLang}</span>
                 <ChevronDownIcon className="h-4 w-4" />
             </label>
             <ul
                 tabIndex={0}
-                className="dropdown-content menu rounded-box bg-base-100 p-2 uppercase text-neutral shadow"
+                className="dropdown-content menu rounded-box bg-base-200 p-2 uppercase text-neutral shadow-lg"
             >
                 {languages.map(
                     (locale) =>
