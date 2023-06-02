@@ -11,7 +11,7 @@ import {
     useMemo,
     useState,
 } from 'react';
-import { CartActionContext, CartContentsContext } from './CartProvider';
+import { CartActionContext, CartContentsContext } from './Cart/CartProvider';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRouter } from 'next/navigation';
 import { isWorkingHours } from '@/utils/isWorkingHours';
