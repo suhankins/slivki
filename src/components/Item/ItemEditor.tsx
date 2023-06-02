@@ -74,7 +74,7 @@ export function ItemEditor({
                 />
             }
         >
-            <EllipsisMenu className="absolute top-0 right-0 z-30">
+            <EllipsisMenu className="absolute top-0 right-0 z-20">
                 {!item.image && (
                     <li>
                         <UploadButton

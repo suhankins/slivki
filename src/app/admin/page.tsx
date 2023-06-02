@@ -6,7 +6,7 @@ import { getCategoryElementId } from '@/utils/client/getCategoryElementId';
 import { SimpleCategory } from '@/models/Category';
 import { CategoryEditor } from '@/components/Category/CategoryEditor';
 import { CategorySkeleton } from '@/components/Category/CategorySkeleton';
-import { useId, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import useSwr from 'swr';
 import { NewCategory } from '@/components/Category/NewCategory';
 import { getPosition } from '@/utils/client/Position';
@@ -25,28 +25,31 @@ export default function AdminPage() {
         fetcher
     );
 
-    const headers = [
-        {
-            name: 'Categories',
-            id: categoriesHeaderId,
-        },
-        ...(data
-            ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
-            .map((category, index) => {
-                return {
-                    name: getLocalizedString(category.name, lang),
-                    id: getCategoryElementId(
-                        getLocalizedString(category.name, lang),
-                        index
-                    ),
-                    depth: (category.depth ?? 0) + 1,
-                };
-            }) ?? []),
-        {
-            name: 'Account',
-            id: accountHeaderId,
-        },
-    ];
+    const headers = useMemo(
+        () => [
+            {
+                name: 'Categories',
+                id: categoriesHeaderId,
+            },
+            ...(data
+                ?.sort((a, b) => (b.index ?? 0) - (a.index ?? 0))
+                .map((category, index) => {
+                    return {
+                        name: getLocalizedString(category.name, lang),
+                        id: getCategoryElementId(
+                            getLocalizedString(category.name, lang),
+                            index
+                        ),
+                        depth: (category.depth ?? 0) + 1,
+                    };
+                }) ?? []),
+            {
+                name: 'Account',
+                id: accountHeaderId,
+            },
+        ],
+        [data, lang, categoriesHeaderId, accountHeaderId]
+    );
 
     return (
         <Drawer

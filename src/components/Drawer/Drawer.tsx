@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { DrawerLink } from './DrawerLink';
-import { useId, useRef } from 'react';
+import { useId, useMemo, useRef } from 'react';
 import { Header } from './Header';
 import { Navbar } from '../Navbar';
 
@@ -25,6 +25,24 @@ export function Drawer({
     const topId = useId();
     const drawerContentId = useId();
     const drawerCheckboxRef = useRef<HTMLInputElement>(null);
+
+    const headerList = useMemo(() => {
+        const list: Header[] = [];
+        let last: Header | null = null;
+        headers?.forEach((header) => {
+            if ((header.depth ?? 0) <= (last?.depth ?? 0)) {
+                last = header;
+                list.push(header);
+            } else {
+                if (!last) return;
+                if (!last.children) last.children = [];
+                last.children.push(header);
+            }
+        });
+        console.log(list);
+        return list;
+    }, [headers]);
+
     return (
         <div className="drawer">
             <input
@@ -72,14 +90,13 @@ export function Drawer({
                 <div id={topId} className="absolute top-0 left-0" />
                 {children}
             </div>
-            <aside className="drawer-side" aria-label="Table of contents">
+            <aside className="drawer-side z-40" aria-label="Table of contents">
                 <label
                     htmlFor={drawerInputId}
                     className="drawer-overlay"
                 ></label>
-                <ul className="w-60 gap-2 bg-base-100 p-4">
+                <ul className="menu h-full w-60 gap-2 bg-base-100 p-4">
                     <DrawerLink
-                        isStep={false}
                         className="h-full text-2xl font-bold"
                         header={{
                             name: name ?? 'Slivki',
@@ -87,19 +104,13 @@ export function Drawer({
                         }}
                         drawerCheckboxRef={drawerCheckboxRef}
                     />
-                    <li>
-                        <ul className="steps steps-vertical w-full overflow-x-hidden">
-                            {headers?.map((header) => (
-                                <DrawerLink
-                                    isStep={false}
-                                    key={header.id}
-                                    header={header}
-                                    className="w-full"
-                                    drawerCheckboxRef={drawerCheckboxRef}
-                                />
-                            ))}
-                        </ul>
-                    </li>
+                    {headerList.map((header) => (
+                        <DrawerLink
+                            key={header.id}
+                            header={header}
+                            drawerCheckboxRef={drawerCheckboxRef}
+                        />
+                    ))}
                 </ul>
             </aside>
         </div>

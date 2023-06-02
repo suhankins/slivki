@@ -39,14 +39,14 @@ export function DeleteButton({
 
     return (
         <button
-            className={`btn-error btn-square btn relative ${
+            className={`btn-error btn items-center align-middle ${
                 loading && 'loading'
             } ${className}`}
             onClick={handleDelete}
             disabled={loading}
             {...props}
         >
-            <TrashIcon className="absolute h-6 w-6" />
+            <TrashIcon className="h-6 w-6" />
         </button>
     );
 }
