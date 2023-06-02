@@ -7,6 +7,4 @@ export async function newItem(categoryId: string) {
     });
     if (result.ok) console.log('New item added successfully');
     else throw new Error('Failed to add new item.');
-
-    fetch('/api/revalidate');
 }

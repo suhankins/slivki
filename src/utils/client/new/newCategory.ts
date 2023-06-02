@@ -7,6 +7,4 @@ export async function newCategory() {
     });
     if (result.ok) console.log('New category added successfully');
     else throw new Error('Failed to add new category.');
-
-    fetch('/api/revalidate');
 }

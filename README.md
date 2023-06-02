@@ -27,8 +27,7 @@ And food delivery!
     │   │       └───success - successful order page
     │   ├───admin - admin panel
     │   ├───api - API endpoints
-    │   │   ├───auth - NextAuth endpoints
-    │   │   └───revalidate - updates main page for both languages
+    │   │   └───auth - NextAuth endpoints
     │   ├───order - order api
     │   └───telegram - Telegram bot
     │       ├───setup - sets up webhook

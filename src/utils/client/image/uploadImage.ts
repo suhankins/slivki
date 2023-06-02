@@ -45,6 +45,4 @@ export async function confirmUploadRequest(
     );
     if (result.ok) console.log('Confirmed successfully!');
     else throw new Error('Failed to confirm.');
-
-    fetch('/api/revalidate');
 }

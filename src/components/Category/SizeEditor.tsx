@@ -24,7 +24,6 @@ export function SizeEditor({
             });
             if (result.status === 200) {
                 await mutate('/api/category');
-                await fetch('/api/revalidate');
             } else {
                 // TODO: Add error toasts
                 console.error(await result.text());

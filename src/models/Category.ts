@@ -5,11 +5,13 @@ import {
     getModelForClass,
     modelOptions,
     mongoose,
+    post,
     prop,
 } from '@typegoose/typegoose';
 import '@/lib/mongodb'; // Importing library to connect to MongoDB
 import { ItemClass } from './Item';
 import type { LocalizedString } from '@/lib/i18n-config';
+import { revalidatePath } from 'next/cache';
 
 export type SimpleCategory = {
     _id: string;
@@ -20,6 +22,9 @@ export type SimpleCategory = {
     items?: ItemClass[];
 };
 
+@post<CategoryClass>('save', () => {
+    revalidatePath('/[lang]');
+})
 @modelOptions({
     schemaOptions: {
         /**

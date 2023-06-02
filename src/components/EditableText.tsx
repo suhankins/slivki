@@ -44,11 +44,6 @@ export interface EditableTextProps extends HTMLTextFieldAttributes {
      */
     valueName?: string;
     /**
-     * Should the page be revalidated after the text is updated?
-     * @default true
-     */
-    shouldUpdateMainPage?: boolean;
-    /**
      * The type of the input field
      * @default 'text'
      */
@@ -64,7 +59,6 @@ export function EditableText({
     fetchUrl,
     method = 'PUT',
     valueName = 'value',
-    shouldUpdateMainPage = true,
     type = 'text',
     setLoading: setOutsideLoading,
     disabled,
@@ -101,7 +95,6 @@ export function EditableText({
                     headers: { 'Content-Type': 'application/json' },
                 });
                 if (result.status === 200) {
-                    if (shouldUpdateMainPage) fetch('/api/revalidate');
                     await mutate('/api/category');
                 } else {
                     reset();
@@ -109,7 +102,7 @@ export function EditableText({
                 setLoading(false);
             }
         },
-        [fetchUrl, valueName, shouldUpdateMainPage, defaultValue]
+        [fetchUrl, valueName, defaultValue]
     );
 
     const staticProps = useMemo(() => {
