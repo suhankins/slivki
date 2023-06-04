@@ -58,7 +58,7 @@ export async function getCartString(
                 status: 400,
             });
         }
-        if (!sizes || !sizes[selectedSize]) {
+        if (sizes && !sizes[selectedSize]) {
             console.log(
                 'Size with given selectedSize is not found',
                 selectedSize,
@@ -91,7 +91,9 @@ export async function getCartString(
         cartString += `${getLocalizedString(name, 'ru')}: ${getLocalizedString(
             itemName,
             'ru'
-        )} (${sizes[selectedSize]}): ${price} GEL x${quantity}\n`;
+        )} (${
+            sizes ? sizes[selectedSize] : 'No size'
+        }): ${price} GEL x${quantity}\n`;
         total += price * quantity;
         console.log('Item added to cart string');
     }
