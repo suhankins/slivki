@@ -26,7 +26,7 @@ export default async function Page({
             <div className="flex flex-col items-center md:flex-row">
                 <a
                     className="btn-primary btn text-2xl normal-case"
-                    href="https://example.com/" // TODO: Replace with real URL
+                    href="https://t.me/SlivkiResto"
                     target="_blank"
                 >
                     Telegram
