@@ -19,8 +19,8 @@ export async function getCartString(
             typeof selectedSize !== 'number' ||
             typeof categoryId !== 'string' ||
             typeof itemIndex !== 'number' ||
-            typeof quantity !== 'number' ||
-            quantity < 1
+            (typeof quantity !== 'undefined' && // Quantity is optional
+                (typeof quantity !== 'number' || quantity < 1)) // But if it's specified, it must be a positive number
         ) {
             console.log(
                 'Cart item type check failed\nSelected size: ',
@@ -58,7 +58,7 @@ export async function getCartString(
                 status: 400,
             });
         }
-        if (sizes && !sizes[selectedSize]) {
+        if (sizes && sizes.length > 0 && !sizes[selectedSize]) {
             console.log(
                 'Size with given selectedSize is not found',
                 selectedSize,
@@ -91,10 +91,10 @@ export async function getCartString(
         cartString += `${getLocalizedString(name, 'ru')}: ${getLocalizedString(
             itemName,
             'ru'
-        )} (${
-            sizes ? sizes[selectedSize] : 'No size'
-        }): ${price} GEL x${quantity}\n`;
-        total += price * quantity;
+        )} (${sizes ? sizes[selectedSize] : 'No size'}): ${price} GEL x${
+            quantity ?? 1
+        }\n`;
+        total += price * (quantity ?? 1);
         console.log('Item added to cart string');
     }
     if (total < 20) {
