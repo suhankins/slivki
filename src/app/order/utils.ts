@@ -92,7 +92,8 @@ export async function getCartString(
             itemName,
             'ru'
         )}`;
-        if (sizes && sizes.length > 0) cartString += `(${sizes[selectedSize]})`;
+        if (sizes && sizes.length > 0)
+            cartString += ` (${sizes[selectedSize]})`;
         cartString += `: ${price} GEL x${quantity ?? 1}\n`;
         total += price * (quantity ?? 1);
         console.log('Item added to cart string');
