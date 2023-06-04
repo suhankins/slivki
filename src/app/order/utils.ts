@@ -91,9 +91,9 @@ export async function getCartString(
         cartString += `${getLocalizedString(name, 'ru')}: ${getLocalizedString(
             itemName,
             'ru'
-        )} (${sizes ? sizes[selectedSize] : 'No size'}): ${price} GEL x${
-            quantity ?? 1
-        }\n`;
+        )}`;
+        if (sizes && sizes.length > 0) cartString += `(${sizes[selectedSize]})`;
+        cartString += `: ${price} GEL x${quantity ?? 1}\n`;
         total += price * (quantity ?? 1);
         console.log('Item added to cart string');
     }
